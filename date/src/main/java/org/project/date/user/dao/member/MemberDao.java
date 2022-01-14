@@ -22,4 +22,8 @@ public class MemberDao {
 	public int idCheck(String id) {
 		return sqlSessionTemplate.selectOne("idCheck", id);
 	}
+	
+	public int nickNameCheck(String nickName) {
+		return sqlSessionTemplate.selectOne("nickNameCheck", nickName);
+	}
 }

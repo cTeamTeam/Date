@@ -15,8 +15,11 @@
 		}
 		function nickNameCheck() {
 			var nickName = document.getElementById("inputNickName").value;
-			alert(nickName);
 			var win = window.open("/date/nickNameCheck/"+nickName+"", "닉네임 체크", "_blank",
+					"width=200, height=200");
+		}
+		function profilePage() {
+			var win = window.open("/date/profile", "프로필 입력 페이지", "_blank",
 					"width=200, height=200");
 		}
 	</script>
@@ -107,11 +110,25 @@
 			</tr>
 			
 			<tr>
+				<td colspan="2">이메일</td>
+			</tr>
+			<tr>
+				<td colspan="2"><form:input type="email" path="email"/>
+				<p style="font-size:10px; color:red"><form:errors path="email"/></p>
+			</tr>
+			
+			<tr>
 				<td colspan="2">전화번호</td>
 			</tr>
 			<tr>
 				<td colspan="2"><form:input path="phoneNum"/>
 				<p style="font-size:10px; color:red"><form:errors path="phoneNum"/></p>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<button onclick="profilePage()">프로필 입력</button>
 				</td>
 			</tr>
 			

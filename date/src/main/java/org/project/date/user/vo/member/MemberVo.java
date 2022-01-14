@@ -21,6 +21,8 @@ public class MemberVo {
 	private String gender;
 	@NotEmpty(message="필수 입력칸입니다.")
 	private String phoneNum;
+	@NotEmpty(message="필수 입력칸입니다.")
+	private String email;
 	
 	private String membership;
 	private String date_count;
@@ -91,6 +93,13 @@ public class MemberVo {
 	}
 	public void setDate_count(String date_count) {
 		this.date_count = date_count;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

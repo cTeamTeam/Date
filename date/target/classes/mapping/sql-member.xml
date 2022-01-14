@@ -5,8 +5,8 @@
 <mapper namespace="member">
 	<insert id="insert" parameterType="MemberVo">
 		INSERT INTO MEMBER (num, id, password, name, nickname, birth, gender,
-		phonenum) VALUES (MEMBER_SEQ.nextval, #{id}, #{password}, #{name},
-		#{nickName}, #{birth}, #{gender}, #{phoneNum})
+		phonenum, email) VALUES (MEMBER_SEQ.nextval, #{id}, #{password}, #{name},
+		#{nickName}, #{birth}, #{gender}, #{phoneNum}, #{email})
 		<selectKey keyProperty="num" resultType="Integer">
 			SELECT NVL(MAX(num), 0) FROM MEMBER
 		</selectKey>
@@ -14,5 +14,9 @@
 	
 	<select id="idCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE id=#{id}
+	</select>
+	
+	<select id="nickNameCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE NICKNAME=#{nickName}
 	</select>
 </mapper>

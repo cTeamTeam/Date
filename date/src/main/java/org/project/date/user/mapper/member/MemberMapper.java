@@ -24,4 +24,8 @@ public class MemberMapper {
 	public int idCheck(String id) {
 		return memberdao.idCheck(id);
 	}
+	
+	public int nickNameCheck(String nickName) {
+		return memberdao.nickNameCheck(nickName);
+	}
 }
