@@ -1,27 +1,28 @@
 package org.project.date.user.vo.member;
 
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class MemberVo {
 	
 	private int num;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String id;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String password;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String pwCheck;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String name;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String nickName;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String birth;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String gender;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String phoneNum;
-	@NotEmpty(message="필수 입력칸입니다.")
+	@NotEmpty(message="필수 입력 사항입니다.")
 	private String email;
 	
 	private String membership;

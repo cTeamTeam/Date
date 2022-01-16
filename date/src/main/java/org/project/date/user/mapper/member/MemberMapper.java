@@ -28,4 +28,8 @@ public class MemberMapper {
 	public int nickNameCheck(String nickName) {
 		return memberdao.nickNameCheck(nickName);
 	}
+	
+	public int emailCheck(String email) {
+		return memberdao.emailCheck(email);
+	}
 }

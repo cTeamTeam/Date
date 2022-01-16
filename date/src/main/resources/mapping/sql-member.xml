@@ -19,4 +19,8 @@
 	<select id="nickNameCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE NICKNAME=#{nickName}
 	</select>
+	
+	<select id="emailCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE EMAIL=#{email}
+	</select>
 </mapper>

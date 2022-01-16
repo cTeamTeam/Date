@@ -7,30 +7,21 @@
 <html>
 <head>
 	<title>회원가입</title>
-	<script>
-		function idCheck() {
-			var id = document.getElementById("inputId").value;
-			var win = window.open("/date/idCheck/"+id+"", "아이디 체크", "_blank",
-					"width=200, height=200");
-		}
-		function nickNameCheck() {
-			var nickName = document.getElementById("inputNickName").value;
-			var win = window.open("/date/nickNameCheck/"+nickName+"", "닉네임 체크", "_blank",
-					"width=200, height=200");
-		}
-		function profilePage() {
-			var win = window.open("/date/profile", "프로필 입력 페이지", "_blank",
-					"width=200, height=200");
-		}
-	</script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="/date/resources/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="/date/resources/js/jquery.validate.min.js"></script>
+	
 	<style>
+		h1 {
+			text-align:center;
+		}
 		table {
-			border:1px solid black;
+			margin:auto;
 			border-collapse:collapse;
+			width:600px;
 		}
 		
 		td {
-			border:1px solid black;
 		}
 	</style>
 </head>
@@ -39,106 +30,111 @@
 
 <main>
 	<div>
-		<form:form commandName="member">
-		<table>
-			<tr>
-				<td><span>* 은 필수 입력 항목입니다.</span>
-			</tr>
-			<tr>
-				<td colspan="2">아이디</td>
-			</tr>
-			<tr>
-				<td><form:input id="inputId" path="id"/></td>
-				<td><button onclick="idCheck()">중복 확인</button>
-				<p style="font-size:10px; color:red"><form:errors path="id"/></p>
-				</td>
+		<form:form commandName="member" id="registForm">
+			<table>
+				<tr>
+					<td>
+						<p><label for="id">아이디</label></p>
+						<form:input id="id" path="id"/>
+					</td>
+				</tr>
+				<tr>
+					<td><span id="id_check" class="error" style="color:red;font-size:10px;"></span></td>
+				</tr>
 				
-			</tr>
-			
-			<tr>
-				<td colspan="2">비밀번호</td>
-			</tr>
-			<tr>
-				<td colspan="2"><form:password path="password"/>
-				<p style="font-size:10px; color:red"><form:errors path="password"/></p>
-				</td>		
-			</tr>
-			
-			<tr>
-				<td colspan="2">비밀번호 확인</td>
-			</tr>
-			<tr>
-				<td colspan="2"><form:password path="pwCheck"/>
-				<p style="font-size:10px; color:red"><form:errors path="pwCheck"/></p>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">이름</td>
-			</tr>
-			<tr>
-				<td colspan="2"><form:input path="name"/>
-				<p style="font-size:10px; color:red"><form:errors path="name"/></p>	
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">닉네임</td>
-			</tr>
-			<tr>
-				<td><form:input id="inputNickName" path="nickName"/></td>
-				<td><button onclick="nickNameCheck()">중복 확인</button>
-				<p style="font-size:10px; color:red"><form:errors path="nickName"/></p>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">생년월일</td>
-			</tr>
-			<tr>
-				<td colspan="2"><form:input type="date" path="birth"/>
-				<p style="font-size:10px; color:red"><form:errors path="birth"/></p>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">성별</td>
-			</tr>
-			<tr>
-				<td><input type="radio" value="남자" name="gender">남자</td>
-				<td><input type="radio" value="여자" name="gender">여자</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">이메일</td>
-			</tr>
-			<tr>
-				<td colspan="2"><form:input type="email" path="email"/>
-				<p style="font-size:10px; color:red"><form:errors path="email"/></p>
-			</tr>
-			
-			<tr>
-				<td colspan="2">전화번호</td>
-			</tr>
-			<tr>
-				<td colspan="2"><form:input path="phoneNum"/>
-				<p style="font-size:10px; color:red"><form:errors path="phoneNum"/></p>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">
-					<button onclick="profilePage()">프로필 입력</button>
-				</td>
-			</tr>
-			
-			<tr>
-				<td><input type="reset" value="다시 입력"></td>
-				<td><input type="submit" value="회원 가입"></td>
-			</tr>
-		</table>
+				<tr>
+					<td>
+						<p><label for="pw">비밀번호</label></p>
+						<form:password id="password" path="password"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><label for="password" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				
+				<tr>
+					<td>
+						<p><label for="passwordCheck">비밀번호 확인</label></p>
+						<form:password id="passwordCheck" path="pwCheck"/>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="passwordCheck" id="pw_check" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				
+				<tr>
+					<td>
+						<p><label for="name">이름</label></p>
+						<form:input id="name" path="name"/>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="name" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				<tr>
+					<td>
+						<p><label for="nickName">닉네임</label></p>
+						<form:input id="nickName" path="nickName"/>
+					</td>
+				</tr>
+				<tr>
+					<td><span for="nickName" id="nick_check" class="nick_check" class="error" style="color:red;font-size:10px;"></span>
+				</tr>
+				
+				<tr>
+					<td>
+						<p><label for="birth">생년월일</label></p>
+						<form:input type="date" id="birth" path="birth"/>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="birth" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				
+				<tr>
+					<td>
+						<p><label for="gender">성별</label></p>
+						<input type="radio" value="남자" name="gender">남자
+						<input type="radio" value="여자" name="gender">여자
+					</td>
+				</tr>
+				<tr>
+					<td><label for="gender" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				
+				<tr>
+					<td>
+						<p><label for="phoneNum">전화번호</label></p>
+						<form:input id="phoneNum" path="phoneNum"/>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="phoneNum" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				
+				<tr>
+					<td>
+						<p><label for="email">이메일</label></p>
+						<form:input id="email" path="email"/>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="email" id="email_check" class="error" style="color:red;font-size:10px;"></label>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="reset">다시 입력</button>
+						<button type="button" onclick="nullCheck()">제출</button>
+					</td>
+				</tr>
+			</table>
 		</form:form>
 	</div>
 </main>
+<script src="/date/resources/js/signValid.js"></script>
+
+
+	
 </body>
 </html>
