@@ -15,7 +15,7 @@ public class MemberVo {
 	private String email;
 	private String membership;
 	private String date_count;
-	
+		
 	public int getNum() {
 		return num;
 	}

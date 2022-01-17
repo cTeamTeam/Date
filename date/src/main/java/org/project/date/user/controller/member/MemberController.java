@@ -40,17 +40,10 @@ public class MemberController {
 	
 	//회원가입 요청
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String signCheck(@ModelAttribute("member") @Valid MemberVo member,
-			Model model,
-			BindingResult bindingResult) {
+	public String signCheck(@ModelAttribute("member") MemberVo member,
+			Model model) {
 
 		String signUpMsg = null;
-		//마지막으로 null값이 있는지 체크
-		/*if (bindingResult.hasErrors()) {
-			signUpMsg = "회원가입 정보가 올바르지 않습니다.";
-			model.addAttribute("signUpMsg", signUpMsg);
-			return "signUpForm";
-		}*/
 		
 		int finalCheckId = mapper.idCheck(member.getId());
 		int finalCheckNick = mapper.nickNameCheck(member.getNickName());
@@ -109,12 +102,12 @@ public class MemberController {
 	public String mailCheck(@RequestParam("email") String email) throws Exception{
 	    int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
 	    
-	    
 	    String from = "abcd@company.com";//보내는 이 메일주소
 	    String to = email;
 	    String title = "회원가입시 필요한 인증번호 입니다.";
 	    String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
 	    String num = "";
+	    
 	    try {
 	    	MimeMessage mail = mailSender.createMimeMessage();
 	        MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");

@@ -152,45 +152,6 @@
 <script src="/date/resources/js/signValid.js"></script>
 
 
-
-<script type="text/javascript">
-	$("#authKeySend").click(function() {
-		var email = $("#email").val();
-		//이메일을 입력하지 않고 인증을 눌렀을때
-		if (email=="") {
-			$("#email_check").text("이메일을 입력하세요.");
-			$("#email_check").css("color","red");
-			return;
-		}
-		alert("인증번호를 발송하였습니다.\n입력한 이메일에서 인증번호를 확인해주세요.");
-		console.log(email);
-		$.ajax({
-			url : "authKeySend",
-			type : 'GET',
-			cache:false,
-			data : {email : email},
-			success : function(data) {
-				
-				$("#authKeyInput").click(function() {
-					if ($("#authKey").val()=="") {
-						$("#successEmailCheck").text("인증번호를 입력하세요.");
-						$("#successEmailCheck").css("color","red");
-					} else {
-						if ($("#authKey").val()==data) {
-							$("#successEmailCheck").text("인증에 성공하였습니다");
-							$("#successEmailCheck").css("color","green");
-						} else {
-							$("#successEmailCheck").text("인증번호가 일치하지 않습니다.");
-							$("#successEmailCheck").css("color","red");
-						}
-					}
-				});
-				
-			}
-		})
-	});
-</script>
-
 	
 </body>
 </html>

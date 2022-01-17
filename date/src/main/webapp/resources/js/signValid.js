@@ -102,6 +102,7 @@ function nullCheck() {
 		}
 	}
 
+//중복 이메일 확인
 $('#email').blur(function() {
 		var email = $('#email').val();
 		var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -131,3 +132,47 @@ $('#email').blur(function() {
 			}
 			})
 	});
+
+//입력한 이메일로 인증번호 전송
+$("#authKeySend").click(function() {
+	var email = $("#email").val();
+	var authKey = $("#authKeyInput").val();
+	
+	//이메일을 입력하지 않고 인증을 눌렀을때 리턴
+	if (email=="") {
+		$("#email_check").text("이메일을 입력하세요.");
+		$("#email_check").css("color","red");
+		return;
+	}
+	
+	//이메일 발송 성공했을때 ajax로 authKeySend에 매핑하여 데이터 전달
+	alert("인증번호를 발송하였습니다.\n입력한 이메일에서 인증번호를 확인해주세요.");
+	console.log(email);
+	$.ajax({
+		url : "authKeySend",
+		type : 'GET',
+		cache:false,
+		data : {email : email},
+		
+		//데이터 전송 성공 후
+		success : function(data) {
+			
+			//인증하기 버튼 클릭했을때 이벤트 (인증번호 일치여부)
+			$("#authKeyInput").click(function() {
+				if ($("#authKey").val()=="") {
+					$("#successEmailCheck").text("인증번호를 입력하세요.");
+					$("#successEmailCheck").css("color","red");
+				} else {
+					if ($("#authKey").val()==data) {
+						$("#successEmailCheck").text("인증에 성공하였습니다");
+						$("#successEmailCheck").css("color","green");
+					} else {
+						$("#successEmailCheck").text("인증번호가 일치하지 않습니다.");
+						$("#successEmailCheck").css("color","red");
+					}
+				}
+			});
+				
+		}
+	})
+});
