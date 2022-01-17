@@ -93,7 +93,11 @@ function nullCheck() {
 		} else if ($('#email').val()=="") {
 			alert("이메일을 입력해주세요");
 			$('#email').focus();
-		} else {
+		} else if ($('#authKey').val()=="") {
+			alert("이메일을 인증하세요");
+			return;
+		}
+		else {
 			registForm.submit();
 		}
 	}

@@ -101,12 +101,15 @@ public class MemberController {
 		int emailCheckResult = mapper.emailCheck(email);
 		return emailCheckResult;
 	}
+
 	
-	@RequestMapping(value = "/emailCheck", method = RequestMethod.GET)
+	//이메일 인증키 보냄
+	@RequestMapping(value = "/authKeySend", method = RequestMethod.GET)
 	@ResponseBody
 	public String mailCheck(@RequestParam("email") String email) throws Exception{
 	    int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
-	    System.out.println("hello");
+	    
+	    
 	    String from = "abcd@company.com";//보내는 이 메일주소
 	    String to = email;
 	    String title = "회원가입시 필요한 인증번호 입니다.";
@@ -128,7 +131,6 @@ public class MemberController {
 	    	e.printStackTrace();
 	        num = "error";
 	    }
-	    System.out.println(num);
 	    return num;
 	}
 	

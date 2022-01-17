@@ -117,7 +117,7 @@
 					<td>
 						<p><label for="email">이메일</label></p>
 						<form:input id="email" path="email"/>
-						<button type="button" id="emailSend" >인증번호 받기</button>
+						<button type="button" id="authKeySend" >인증번호 받기</button>
 					</td>
 				</tr>
 				<tr>
@@ -126,8 +126,11 @@
 				<tr>
 					<td>
 						<input type="text" id="authKey">
-						<button type="button" id="emailInput">인증하기</button>
+						<button type="button" id="authKeyInput">인증하기</button>
 					</td>
+				</tr>
+				<tr>
+					<td><span id="successEmailCheck" style="font-size:10px"></span>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -147,44 +150,45 @@
 	</div>
 </main>
 <script src="/date/resources/js/signValid.js"></script>
+
+
+
 <script type="text/javascript">
-	$('#emailSend').click(function() {
-		var code="";
-		var email = $('#email').val();
-		var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-		
+	$("#authKeySend").click(function() {
+		var email = $("#email").val();
+		//이메일을 입력하지 않고 인증을 눌렀을때
+		if (email=="") {
+			$("#email_check").text("이메일을 입력하세요.");
+			$("#email_check").css("color","red");
+			return;
+		}
+		alert("인증번호를 발송하였습니다.\n입력한 이메일에서 인증번호를 확인해주세요.");
+		console.log(email);
 		$.ajax({
-			url : "emailCheck",
+			url : "authKeySend",
 			type : 'GET',
 			cache:false,
 			data : {email : email},
 			success : function(data) {
-				if (email=="") {
-					$("#email").attr("autofocus",true);
-					$("#email_check").text("이메일을 입력하세요");
-					$("#email_check").css('color', 'red');
-				} else {
-					if (filter.test(email) === false && email!="") {
-						$("#email").attr("autofocus",true);
-						$("#email_check").text("올바른 이메일 형식이 아닙니다.");
-						$("#email_check").css('color', 'red');
+				
+				$("#authKeyInput").click(function() {
+					if ($("#authKey").val()=="") {
+						$("#successEmailCheck").text("인증번호를 입력하세요.");
+						$("#successEmailCheck").css("color","red");
 					} else {
-						if (data != 0) {
-							$("#email").attr("autofocus",true);
-							$("#email_check").text("이미 사용중인 이메일.");
-							$("#email_check").css('color', 'red');
-						} else if (data == 0) {
-							$("#emailInput").attr("disabled",false);
-							$("#email_check").text("사용가능한 이메일입니다.");
-							$("#email_check").css('color', 'green');
-							alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호를 확인해주십이오.")
-							var code="";
+						if ($("#authKey").val()==data) {
+							$("#successEmailCheck").text("인증에 성공하였습니다");
+							$("#successEmailCheck").css("color","green");
+						} else {
+							$("#successEmailCheck").text("인증번호가 일치하지 않습니다.");
+							$("#successEmailCheck").css("color","red");
 						}
-					}		
-				}		
+					}
+				});
+				
 			}
-			})
-	})
+		})
+	});
 </script>
 
 	
