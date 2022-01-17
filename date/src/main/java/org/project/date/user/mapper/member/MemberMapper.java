@@ -16,8 +16,8 @@ public class MemberMapper {
 	}
 	
 	//회원가입
-	public void test(MemberVo member) {
-		memberdao.test(member);
+	public void registMember(MemberVo member) {
+		memberdao.registMember(member);
 	}
 	
 	//아이디 중복 체크

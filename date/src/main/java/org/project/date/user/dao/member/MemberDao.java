@@ -15,7 +15,7 @@ public class MemberDao {
 		this.sqlSessionTemplate=sqlSessionTemplate;
 	}
 	
-	public void test(MemberVo member) {
+	public void registMember(MemberVo member) {
 		sqlSessionTemplate.insert("insert", member);
 	}
 	

@@ -86,7 +86,7 @@ function nullCheck() {
 			$('#birth').focus();
 		} else if ($('#gender').val()=="") {
 			alert("성별을 입력해주세요");
-			$('#gender').focus();
+			$('#gender').val()=="".focus();
 		} else if ($('#phoneNum').val()=="") {
 			alert("전화번호를 입력해주세요");
 			$('#phoneNum').focus();
@@ -100,7 +100,6 @@ function nullCheck() {
 
 $('#email').blur(function() {
 		var email = $('#email').val();
-		console.log(email);
 		var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 		
 		$.ajax({
