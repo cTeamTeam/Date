@@ -50,7 +50,7 @@
 				</tr>
 				
 				<tr>
-					<td><label for="password" class="error" style="color:red;font-size:10px;"></label>
+					<td><label for="password" id="pw_error" class="error" style="color:red;font-size:10px;"></label>
 				</tr>
 				
 				<tr>
@@ -150,7 +150,7 @@
 	</div>
 </main>
 <script src="/date/resources/js/signValid.js"></script>
-
+<
 
 	
 </body>

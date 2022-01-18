@@ -102,77 +102,87 @@ function nullCheck() {
 		}
 	}
 
-//중복 이메일 확인
-$('#email').blur(function() {
-		var email = $('#email').val();
-		var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+	$("#password").blur(function() {
+		var pw = $("#password").val();
+		var num = pw.search(/[0-9]/g);
+		var eng = pw.search(/[a-z]/ig);
+		var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 		
-		$.ajax({
-			url : "emailCheck",
-			type : 'post',
-			data : {email : email},
-			success : function(data) {
-				if (email=="") {
-					$("#email_check").text("이메일을 입력하세요");
-					$("#email_check").css('color', 'red');
-				} else {
-					if (filter.test(email) === false && email!="") {
-						$("#email_check").text("올바른 이메일 형식이 아닙니다.");
-						$("#email_check").css('color', 'red');
-					} else {
-						if (data != 0) {
-							$("#email_check").text("이미 사용중인 이메일.");
-							$("#email_check").css('color', 'red');
-						} else if (data == 0) {
-							$("#email_check").text("사용가능한 이메일입니다.");
-							$("#email_check").css('color', 'green');
-						}
-					}		
-				}		
+		if (pw.length<8 || pw.lenght>15) {
+			$("#pw_error").text("8자이상 15자이하 비밀번호만 입력하세요.");
+			$("#pw_error").css('color', 'red');
+			return;
+		} else {
+			if (num < 0 || eng < 0 || spe < 0) {
+				$("#pw_error").text("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+				$("#pw_error").css('color', 'red');
+				return;
+			} else {
+				$("#pw_error").text("적합한 비밀번호 입니다!");
+				$("#pw_error").css('color', 'green');
 			}
-			})
+		}
 	});
 
-//입력한 이메일로 인증번호 전송
+//이메일 중복, 유효성 검사 (중복하지 않고, 유효성 검사에 통과하면 해당 이메일에 인증번호 전송)
+//인증번호 일치여부
 $("#authKeySend").click(function() {
+
 	var email = $("#email").val();
 	var authKey = $("#authKeyInput").val();
+	var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 	
-	//이메일을 입력하지 않고 인증을 눌렀을때 리턴
 	if (email=="") {
 		$("#email_check").text("이메일을 입력하세요.");
 		$("#email_check").css("color","red");
 		return;
 	}
-	
-	//이메일 발송 성공했을때 ajax로 authKeySend에 매핑하여 데이터 전달
-	alert("인증번호를 발송하였습니다.\n입력한 이메일에서 인증번호를 확인해주세요.");
-	console.log(email);
-	$.ajax({
-		url : "authKeySend",
-		type : 'GET',
-		cache:false,
-		data : {email : email},
-		
-		//데이터 전송 성공 후
-		success : function(data) {
-			
-			//인증하기 버튼 클릭했을때 이벤트 (인증번호 일치여부)
-			$("#authKeyInput").click(function() {
-				if ($("#authKey").val()=="") {
-					$("#successEmailCheck").text("인증번호를 입력하세요.");
-					$("#successEmailCheck").css("color","red");
-				} else {
-					if ($("#authKey").val()==data) {
-						$("#successEmailCheck").text("인증에 성공하였습니다");
-						$("#successEmailCheck").css("color","green");
-					} else {
-						$("#successEmailCheck").text("인증번호가 일치하지 않습니다.");
-						$("#successEmailCheck").css("color","red");
-					}
+	if (filter.test(email) === false && email!="") {
+		$("#email_check").text("올바른 이메일 형식이 아닙니다.");
+		$("#email_check").css('color', 'red');
+		return;
+	} else {
+		$.ajax({
+			url : "emailCheck",
+			type : 'POST',
+			data : {email : email},
+			success : function(data) {
+				if (data==1) {
+					$("#email_check").text("이미 사용중인 이메일입니다.");
+					$("#email_check").css('color', 'red');
+					return;
+				} else if (data!=1) {
+					$("#email_check").text("사용가능한 이메일입니다!");
+					$("#email_check").css('color', 'green');
+					alert("인증번호를 발송하였습니다.\n입력한 이메일에서 인증번호를 확인해주세요.");
+					$.ajax({
+						url : "authKeySend",
+						type : 'GET',
+						cache : false,
+						data : {email : email},
+						success : function(data) {
+							$("#authKeyInput").click(function() {
+								if ($("#authKey").val()=="") {
+									$("#successEmailCheck").text("인증번호를 입력하세요.");
+									$("#successEmailCheck").css("color","red");
+									return;
+								} else {
+									if ($("#authKey").val()==data) {
+										$("#successEmailCheck").text("인증에 성공하였습니다");
+										$("#successEmailCheck").css("color","green");
+									} else {
+										$("#successEmailCheck").text("인증번호가 일치하지 않습니다.");
+										$("#successEmailCheck").css("color","red");
+										return;
+									}
+								}
+							});
+						}
+					});
 				}
-			});
-				
-		}
-	})
+			}
+		});
+	}
 });
+
