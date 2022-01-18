@@ -67,7 +67,7 @@ public class MemberController {
 		}
 	}
 
-	
+
 	//중복 아이디 체크
 	@ResponseBody
 	@RequestMapping(value="/idCheck", method = RequestMethod.POST)
