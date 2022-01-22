@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MemberDao {
 	
-	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	@Autowired
 	public MemberDao(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate=sqlSessionTemplate;
 	}

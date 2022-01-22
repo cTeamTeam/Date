@@ -109,7 +109,7 @@ function nullCheck() {
 		var eng = pw.search(/[a-z]/ig);
 		var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 		
-		if (pw.length<8 || pw.lenght>15) {
+		if (pw.length<8 || pw.length>15) {
 			$("#pw_error").text("8자이상 15자이하 비밀번호만 입력하세요.");
 			$("#pw_error").css('color', 'red');
 			return;

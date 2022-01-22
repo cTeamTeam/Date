@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberMapper {
 	
-	@Autowired
 	private MemberDao memberdao;
 	
+	@Autowired
 	public MemberMapper(MemberDao memberdao) {
 		this.memberdao = memberdao;
 	}
