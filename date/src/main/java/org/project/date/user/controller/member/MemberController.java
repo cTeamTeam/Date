@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -134,6 +135,48 @@ public class MemberController {
 	    return num;
 	}
 	
+	/*
+	//마이페이지
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String myPage(Model model, @RequestParam("id") String id) {
+		model.addAttribute("myPage",mapper.myPage(id));
+		return "myPage";
+	}
+	*/
 	
+	//마이페이지 테스트용 - 아직 로긍니 값 받지 못함 --> 세션?인가 써야할듯;
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String list(Model model) {
+		model.addAttribute("myPageList",mapper.list());
+		return "myPage";
+	}
+	
+	
+	//회원 탈퇴 구현 테스트
+	//id로 할지 num으로 할지 고민중;; 아마 마이페이지 값 따라갈듯 세션 스테이트를 1로 변경
+	@RequestMapping(value="/withdraw", method = RequestMethod.GET)
+	public String withdraw(Model model) {
+		model.addAttribute("withdraw", mapper.withdraw());
+		return "withdraw";
+	}
+	
+	
+	/*
+	// 비밀번호 변경
+	@RequestMapping(value="/editPw", method=RequestMethod.POST )
+	public String editPw(Model model, int pwd,BindingResult result,SessionStatus sessionStatus)
+	*/
+	
+	//메인 페이지
+	@RequestMapping(value="/mainPage", method=RequestMethod.GET)
+	public String mainPage() {
+		return "mainPage";
+	}
+	
+	//서비스 안내 페이지
+	@RequestMapping(value="/service", method=RequestMethod.GET)
+	public String servicePage() {
+		return "service";
+	}
 	
 }
