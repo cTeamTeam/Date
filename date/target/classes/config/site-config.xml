@@ -12,5 +12,6 @@
 	<typeAliases>
 		<typeAlias alias="memberVo" type="org.project.date.user.vo.member.MemberVo"/>
 		<typeAlias alias="profileVo" type="org.project.date.user.vo.member.ProfileVo"/>
+		<typeAlias alias="LoginVo" type="org.project.date.user.vo.login.LoginVo"/>
 	</typeAliases>
 </configuration>

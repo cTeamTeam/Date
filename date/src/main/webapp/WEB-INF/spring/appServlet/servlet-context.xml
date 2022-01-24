@@ -40,10 +40,12 @@
 	</beans:bean>
 
 	
-	<context:component-scan base-package="org.project.date.mail" />
 	<context:component-scan base-package="org.project.date.user.controller.member" />
+	<context:component-scan base-package="org.project.date.user.controller.login" />
 	<context:component-scan base-package="org.project.date.user.dao.member"/>
+	<context:component-scan base-package="org.project.date.user.dao.login" />
 	<context:component-scan base-package="org.project.date.user.mapper.member"/>
+	<context:component-scan base-package="org.project.date.user.mapper.login" />
 	
 	
 </beans:beans>
