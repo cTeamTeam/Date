@@ -6,9 +6,17 @@
 <meta charset="UTF-8">
 <title>사이트 안내 페이지</title>
 <style>
+a:link{color:pink;}
+a:visited{color:pink;}
+a{
+text-decoration:none;
+}
+
 body { text-align: center;
 image-align: center;
  }
+ 
+
 
 .dropbtn {
     background-color: gray;
@@ -48,8 +56,8 @@ image-align: center;
 </style>
 </head>
 <body>
+<div style="float:right"><a href ="login">로그인</a> <a href ="signup">회원가입</a></div>
 <h1 style="color:pink"><a href="mainPage">쩜오 0.5</a></h1>
-
  <div class="dropdown">
       <button class="dropbtn">사이트 안내</button>
       <div class="dropdown-content">
@@ -89,7 +97,7 @@ image-align: center;
     
     <P style="color:pink"> 위치 안내 </P>
 
-<div id="daumRoughmapContainer1642922716153" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+<div style="width:72px; margin:0 auto;"id="daumRoughmapContainer1642922716153" class="root_daum_roughmap root_daum_roughmap_landing"></div>
 
 
 <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
