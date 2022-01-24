@@ -50,17 +50,24 @@ public class LoginController {
 	@RequestMapping(value = "/login" , method = RequestMethod.POST)
 	public String checkId(@ModelAttribute LoginVo loginVo, HttpSession session, Model model) throws Exception{
 		
-		//암호화된 비밀번호 가져오기
-		
-		
 		String page = "";
 		
-		loginVo = loginService.checkId(loginVo);
+		//해당 입력된 아이디로 암호화된 비밀번호 가져오기
+		String pwEncryption = loginService.pwTranslator(loginVo.getId());
+		System.out.println("암호화된 비밀번호 : " +pwEncryption);
+		System.out.println(loginVo.getPassword());	
 		
-		if(loginVo == null) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		//암호화된 비밀번호랑 입력한 비밀번호가 같은지 확인
+		boolean check = encoder.matches(loginVo.getPassword(), pwEncryption);
+		
+		System.out.println(check);
+		
+		if(!check) {
 			page = "/user/login/loginFalse"; // ���н� �̵��� ������ ���
 			
 		} else {
+			loginVo = loginService.checkId(pwEncryption);
 			System.out.println("!!!");
 			System.out.println(loginVo.getNickname());
 			page = "main"; // ������ �̵��� ������ ���

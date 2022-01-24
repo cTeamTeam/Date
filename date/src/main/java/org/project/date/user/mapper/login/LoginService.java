@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LoginService {
 	//�α���
-	public LoginVo checkId(LoginVo id) throws Exception;
+	public LoginVo checkId(String pw) throws Exception;
 	
 	//���̵� ã��
 	public LoginVo forGot(LoginVo forGot) throws Exception;

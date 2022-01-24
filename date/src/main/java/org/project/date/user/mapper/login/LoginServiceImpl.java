@@ -14,8 +14,8 @@ public class LoginServiceImpl implements LoginService{
 
 	//�α���
 	@Override
-	public LoginVo checkId(LoginVo loginVo) throws Exception {
-		return loginDao.checkId(loginVo);
+	public LoginVo checkId(String pw) throws Exception {
+		return loginDao.checkId(pw);
 	}
 	
 	//���̵� ã��

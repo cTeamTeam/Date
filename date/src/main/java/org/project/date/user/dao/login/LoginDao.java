@@ -13,8 +13,8 @@ public class LoginDao {
 	SqlSession sqlsession = null;
 
 	//���̵� �˻�
-	public LoginVo checkId(LoginVo loginVo) throws Exception{
-		return (LoginVo)sqlsession.selectOne("login.checkId", loginVo); // login.checkid = mapper login.xml	
+	public LoginVo checkId(String pw) throws Exception{
+		return (LoginVo)sqlsession.selectOne("login.checkId", pw); // login.checkid = mapper login.xml	
 	}
 	
 	//���̵� ã��
