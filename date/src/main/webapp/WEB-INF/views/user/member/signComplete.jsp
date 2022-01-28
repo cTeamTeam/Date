@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	회원가입 완료...
+	축하합니다! 회원가입이 완료되었습니다
+	<div>
+		<a href="/date/">HOME</a>
+	</div>
+	<div>
+		<a href="/date/loginForm">Login</a>
+	</div>
 </body>
 </html>

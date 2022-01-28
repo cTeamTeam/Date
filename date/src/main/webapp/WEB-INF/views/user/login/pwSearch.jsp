@@ -8,11 +8,11 @@
 <title>비밀번호 찾기 페이지</title>
 </head>
 <body>
-	<form action="/pwForGot" method="post">
+	<form action="/date/pwForGot" method="post">
 		<p>아이디 : <input type="text" name = "id" size="13"></p>
 		<p>연락처 : <input type="text" name = "phoneNum" size="13"></p>
 		<input type="submit" value="확인">
-		<input type="button" value="메인페이지이동" onclick="location.href='/'">
+		<input type="button" value="메인페이지이동" onclick="location.href='/date/'">
 	</form>
 	
 	<c:if test="${ pwSearchOk.password == null}">

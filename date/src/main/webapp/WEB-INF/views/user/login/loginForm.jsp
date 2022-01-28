@@ -4,7 +4,7 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Login Form</title>
+<title>로그인</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>
 <body>
@@ -44,9 +44,8 @@
   <script>
   //카카오로그인
   function kakaoLogin() {
-
     $.ajax({
-        url: '/login/getKakaoAuthUrl',
+        url: '/date/login/getKakaoAuthUrl',
         type: 'get',
         async: false,
         dataType: 'text',
@@ -56,23 +55,6 @@
     });
 
   }
-
-  $(document).ready(function() {
-
-      var kakaoInfo = '${kakaoInfo}';
-
-      if(kakaoInfo != ""){
-          var data = JSON.parse(kakaoInfo);
-
-          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
-          alert(
-          "user : \n" + "email : "
-          + data['email']  
-          + "\n nickname : " 
-          + data['nickname']);
-      }
-  });  
-
   </script>
 </body>
 </html>

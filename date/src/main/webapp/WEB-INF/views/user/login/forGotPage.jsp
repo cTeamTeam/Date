@@ -9,10 +9,10 @@
 <body>
 아이디 / 패스워드 찾기
 <p>
-<input type="button" value="아이디 찾기" onclick="location.href='/idSearch'">
+<input type="button" value="아이디 찾기" onclick="location.href='/date/idSearch'">
 </p>
 <p>
-<input type="button" value="패스워드 찾기" onclick="location.href='pwSearch'">
+<input type="button" value="패스워드 찾기" onclick="location.href='/date/pwSearch'">
 </p>
 </body>
 </html>

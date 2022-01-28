@@ -8,7 +8,7 @@
 </head>
 	<h2>가입하신 성함 및 연락처를 입력해 주세요.</h2>
 <body>
-	<form action="/idForGot" method="post">
+	<form action="/date/idForGot" method="post">
 		<p>성함 : <input type="text" name = "name" size="13"></p>
 		<p>연락처 : <input type="text" name = "phoneNum" size="13"></p>
 		<input type="submit" value="확인">
