@@ -3,6 +3,7 @@ package com.date.jum5.user.login.vo;
 public class LoginVo {
 
 	private String id;
+	private String oldPw;
 	private String password;
 	private String name;
 	private String nickname;
@@ -10,6 +11,12 @@ public class LoginVo {
 	private String memberShip;
 	private String phoneNum;
 	
+	public String getOldPw() {
+		return oldPw;
+	}
+	public void setOldPw(String oldPw) {
+		this.oldPw = oldPw;
+	}
 	
 	public String getPhoneNum() {
 		return phoneNum;

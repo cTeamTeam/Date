@@ -1,5 +1,7 @@
 package com.date.jum5.user.login.mapper;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Repository;
@@ -36,5 +38,18 @@ public class LoginServiceImpl implements LoginService{
 		// TODO Auto-generated method stub
 		return loginDao.pwTranslator(id);
 	}
+
+	@Override
+	public int idExist(String id) {
+		return loginDao.idExist(id);
+	}
+
+	@Override
+	public void changePw(Map<String, String> change) {
+		loginDao.changePw(change);
+	}
+
+	
+	
 
 }

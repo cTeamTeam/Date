@@ -5,17 +5,17 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +34,14 @@ import com.google.gson.JsonParser;
 @Controller
 public class LoginController {
 	
+	private LoginService loginService;
+	private JavaMailSender mailSender;
+	
 	@Autowired
-	LoginService loginService;
+	public LoginController(LoginService loginService, JavaMailSender mailSender) {
+		this.mailSender=mailSender;
+		this.loginService=loginService;
+	}
 	
 	//로그인 폼 요청
 	@RequestMapping(value = "/loginForm" , method = RequestMethod.GET)
@@ -73,8 +79,6 @@ public class LoginController {
 			
 			session.setAttribute("loginVo", loginVo);
 		}
-		
-		
 		
 		return page;
 	}
@@ -299,21 +303,24 @@ public class LoginController {
 	
 	
 	//아이디, 비밀번호 찾기
-	
 	@RequestMapping(value = "/forGotPage" , method = RequestMethod.GET)
 	public String forGotPage() throws Exception{
 		return "/user/login/forGotPage";
 	}
+	
+	//아이디 찾는 페이지 요청
 	@RequestMapping(value = "/idSearch" , method = RequestMethod.GET)
 	public String idSearch() throws Exception{
 		return "/user/login/idSearch";
-		}
+	}
 
+	//비밀번호 찾는 페이지 요청
 	@RequestMapping(value = "/pwSearch" , method = RequestMethod.GET)
 	public String pwSearch() throws Exception{
 		return "/user/login/pwSearch";
-		}	
+	}	
 	
+	//아이디 찾기 로직
 	@RequestMapping(value = "/idForGot" , method = RequestMethod.POST)
 	public String forGot(@ModelAttribute LoginVo idSearchOk, HttpSession session, Model model) throws Exception{
 	
@@ -331,37 +338,61 @@ public class LoginController {
 			model.addAttribute("idSearchOk", idSearchOk);			
 			session.setAttribute("loginVo", idSearchOk);
 		}
-		
-		
-		
 		return page;	
 	}
 	
-	//비밀번호 찾기
-	@RequestMapping(value = "/pwForGot" , method = RequestMethod.POST)
-	public String forGotPw(@ModelAttribute LoginVo pwSearchOk, HttpSession session, Model model) throws Exception{
-		
-		pwSearchOk = loginService.forGotPw(pwSearchOk);
+	@RequestMapping(value = "/pwForGot" , method = RequestMethod.GET)
+	public String forGotPw(@ModelAttribute LoginVo pwSearchOk,
+		Model model, HttpServletRequest request) throws Exception{
 		
 		
-		String page ="";
+		return "/user/login/pwSearch" ;
 		
-		if(pwSearchOk == null) {
-			
-			page = "/user/login/pwSearch";
-			
-		}else {
-			
-			page = "/user/login/pwSearch";
-			
-			
-			model.addAttribute("pwSearchOk", pwSearchOk);
-			
-			session.setAttribute("loginVo", pwSearchOk);
-		}
-		return page;
 	}
+	
+	@RequestMapping(value="/pwForGot", method=RequestMethod.POST)
+	public String pwFind(@RequestParam("id") String id,
+			Model model, HttpSession session) {
+		
+		int idExist = loginService.idExist(id);
+		if (idExist!=1) {
+			model.addAttribute("idExist", idExist);
+			return "/user/login/pwSearch";
+		} else {
+			session.setAttribute("changeId", id);
 
+			return "/user/login/changePw";
+		}		
+	}
+	
+	@RequestMapping(value="/changePw", method=RequestMethod.POST)
+	public String pwChange(@RequestParam("newPw") String newPw,
+			@RequestParam("newPwCheck") String pwCheck,
+			Model model, HttpSession session) {
+		boolean check = true;
+		
+		if (!newPw.equals(pwCheck)) {
+			check = false;
+			model.addAttribute("pwCheck", check);
+			return "/user/login/changePw";
+		} else {
+			String id = (String)session.getAttribute("changeId");
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String securePw = encoder.encode(newPw);
+			Map<String, String> change = new HashMap<>();
+			change.put("id", id);
+			change.put("pw", securePw);
+			System.out.println(id);
+			System.out.println(securePw);
+			
+			loginService.changePw(change);
+			
+			check = true;
+			model.addAttribute("pwCheck", check);
+			return "/user/login/changePw";
+		}
+		
+	}
 }
 
 

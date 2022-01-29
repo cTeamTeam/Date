@@ -24,4 +24,14 @@
 	<select id="pwTranslate" parameterType="String" resultType="String">
 		select password from member where id=#{id}
 	</select>
+	
+	<select id="idExist" parameterType="String" resultType="Integer">
+		select count(*) from member where id=#{id}
+	</select>
+	
+	<update id="changePw" parameterType="hashMap">
+		update member set password=#{pw} where id=#{id}
+	</update>
+	
+
 </mapper>

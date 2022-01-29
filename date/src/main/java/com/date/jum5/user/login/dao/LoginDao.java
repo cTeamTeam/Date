@@ -1,5 +1,7 @@
 package com.date.jum5.user.login.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +35,14 @@ public class LoginDao {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("pwTranslate", id);
 	}
+	
+	public int idExist(String id) {
+		return sqlsession.selectOne("idExist", id);
+	}
+	
+	public void changePw(Map<String, String> change) {
+		sqlsession.update("changePw", change);
+	}
+
 
 }
