@@ -36,18 +36,7 @@ public class MemberMapper {
 	}
 	
 	
-	//마이 페이지
-	public List<MemberVo> myPage(String id) {
-		return memberdao.myPage(id);
-	}
 	
-	//마이페이지 테스트
-	public List<MemberVo> list(){
-		return memberdao.list();
-	}
 
-	public int withdraw() {
-		// TODO Auto-generated method stub
-		return memberdao.withdraw();
-	}
+	
 }

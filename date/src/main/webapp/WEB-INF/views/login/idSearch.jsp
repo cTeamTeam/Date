@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>사이트 안내 페이지</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/date/resources/style.css" />
 </head>
-<body>
-<div style="float:right"><a href ="login">로그인</a> <a href ="signup">회원가입</a></div>
+<div style="float:right"><a href ="loginForm">로그인</a> <a href ="signup">회원가입</a></div>
 <h1 style="color:pink"><a href="mainPage">쩜오 0.5</a></h1>
+
  <div class="dropdown">
       <button class="dropbtn">사이트 안내</button>
       <div class="dropdown-content">
@@ -39,28 +39,25 @@
         <a href="#">Q & A</a>
       </div>
     </div>
-    
-    
-    <P style="color:pink"> 서비스 안내 </P>
-    쩜오(0.5)는 2013년부터 커플 매칭을 전문적으로 도와주는 업체입니다.
-    서울 강남에서부터 시작하여 현재 부산, 대전, 대구 등 많은 지점을 두었으며 업체를 통해 커플이 된 사람들은 201,304명 입니다.
-    이 중 결혼까지 성공한 횟수는 전체의 93%입니다.
-    커플 매칭은 멤버십 구매를 통해 이루어 지고 있으며, 멤버십에 따라 회수가 차등 적용됩니다.
-    
-    <P style="color:pink"> 위치 안내 </P>
-
-<div style="width:72px; margin:0 auto;"id="daumRoughmapContainer1642922716153" class="root_daum_roughmap root_daum_roughmap_landing"></div>
-
-
-<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-
-<script charset="UTF-8">
-	new daum.roughmap.Lander({
-		"timestamp" : "1642922716153",
-		"key" : "28w2q",
-		"mapWidth" : "640",
-		"mapHeight" : "360"
-	}).render();
-</script>
+	<h2>가입하신 성함 및 연락처를 입력해 주세요.</h2>
+<body>
+	<form action="/idForGot" method="post">
+		<p>성함 : <input type="text" name = "name" size="13"></p>
+		<p>연락처 : <input type="text" name = "phoneNum" size="13"></p>
+		<input type="submit" value="확인">
+		<input type="button" value="메인페이지이동" onclick="location.href='/'">
+	</form>
+	
+	
+	<c:if test="${ idSearchOk.id == null}">
+		<script type="text/javascript">
+			alert('일치하는 아이디가 없습니다.');
+		</script>
+	</c:if>
+	<c:if test="${ idSearchOk.id != null }">
+		<p>가입하신 아이디는</p>
+		<p>${idSearchOk.id}</p>
+		<p>입니다</p>
+	</c:if>
 </body>
 </html>

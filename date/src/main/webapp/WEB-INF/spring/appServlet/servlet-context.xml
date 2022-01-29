@@ -36,15 +36,19 @@
 	<!-- ViewResolver 기본 클래스 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- <beans:property name="prefix" value="/WEB-INF/views/" />-->
-		<beans:property name="prefix" value="/WEB-INF/views/member/" />
+		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
+	
 	
 	<context:component-scan base-package="org.project.date.mail" />
-	<context:component-scan base-package="org.project.date.user.controller.member" />
-	<context:component-scan base-package="org.project.date.user.dao.member"/>
-	<context:component-scan base-package="org.project.date.user.mapper.member"/>
-	
+	<context:component-scan base-package="org.project.date.user.*" />
+	<context:component-scan base-package="org.project.date.user.dao.*"/>
+	<context:component-scan base-package="org.project.date.user.mapper.*"/>
+	<context:component-scan base-package="org.project.date.user.vo.member.*"/>
+	<context:component-scan base-package="org.project.date.user.vo.login.*"/>
+	<context:component-scan base-package="org.project.date.user.controller.member.*" />
+	<context:component-scan base-package="org.project.date.user.controller.login.*" />
+	<context:component-scan base-package="org.project.date.user.controller.mainpage.*" />
 	
 </beans:beans>

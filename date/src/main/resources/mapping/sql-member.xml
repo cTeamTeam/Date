@@ -4,9 +4,8 @@
 
 <mapper namespace="member">
 	<insert id="insert" parameterType="MemberVo">
-		INSERT INTO MEMBER (num, id, password, name, nickname, birth, gender,
-		phonenum, email) VALUES (MEMBER_SEQ.nextval, #{id}, #{password}, #{name},
-		#{nickName}, #{birth}, #{gender}, #{phoneNum}, #{email})
+		INSERT INTO MEMBER (num, id, password, name, nickname, birth, gender, phonenum, email) VALUES (MEMBER_SEQ.nextval, #{id}, #{password}, #{name},
+      #{nickName}, #{birth}, #{gender}, #{phoneNum}, #{email})
 		<selectKey keyProperty="num" resultType="Integer">
 			SELECT NVL(MAX(num), 0) FROM MEMBER
 		</selectKey>
@@ -23,16 +22,8 @@
 	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE EMAIL=#{email}
 	</select>
-	<!--  마이페이지 -->
-	<select id="myPage" parameterType="String" resultType="MemberVo">
-		SELECT * FROM MEMBER WHERE ID= #{id}
-	</select>
-	<!--  마이페이지 테스트 -->
-	<select id="list" resultType="MemberVo">
-		SELECT ID, NAME, NICKNAME,BIRTH,GENDER,EMAIL, PHONENUM, MEMBERSHIP, DATE_COUNT FROM MEMBER WHERE ID= 'tester1234'
-	</select>
-	<!--  회원 탈퇴 테스트 -->
-	<select id="withdraw" resultType="int">
-		UPDATE MEMBER SET SESSION_STATE=1 WHERE ID='tester1234'
-	</select>
+	
+	
+	
+
 </mapper>

@@ -2,13 +2,16 @@ package org.project.date.user.controller.member;
 
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.project.date.user.mapper.member.MemberMapper;
+import org.project.date.user.vo.login.LoginVo;
 import org.project.date.user.vo.member.MemberVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.project.date.user.mapper.login.*;
 
 @Controller
 public class MemberController {
@@ -36,45 +41,53 @@ public class MemberController {
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signForm(Model model) {
 		model.addAttribute("member", new MemberVo());
-		return "signUpForm";
+		return "member/signUpForm";
 	}
-	
+
 	//회원가입 요청
-	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String signCheck(@ModelAttribute("member") @Valid MemberVo member,
-			Model model,
-			BindingResult bindingResult) {
-
-		String signUpMsg = null;
-		//마지막으로 null값이 있는지 체크
-		/*if (bindingResult.hasErrors()) {
-			signUpMsg = "회원가입 정보가 올바르지 않습니다.";
-			model.addAttribute("signUpMsg", signUpMsg);
-			return "signUpForm";
-		}*/
-		
-		int finalCheckId = mapper.idCheck(member.getId());
-		int finalCheckNick = mapper.nickNameCheck(member.getNickName());
-		int finalCheckEmail = mapper.emailCheck(member.getEmail());
-		
-		//중복 확인 최종 체크
-		if (finalCheckId!=0 || finalCheckNick!=0 || finalCheckEmail!=0) {
-			signUpMsg = "회원가입 정보가 올바르지 않습니다.";
-			model.addAttribute("signUpMsg", signUpMsg);
-			return "signUpForm";
-		} else {
-			//비밀번호 불일치 최종 체크
-			if (!member.getPassword().equals(member.getPwCheck())) {
-				signUpMsg = "회원가입 정보가 올바르지 않습니다.";
-				model.addAttribute("signUpMsg", signUpMsg);
-				return "signUpForm";
-			} else {
-				mapper.registMember(member);
-				return "signComplete";
-			}
+		@RequestMapping(value="/signup", method=RequestMethod.POST)
+		public String signCheck(@ModelAttribute("member") MemberVo member,
+				Model model) {
+			
+			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			
+			String signUpMsg = null;
+			
+			int finalCheckId = mapper.idCheck(member.getId());
+			int finalCheckNick = mapper.nickNameCheck(member.getNickName());
+			int finalCheckEmail = mapper.emailCheck(member.getEmail());
+			
+		      //회원가입 유효성 최종체크 (통과하지 못하면 다시 회원가입 폼으로감)
+		      //중복 체크
+		      if (finalCheckId!=0 || finalCheckNick!=0 || finalCheckEmail!=0) {
+		         signUpMsg = "회원가입 정보가 올바르지 않습니다.";
+		         model.addAttribute("signUpMsg", signUpMsg);
+		         return "/user/member/signUpForm";
+		      }   
+		      //아이디가 8자미만 15자 이상일때
+		      if (member.getId().length()<8 || member.getId().length()>15) {
+		         signUpMsg = "회원가입 정보가 올바르지 않습니다.";
+		         model.addAttribute("signUpMsg", signUpMsg);
+		         return "/user/member/signUpForm";
+		      } else {
+		         //비밀번호 불일치 최종 체크
+		         if (!member.getPassword().equals(member.getPwCheck())) {
+		            signUpMsg = "회원가입 정보가 올바르지 않습니다.";
+		            model.addAttribute("signUpMsg", signUpMsg);
+		            return "/member/signUpForm";
+		         } else {
+		            //비밀번호가 일치하면 해당 비밀번호를 암호하해서 memberVo의 password와 passwordCheck에 저장
+		            String securePw = encoder.encode(member.getPassword());
+		            member.setPassword(securePw);
+		            member.setPwCheck(securePw);
+		            
+		            System.out.println(member.getPassword());
+		            
+		            mapper.registMember(member);
+		            return "/member/signComplete";
+		         }
+		      }
 		}
-	}
-
 	
 	//중복 아이디 체크
 	@ResponseBody
@@ -135,48 +148,11 @@ public class MemberController {
 	    return num;
 	}
 	
-	/*
-	//마이페이지
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public String myPage(Model model, @RequestParam("id") String id) {
-		model.addAttribute("myPage",mapper.myPage(id));
-		return "myPage";
-	}
-	*/
-	
-	//마이페이지 테스트용 - 아직 로긍니 값 받지 못함 --> 세션?인가 써야할듯;
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public String list(Model model) {
-		model.addAttribute("myPageList",mapper.list());
-		return "myPage";
-	}
+
 	
 	
-	//회원 탈퇴 구현 테스트
-	//id로 할지 num으로 할지 고민중;; 아마 마이페이지 값 따라갈듯 세션 스테이트를 1로 변경
-	@RequestMapping(value="/withdraw", method = RequestMethod.GET)
-	public String withdraw(Model model) {
-		model.addAttribute("withdraw", mapper.withdraw());
-		return "withdraw";
-	}
 	
-	
-	/*
-	// 비밀번호 변경
-	@RequestMapping(value="/editPw", method=RequestMethod.POST )
-	public String editPw(Model model, int pwd,BindingResult result,SessionStatus sessionStatus)
-	*/
-	
-	//메인 페이지
-	@RequestMapping(value="/mainPage", method=RequestMethod.GET)
-	public String mainPage() {
-		return "mainPage";
-	}
-	
-	//서비스 안내 페이지
-	@RequestMapping(value="/service", method=RequestMethod.GET)
-	public String servicePage() {
-		return "service";
-	}
-	
+
 }
+
+

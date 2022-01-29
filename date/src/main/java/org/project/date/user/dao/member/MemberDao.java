@@ -33,20 +33,6 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("emailCheck", email);
 	}
 	
-	//마이페이지
-	public List<MemberVo> myPage(String id){
-		return sqlSessionTemplate.selectList("myPage",id);
-	}
 	
-	//마이페이지 테스트
-	public List<MemberVo> list(){
-		return sqlSessionTemplate.selectList("list");
-	}
-	
-	//회원 탈퇴 테스트
-	public int withdraw() {
-		// TODO Auto-generated method stub
-		return sqlSessionTemplate.update("withdraw");
-	}
 	
 }
