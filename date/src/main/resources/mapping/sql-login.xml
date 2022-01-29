@@ -27,7 +27,7 @@
 	
 	
 	<!--  마이페이지 테스트 -->
-	<select id="list" resultType="loginVo">
+	<select id="list" parameterType="String" resultType="loginVo">
 		SELECT ID, NAME, NICKNAME,BIRTH,GENDER,EMAIL, PHONENUM, MEMBERSHIP, DATE_COUNT FROM MEMBER WHERE ID= #{id}
 	</select>
 	<!--  회원 탈퇴 테스트 -->

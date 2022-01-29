@@ -10,9 +10,9 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="memberVo" type="org.project.date.user.vo.member.MemberVo"/>
-		<typeAlias alias="profileVo" type="org.project.date.user.vo.member.ProfileVo"/>
-		<typeAlias alias="loginVo" type="org.project.date.user.vo.login.LoginVo"/>
+		<typeAlias alias="memberVo" type="com.date.jum5.user.member.vo.MemberVo"/>
+		<typeAlias alias="profileVo" type="com.date.jum5.user.member.vo.ProfileVo"/>
+		<typeAlias alias="loginVo" type="com.date.jum5.user.login.vo.LoginVo"/>
 	</typeAliases>
 	
 </configuration>
