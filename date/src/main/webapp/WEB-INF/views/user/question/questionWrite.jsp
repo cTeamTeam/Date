@@ -1,14 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>로그인</title>
-<link rel="stylesheet" type="text/css" href="/date/resources/css/style.css" />
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 a:link{color:pink;}
@@ -50,9 +48,26 @@ body { text-align: center; }
 .dropdown:hover .dropbtn {
     background-color: pink;
 }
+
+table {
+	margin:auto;
+	margin-top:50px;
+	border-collapse:collapse;
+	border:1px solid black;
+}
+
+td {
+	border:1px solid black;
+}
 </style>
 </head>
 <body>
+<c:if test="${login==null }">
+	<div style="float:right">
+		<a href ="loginForm">로그인</a>
+		<a href ="signup">회원가입</a>
+	</div>
+</c:if>
 <c:if test="${ loginVo == null }">
 		<input type="button" value="회원가입" onclick="location.href='signup'">
 		<input type="button" value="로그인" onclick="location.href='loginForm'">
@@ -71,8 +86,9 @@ body { text-align: center; }
 			</c:when>
 		</c:choose>
 	</c:if>
-<h1 style="color:pink"><a href="mainPage">쩜오 0.5</a></h1>
 
+	
+<h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
  <div class="dropdown">
       <button class="dropbtn">사이트 안내</button>
       <div class="dropdown-content">
@@ -101,54 +117,40 @@ body { text-align: center; }
         <a href="#">매칭 후기</a>
         <a href="qaList">Q & A</a>
       </div>
+    </div>	
+    
+    <div>
+    	<form:form commandName="qaWrite" method="post">
+    		<table>
+    			<tr>
+    				<td>작성자</td>
+    				<td>${loginVo}</td>
+    			</tr>
+    			<tr>
+    				<td>제목</td>
+    				<td><form:input path="title"/></td>
+    			</tr>
+    			<tr>
+    				<td colspan="2">내용</td>
+    			</tr>
+    			<tr>
+    				<td colspan="2"><textarea cols="30" rows="10" name="content"></textarea>
+    			</tr>	
+				<tr>
+					<td><button type="submit">작성</button></td>
+					<td><button type="reset">리셋</button></td>
+				</tr> 		
+    		</table>
+    	</form:form>
     </div>
-	<h3>Log In</h3>
-	<div>
-		<form action="/date/login" method="post">
-			<p>
-				<label>ID</label> 
-				<input id="id" name="id"
-					type="text" required>
-			</p>
-			<p>
-				<label>Password</label> <input id="password"
-					name="password" type="password" required>
-			</p>
-			<p>
-				<label>
-				 <input type="checkbox" name="loginCookie">
-					로그인 유지
-				</label>
-			</p>
-				<button type="submit">로그인</button>
-				<button type="button" onclick="history.go(-1)">취소</button>
-				<button type="button" onclick="location.href='forGotPage'">아이디/패스워드찾기</button>
-		</form>
-	</div>
-	<!-- 카카오 로그인 -->
-	<ul>
-      <li onclick="kakaoLogin();">
-        <a href="javascript:void(0)">
-            <span>카카오 로그인</span>
-        </a>
-      </li>
-  </ul>
+    
+   <c:if test="${loginVo==null }">
+   	<script type="text/javascript">
+   		alert("로그인을 먼저 하세요");
+   		location.href="/date/loginForm";
+   	</script>
+   </c:if>
 
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-  <script>
-  //카카오로그인
-  function kakaoLogin() {
-    $.ajax({
-        url: '/date/login/getKakaoAuthUrl',
-        type: 'get',
-        async: false,
-        dataType: 'text',
-        success: function (res) {
-            location.href = res;
-        }
-    });
-
-  }
-  </script>
+    
 </body>
 </html>

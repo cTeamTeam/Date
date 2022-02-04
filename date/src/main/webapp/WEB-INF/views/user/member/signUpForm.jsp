@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="/date/resources/js/jquery.validate.min.js"></script>
 	<link rel="stylesheet" href="/date/resources/css/signUp.css"/>
 	<link rel="stylesheet" href="/date/resources/css/style.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 		h1 {
 			text-align:center;
@@ -28,7 +29,24 @@
 
 </head>
 <body>
-<div style="float:right"><a href ="loginForm">로그인</a> <a href ="signup">회원가입</a></div>
+<c:if test="${ loginVo == null }">
+		<input type="button" value="회원가입" onclick="location.href='signup'">
+		<input type="button" value="로그인" onclick="location.href='loginForm'">
+	</c:if>
+	<c:if test="${ loginVo != null }">
+		<c:choose>
+			<c:when test="${access_Token==null }">
+				<p>${loginVo}님</p>
+				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
+				<input type="button" value="로그아웃" onclick="location.href='logout'">
+			</c:when>
+			<c:when test="${access_Token!=null }">
+				<p>${loginVo}님</p>
+				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
+				<a href="https://kauth.kakao.com/oauth/logout?client_id=93175f79121624f22c8acce52fd16344&logout_redirect_uri=http://localhost:8080/date/kakaologout">카카오로그아웃</a>
+			</c:when>
+		</c:choose>
+	</c:if>
 <h1 style="color:pink"><a href="mainPage">쩜오 0.5</a></h1>
 
  <div class="dropdown">
@@ -41,7 +59,7 @@
      <div class="dropdown">
       <button class="dropbtn">결제 관련 메뉴</button>
       <div class="dropdown-content">
-        <a href="#">결제 안내</a>
+        <a href="payGuide">결제 안내</a>
         <a href="#">멤버쉽 구매</a>
       </div>
     </div>
@@ -57,7 +75,7 @@
       <div class="dropdown-content">
         <a href="#">공지사항</a>
         <a href="#">매칭 후기</a>
-        <a href="#">Q & A</a>
+        <a href="qaList">Q & A</a>
       </div>
     </div>
 

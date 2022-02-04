@@ -1,14 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>로그인</title>
-<link rel="stylesheet" type="text/css" href="/date/resources/css/style.css" />
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 a:link{color:pink;}
@@ -50,6 +48,17 @@ body { text-align: center; }
 .dropdown:hover .dropbtn {
     background-color: pink;
 }
+table {
+	margin-top:60px;
+	width:400px;
+	height:300px;
+	margin:auto;
+	border:1px solid black;
+	border-collapse:collapse;
+}
+td {
+	border:1px solid black;
+}
 </style>
 </head>
 <body>
@@ -71,8 +80,9 @@ body { text-align: center; }
 			</c:when>
 		</c:choose>
 	</c:if>
-<h1 style="color:pink"><a href="mainPage">쩜오 0.5</a></h1>
 
+	
+<h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
  <div class="dropdown">
       <button class="dropbtn">사이트 안내</button>
       <div class="dropdown-content">
@@ -102,53 +112,39 @@ body { text-align: center; }
         <a href="qaList">Q & A</a>
       </div>
     </div>
-	<h3>Log In</h3>
+	<table>
+		<tr>
+			<td>제목</td>
+			<td>${qaContent.title }</td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td>${qaContent.id }</td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td>${qaContent.content }</td>
+		</tr>
+		<tr>
+			<td>작성일</td>
+			<td>${qaContent.wDate}</td>
+		</tr>
+		<tr>
+			<td>조회수</td>
+			<td>${qaContent.count }</td>
+		</tr>
+	</table>
+	
 	<div>
-		<form action="/date/login" method="post">
-			<p>
-				<label>ID</label> 
-				<input id="id" name="id"
-					type="text" required>
-			</p>
-			<p>
-				<label>Password</label> <input id="password"
-					name="password" type="password" required>
-			</p>
-			<p>
-				<label>
-				 <input type="checkbox" name="loginCookie">
-					로그인 유지
-				</label>
-			</p>
-				<button type="submit">로그인</button>
-				<button type="button" onclick="history.go(-1)">취소</button>
-				<button type="button" onclick="location.href='forGotPage'">아이디/패스워드찾기</button>
-		</form>
+		<a href="/date/qaList">목록</a>
+		<c:if test="${qaContent.id == loginVo }">
+			<a href="/date/qaDelete?qaNum=${qaContent.num}">삭제</a>
+			<a href="/date/qaModify?qaNum=${qaContent.num }">수정</a>
+		</c:if>
 	</div>
-	<!-- 카카오 로그인 -->
-	<ul>
-      <li onclick="kakaoLogin();">
-        <a href="javascript:void(0)">
-            <span>카카오 로그인</span>
-        </a>
-      </li>
-  </ul>
-
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-  <script>
-  //카카오로그인
-  function kakaoLogin() {
-    $.ajax({
-        url: '/date/login/getKakaoAuthUrl',
-        type: 'get',
-        async: false,
-        dataType: 'text',
-        success: function (res) {
-            location.href = res;
-        }
-    });
-
-  }
-  </script>
+	
+	<div>
+		답변 칸
+	</div>
 </body>
 </html>

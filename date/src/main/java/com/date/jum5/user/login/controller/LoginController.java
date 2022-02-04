@@ -67,20 +67,23 @@ public class LoginController {
 		System.out.println(check);
 		
 		if(!check) {
-			page = "/user/login/loginFalse"; // ���н� �̵��� ������ ���
+			page = "/user/login/loginFalse"; 
 			
 		} else {
 			loginVo = loginService.checkId(pwEncryption);
-			System.out.println("!!!");
+			page = "mainPage"; 
+			
+			//model.addAttribute("loginVo", loginVo);
+			
+			//로그인 성공시 세션값 부여
+			session.setAttribute("loginVo", loginVo.getNickname());
+			
+			System.out.println(loginVo.getId());
 			System.out.println(loginVo.getNickname());
-			page = "mainPage"; // ������ �̵��� ������ ���
-			
-			model.addAttribute("loginVo", loginVo);
-			
-			session.setAttribute("loginVo", loginVo);
+			System.out.println("일반 로그인 성공");
 		}
 		
-		return page;
+		return "redirect:/";
 	}
 	
 	//카카오 로그인 서비스 요청
@@ -113,14 +116,21 @@ public class LoginController {
        
         //카카오에 연동된 정보의 이메일이 null 값이 아닐면 세션에 토큰이랑 사이트 내에서 사용할 이름 저장
         if (userInfo.get("email") != null) {
-        	session.setAttribute("nickName", userInfo.get("nickname"));
+        	
+        	//카카오 로그인 성공시 세션값 부여
+        	session.setAttribute("loginVo", userInfo.get("nickname"));
         	session.setAttribute("access_Token", access_Token);
+        	
+        	JSONObject kakaoInfo =  new JSONObject(userInfo);
+            
+        	//연동된 유저정보 model로 저장
+        	model.addAttribute("kakaoInfo", kakaoInfo);
         }
         
-        JSONObject kakaoInfo =  new JSONObject(userInfo);
-        model.addAttribute("kakaoInfo", kakaoInfo);
+        System.out.println(session.getAttribute("access_Token"));
+        System.out.println(session.getAttribute("login"));
         
-        return "/user/login/kakaoSuccess"; //본인 원하는 경로 설정
+        return "redirect:/";
 	}
 
 	//토큰 발급 (토큰 발급하여 카카오 유저정보 얻어옴)
@@ -269,9 +279,7 @@ public class LoginController {
   	    //session에 저장되있던 토큰이 null값이 아닐때 제거
           if(access_Token != null && !"".equals(access_Token)){
               kakaoLogout(access_Token);
-              session.removeAttribute("access_Token");
-              session.removeAttribute("userId");
-              System.out.println("지우고 난 후 토큰 : "+session.getAttribute("access_Token"));
+              session.invalidate();
               System.out.println("로그아웃 성공");
               
           //이미 null값일때
@@ -280,24 +288,24 @@ public class LoginController {
               //return "redirect:/";
           }
           //return "index";
-          return "redirect:/";
+          return "/user/login/logout";
       }
     
-    
-	//로그아웃 요청
-	@RequestMapping(value = "/logout" , method = RequestMethod.GET)
-	public String logOutPage(HttpServletRequest request) throws Exception{
-		
-		 HttpSession session = request.getSession();
-		 
-		 session.invalidate();
-		
-		return "/user/login/logout";
-	}
+  //로그아웃 요청
+  	@RequestMapping(value = "/logout" , method = RequestMethod.GET)
+  	public String logOutPage(HttpServletRequest request, Model model) throws Exception{
+  		
+  		 HttpSession session = request.getSession();
+  		 
+  		 session.invalidate();
+  
+  		return "/user/login/logout";
+  	}
+	
 	
 	//logOut.jsp ���� Ȯ�� ��ư �������� �ε����� �̵��ϴ� ���
 	@RequestMapping(value = "/logoutMain" , method = RequestMethod.GET)
-	public String logoutMain() throws Exception{
+	public	 String logoutMain() throws Exception{
 		return "/";
 	}
 	
