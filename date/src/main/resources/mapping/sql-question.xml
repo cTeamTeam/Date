@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="question">
+	
+	<insert id="qaWrite" parameterType="QuestionVo">
+		INSERT INTO QUESTION (num, id, title, content) VALUES (QA_SEQ.nextval, #{id},
+		#{title}, #{content})
+		<selectKey keyProperty="num" resultType="Integer">
+			SELECT NVL(MAX(num), 0) FROM QUESTION
+		</selectKey>
+	</insert>
+	
+	<select id="questionAll" resultType="QuestionVo" parameterType="map">
+		select * from (select num, id, title, count, state, rownum rnum
+		from question order by num asc) where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="questionCount" resultType="Integer">
+		select count(*) from question
+	</select>
+		
+	<select id="qaContent" parameterType="Integer" resultType="QuestionVo">
+		select * from question where num=#{qaNum}
+	</select>
+	
+	<update id="qaCount" parameterType="Integer">
+		update question set count=count+1 where num=#{qaNum}
+	</update>
+	
+	<delete id="qaDelete" parameterType="Integer">
+		delete from question where num=#{qaNum}
+	</delete>
+	
+	<update id="qaModify" parameterType="QuestionVo">
+		update question set title=#{title}, content=#{content}, wdate=sysdate
+		where num=#{num}
+	</update>
+	
+	<select id="titleSearch" parameterType="map" resultType="QuestionVo">
+		select * from (select num, id, title, count, state, rownum rnum from question
+		where TITLE LIKE '%'||#{keyword}||'%' order by num asc) where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="contentSearch" parameterType="map" resultType="QuestionVo">
+		select * from (select num, id, title, count, state, rownum rnum from question
+		where CONTENT LIKE '%'||#{keyword}||'%' order by num asc) where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="writerSearch" parameterType="map" resultType="QuestionVo">
+		select * from (select num, id, title, count, state, rownum rnum from question
+		where ID LIKE '%'||#{keyword}||'%' order by num asc) where rnum between #{start} and #{end}
+	</select>
+	
+	<select id="searchIdCount" parameterType="String" resultType="Integer">
+		select count(*) from question where id like '%'||#{keyword}||'%'
+	</select>
+	
+	<select id="searchTitleCount" parameterType="String" resultType="Integer">
+		select count(*) from question where title like '%'||#{keyword}||'%'
+	</select>
+	
+	<select id="searchContentCount" parameterType="String" resultType="Integer">
+		select count(*) from question where content like '%'||#{keyword}||'%'
+	</select>
+</mapper>
