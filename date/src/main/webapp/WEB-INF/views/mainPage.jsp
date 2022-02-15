@@ -48,6 +48,7 @@ body { text-align: center; }
 </style>
 </head>
 <body>
+
 <div style="float:right"><a href ="loginForm">로그인</a> <a href ="signup">회원가입</a></div>
 <h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
 
@@ -76,7 +77,7 @@ body { text-align: center; }
       <button class="dropbtn">게시판 관련 메뉴</button>
       <div class="dropdown-content">
         <a href="#">공지사항</a>
-        <a href="#">매칭 후기</a>
+        <a href="/user/review/list">매칭 후기</a>
         <a href="#">Q & A</a>
       </div>
     </div>

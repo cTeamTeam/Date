@@ -104,7 +104,7 @@ body { text-align: center; }
     </div>
 	<h3>Log In</h3>
 	<div>
-		<form action="/date/login" method="post">
+		<form action="/login" method="post">
 			<p>
 				<label>ID</label> 
 				<input id="id" name="id"
