@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.date.jum5.user.review.dao.ReviewDAO;
 import com.date.jum5.user.review.util.FileUtils;
-import com.date.jum5.user.review.vo.Criteria;
 import com.date.jum5.user.review.vo.ReviewVo;
+import com.date.jum5.user.review.vo.SearchCriteria;
 
 
 @Service
@@ -27,8 +27,8 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	//게시글 목록 
 	@Override
-	public List<ReviewVo> list(Criteria cri) throws Exception {
-		return reviewdao.list(cri);
+	public List<ReviewVo> list(SearchCriteria scri) throws Exception {
+		return reviewdao.list(scri);
 	}
 	
 	//첨부파일 조회
@@ -44,8 +44,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	//게시글 총 갯수
-	public int listCount() throws Exception {
-		return reviewdao.listCount();
+	public int listCount(SearchCriteria scri) throws Exception {
+		return reviewdao.listCount(scri);
 	}
 	
 	//게시글 등록
@@ -78,8 +78,6 @@ public class ReviewServiceImpl implements ReviewService{
 	public int delete(int seq) {
 		return reviewdao.delete(seq);
 	}
-
-
 }
 
 

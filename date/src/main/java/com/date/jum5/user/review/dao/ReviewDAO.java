@@ -3,16 +3,17 @@ package com.date.jum5.user.review.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.date.jum5.user.review.vo.Criteria;
+
 import com.date.jum5.user.review.vo.ReviewVo;
+import com.date.jum5.user.review.vo.SearchCriteria;
 
 public interface ReviewDAO {
 	
 	//게시글 조회
-	public List<ReviewVo> list(Criteria cri) throws Exception;
+	public List<ReviewVo> list(SearchCriteria scri) throws Exception;
 	
 	//게시글 총 갯수
-	public int listCount() throws Exception;
+	public int listCount(SearchCriteria scri) throws Exception;
 	
 	//게시글 seq 맥스
 	Integer getMaxSeq();
@@ -40,4 +41,7 @@ public interface ReviewDAO {
 	
 	//첨부파일 다운로드
 	public Map<String , Object> selectFileInfo(Map<String , Object> map) throws Exception;
+	
+	//첨부파일 수정
+	public void updateFile(Map<String , Object> map) throws Exception;
 }

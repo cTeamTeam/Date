@@ -22,9 +22,11 @@
 		               READCOUNT, 
 		               ROW_NUMBER() OVER(ORDER BY SEQ DESC) AS RNUM
 		         FROM BOARD 
+		         WHERE 1=1
+		         	<include refid="search"></include>
 		                       ) MP
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-		ORDER BY SEQ DESC	
+		ORDER BY SEQ DESC
 	</select>
 	
 	<select id="select" parameterType="int" resultType="ReviewVo">
@@ -38,12 +40,24 @@
 	</select>
 	
 	<select id = "listCount" resultType = "int">
-		<![CDATA[
+		
 			SELECT COUNT(SEQ)
 				FROM BOARD
-				WHERE SEQ > 0 
-		]]>
+				WHERE 1=1
+				<include refid="search"></include> 
+				AND SEQ > 0 
+		
 	</select>
+	
+	<!-- 게시글 검색 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND NAME LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
 	
 	<!-- 게시글 등록 -->
 	<select id="reviewWriting" parameterType="ReviewVo">
@@ -88,6 +102,7 @@
 		FROM FILEUPLOAD	  
 			   WHERE SEQ = #{SEQ}
 			   AND DEL_GB = 'N' 
+			   ORDER BY FILENUM ASC
 	</select>
 	
 	<!-- 첨부파일 다운로드 -->
@@ -98,6 +113,12 @@
 		FROM FILEUPLOAD
 			WHERE FILENUM = #{fileNum}	
 	</select>
+	
+	<update id = "updateFile" parameterType = "hashMap">
+		UPDATE FILEUPLOAD SET
+		DEL_GB = 'Y'
+		WHERE FILENUM = #{fileNum}
+	</update>
 	
 	<!-- 게시글 수정 페이지 이동 -->
 	<select id = "view" resultType = "ReviewVo">
@@ -138,34 +159,6 @@
 		DELETE FROM BOARD
 		WHERE 
 			SEQ = #{seq}
+			
 	</delete>
-	
-	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

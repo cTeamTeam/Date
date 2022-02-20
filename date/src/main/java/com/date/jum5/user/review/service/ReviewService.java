@@ -5,8 +5,9 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.date.jum5.user.review.vo.Criteria;
+
 import com.date.jum5.user.review.vo.ReviewVo;
+import com.date.jum5.user.review.vo.SearchCriteria;
 
 
 
@@ -14,16 +15,16 @@ import com.date.jum5.user.review.vo.ReviewVo;
 public interface ReviewService {
 
 	// 게시글 조회
-	public List<ReviewVo> list(Criteria cri) throws Exception;
+	public List<ReviewVo> list(SearchCriteria scri) throws Exception;
 	
 	//첨부파일 조회
 	public List<Map<String, Object>> selectFileList(int seq) throws Exception;
 	
 	//첨부파일 다운로드
 	public Map<String , Object> selectFileInfo(Map<String , Object> map) throws Exception;
-	
+
 	//게시글 총 갯수
-	public int listCount() throws Exception;
+	public int listCount(SearchCriteria scri) throws Exception;
 	
 	//게시글 등록
 	int reviewWriting(ReviewVo vo, MultipartHttpServletRequest request) throws Exception;
@@ -33,6 +34,8 @@ public interface ReviewService {
 	int update(ReviewVo vo);
 	//게시글 삭제
 	public int delete(int parseInt);
+
+	
 
 
 }

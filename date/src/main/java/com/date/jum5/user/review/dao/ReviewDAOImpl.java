@@ -7,8 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.date.jum5.user.review.vo.Criteria;
+
 import com.date.jum5.user.review.vo.ReviewVo;
+import com.date.jum5.user.review.vo.SearchCriteria;
 
 @Repository
 public class ReviewDAOImpl implements ReviewDAO{
@@ -20,13 +21,13 @@ public class ReviewDAOImpl implements ReviewDAO{
 	
 	// 게시글 조회
 	@Override
-	public List<ReviewVo> list(Criteria cri) throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".list" , cri);
+	public List<ReviewVo> list(SearchCriteria scri) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".list" , scri);
 	}
 	
 	//게시물 총 갯수
-	public int listCount() throws Exception {
-		return sqlSession.selectOne(NAMESPACE + ".listCount");
+	public int listCount(SearchCriteria scri) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".listCount", scri);
 	}
 	
 	//게시글 카운트
@@ -78,6 +79,12 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public Map<String , Object> selectFileInfo(Map<String , Object> map) throws Exception{
 		return sqlSession.selectOne(NAMESPACE + ".selectFileInfo" , map);
+	}
+
+	@Override
+	public void updateFile(Map<String, Object> map) throws Exception {
+		sqlSession.update(NAMESPACE + ".updateFile" , map);
+		
 	}
 }
 

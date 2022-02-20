@@ -28,21 +28,6 @@ function reviewSubmit(){
 	});
 }
 
-// 파일 다운로드
-function fileDown(fileNum){
-	$.ajax({
-		type : "POST",
-		url : "/user/review/fileDownLoad",
-		data : {'fileNum' : fileNum},
-		success: function(data) {
-			alert('성공');
-		},
-		error : function(data){
-			alert("실패");
-		}
-	});	
-}
-
 // 리뷰 수정
 function reviewUpdate(){
 	var seq = $("#seq").val();
@@ -55,12 +40,10 @@ function reviewUpdate(){
 	$.ajax({
 		type : "POST",
 		url : "/user/review/update",
-		data : {seq : seq , title : title , name : name , content : content , regDate : regDate , readCount : readCount},
-		success: function(data){
-			if(data == "Y"){
+		data : {seq : seq , title : title , name : name , content : content},
+		success: function(data){	
 				alert("글 수정이 완료 되었습니다.");
 				location.href = "/user/review/list";
-			}
 		},
 		error: function(data){
 			alert("실패");
@@ -88,11 +71,12 @@ function reviewDelete(seq){
 	});
 }
 
-
+// 상세 페이지 이동
 function goView(seq){
 	$("#seq").val(seq);
-
+	
 	var f = $("#frm");
+	
 	f.attr("action", "/user/review/view");
 	f.attr("method", "POST");
 	f.submit();
@@ -107,10 +91,7 @@ function goUpdateView(seq){
 	f.submit();
 };
 
-
-
-
-
+	
 
 
 

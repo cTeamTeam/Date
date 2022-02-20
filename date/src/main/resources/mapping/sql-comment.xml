@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentMapper">
+
+<!-- 댓글 조회 -->
+	<select id="readReply" resultType="CommentVo">
+    	SELECT
+    		  rseq, content, writer, regdate
+    	 FROM RCOMMENT
+    	WHERE SEQ = #{seq}
+	</select>
+	
+<!-- 댓글 작성 -->	
+	<insert id = "writeReply">
+		INSERT INTO RCOMMENT(
+			SEQ,
+			RSEQ,
+			CONTENT,
+			WRITER
+					)
+		VALUES(
+			#{seq},
+			rcomment_seq.nextval,
+			#{content},
+			#{writer}
+			)					
+	</insert>
+	
+<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="CommentVo">
+		UPDATE RCOMMENT SET CONTENT = #{content}
+		WHERE RSEQ = #{rseq}
+	</update>
+
+<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="CommentVo">
+		DELETE FROM RCOMMENT
+		WHERE RSEQ = #{rseq}
+	</delete>
+	
+<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="CommentVo">
+		SELECT
+				SEQ
+			  , RSEQ
+			  , CONTENT
+			  , WRITER
+			  , REGDATE
+		  FROM RCOMMENT
+		 WHERE RSEQ = #{rseq}
+	</select>
+</mapper>
