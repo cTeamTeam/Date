@@ -1,0 +1,70 @@
+.qaContentWrap {
+	height:1300px;
+	margin-top:60px;
+}
+
+.qaWriteHead {
+	color:white;
+	background-color:pink;
+	height:30px;
+}
+
+table {
+	width:700px;
+	height:500px;
+	margin:auto;
+}
+td {
+	border-bottom:1px solid lightgrey;
+}
+
+.qaId {
+	color:#BDBDBD;
+	font-weight:800;
+	font-size:15px;
+	width:100px;
+}
+
+.qaContent {
+	color:#BDBDBD;
+	font-weight:800;
+	font-size:15px;
+	float:left;
+	margin-left:10px;
+	margin-top:5px;
+}
+
+.qaButtonWrap {
+	margin-top:40px;
+}
+
+.qaButton {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:70px;
+	height:35px;
+	font-weight:800;
+}
+
+.qaButton:hover {
+	trasition:all 0.5s ease;
+	background-color:#F6CEF5;
+}
+
+.answerTitleWrap {
+	margin-top:50px;
+}
+
+.qaAnswerWrap {
+	width:700px;
+	max-height:100%;
+	margin:auto;
+	margin-top:50px;
+}
+
+.answerTable {
+	border-top:1px solid lightgrey;
+	height:200px;
+}

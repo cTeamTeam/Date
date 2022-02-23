@@ -19,10 +19,13 @@ public interface LoginService {
 
 	public String pwTranslator(String id);
 	
+	public String pwTranslatorDelete(String nickname);
+	
 	//비밀번호 찾기 아이디 존재여부
 	public int idExist(String id);
 	
 	//비밀번호 변경
 	public void changePw(Map<String, String> chagne);
-
+	
+	public LoginVo editMember(String nickname);
 }

@@ -6,11 +6,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <title>비밀번호 찾기 페이지</title>
-<link rel="stylesheet" type="text/css" href="/date/resources/css/style.css" />
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<link href="/date/resources/css/pwFind.css" rel="stylesheet" />
+<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 	.pwFind {
 		text-align:center;
@@ -57,70 +63,26 @@ body { text-align: center; }
 </style>
 </head>
 <body>
-<c:if test="${ loginVo == null }">
-		<input type="button" value="회원가입" onclick="location.href='signup'">
-		<input type="button" value="로그인" onclick="location.href='loginForm'">
-	</c:if>
-	<c:if test="${ loginVo != null }">
-		<c:choose>
-			<c:when test="${access_Token==null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<input type="button" value="로그아웃" onclick="location.href='logout'">
-			</c:when>
-			<c:when test="${access_Token!=null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<a href="https://kauth.kakao.com/oauth/logout?client_id=93175f79121624f22c8acce52fd16344&logout_redirect_uri=http://localhost:8080/date/kakaologout">카카오로그아웃</a>
-			</c:when>
-		</c:choose>
-	</c:if>
-<h1 style="color:pink"><a href="mainPage">쩜오 0.5</a></h1>
+<!-- 네비게이션 바 -->
+<%@include file="/WEB-INF/views/user/common/header.jsp" %>
 
- <div class="dropdown">
-      <button class="dropbtn">사이트 안내</button>
-      <div class="dropdown-content">
-        <a href="service">서비스 안내</a>
-        <a href="#">멤버쉽 안내</a>
-      </div>
-    </div>
-     <div class="dropdown">
-      <button class="dropbtn">결제 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="payGuide">결제 안내</a>
-        <a href="#">멤버쉽 구매</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">매칭 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">이상형 리스트</a>
-        <a href="#">매칭 현환</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">게시판 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">공지사항</a>
-        <a href="#">매칭 후기</a>
-        <a href="qaList">Q & A</a>
-      </div>
-    </div>
+<div class="findWrap">
+
+	<h3 style="color:pink;font-weight:800;margin-top:60px;">비밀번호 찾기</h3>
 
 	<form action="/date/pwForGot" method="post">
 		<div class="pwFind">
-		<p>비밀번호 찾기</p>
-		<hr style="width:60%"></hr>
+		<hr class="findHr"></hr>
 		<div>
-			<p>찾으실 아이디를 입력해주세요</p>
+			<p class="findTitle">찾으실 아이디를 입력해주세요</p>
 			<div>
-				<input style="width:500;height:25px;" type="text" name="id" placeholder="찾으실 비밀번호의 아이디를 입력하세요">
+				<input class="findInput" type="text" name="id">
 			</div>
 	
 			<br>
 			<div>
-				<input type="submit" value="확인">
-				<input type="button" value="메인페이지이동" onclick="location.href='/date/'">
+				<input class="qaButton" type="submit" value="확인">
+				<input class="qaButton" type="button" value="HOME" onclick="location.href='/date/'">
 			</div>
 			
 		</div>
@@ -132,5 +94,9 @@ body { text-align: center; }
 			history.back(-1);
 		</script>
 	</c:if>
+	
+</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

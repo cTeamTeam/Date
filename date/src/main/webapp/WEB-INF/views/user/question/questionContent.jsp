@@ -5,9 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Q&A 내용</title>
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<link href="/date/resources/css/qaContent.css" rel="stylesheet" />
+<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <style>
 a:link{color:pink;}
 a:visited{color:pink;}
@@ -48,103 +55,78 @@ body { text-align: center; }
 .dropdown:hover .dropbtn {
     background-color: pink;
 }
-table {
-	margin-top:60px;
-	width:400px;
-	height:300px;
-	margin:auto;
-	border:1px solid black;
-	border-collapse:collapse;
-}
-td {
-	border:1px solid black;
-}
+
 </style>
 </head>
 <body>
-<c:if test="${ loginVo == null }">
-		<input type="button" value="회원가입" onclick="location.href='signup'">
-		<input type="button" value="로그인" onclick="location.href='loginForm'">
-	</c:if>
-	<c:if test="${ loginVo != null }">
-		<c:choose>
-			<c:when test="${access_Token==null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<input type="button" value="로그아웃" onclick="location.href='logout'">
-			</c:when>
-			<c:when test="${access_Token!=null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<a href="https://kauth.kakao.com/oauth/logout?client_id=93175f79121624f22c8acce52fd16344&logout_redirect_uri=http://localhost:8080/date/kakaologout">카카오로그아웃</a>
-			</c:when>
-		</c:choose>
-	</c:if>
+<!-- 네비게이션 바 -->
+<%@include file="/WEB-INF/views/user/common/header.jsp" %>
 
+	<h3 style="color:pink;font-weight:800;margin-top:60px;">Q&A 게시글</h3>
 	
-<h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
- <div class="dropdown">
-      <button class="dropbtn">사이트 안내</button>
-      <div class="dropdown-content">
-        <a href="service">서비스 안내</a>
-        <a href="#">멤버쉽 안내</a>
-      </div>
-    </div>
-     <div class="dropdown">
-      <button class="dropbtn">결제 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="payGuide">결제 안내</a>
-        <a href="#">멤버쉽 구매</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">매칭 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">이상형 리스트</a>
-        <a href="#">매칭 현환</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">게시판 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">공지사항</a>
-        <a href="#">매칭 후기</a>
-        <a href="qaList">Q & A</a>
-      </div>
-    </div>
+	<div class="qaContentWrap">
 	<table>
 		<tr>
-			<td>제목</td>
-			<td>${qaContent.title }</td>
+			<th class="qaWriteHead" colspan="2">Q&A</th>
 		</tr>
-		<tr>
-			<td>작성자</td>
-			<td>${qaContent.id }</td>
+	
+		<tr style="height:40px;">
+			<td class="qaId">제목</td>
+			<td><span class="qaContent">${qaContent.title }</span></td>
 		</tr>
-		<tr>
-			<td>내용</td>
-			<td>${qaContent.content }</td>
+		<tr style="height:40px;">
+			<td class="qaId">작성자</td>
+			<td><span class="qaContent">${qaContent.id }</span></td>
 		</tr>
-		<tr>
-			<td>작성일</td>
-			<td>${qaContent.wDate}</td>
+		<tr style="height:400px;">
+			<td class="qaId" style="vertical-align:top; padding-top:10px;">내용</td>
+			<td style="vertical-align:top; margin-top:20px;"><span class="qaContent">${qaContent.content }</span></td>
 		</tr>
-		<tr>
-			<td>조회수</td>
-			<td>${qaContent.count }</td>
+		<tr style="height:40px;">
+			<td class="qaId">작성일</td>
+			<td><span class="qaContent">${qaContent.wDate}</span></td>
+		</tr>
+		<tr style="height:40px;">
+			<td class="qaId">조회수</td>
+			<td><span class="qaContent">${qaContent.count }</span></td>
 		</tr>
 	</table>
 	
-	<div>
-		<a href="/date/qaList">목록</a>
+	<div class="qaButtonWrap">
+		<a href="/date/qaList"><button class="qaButton" type="button">목록</button></a>
 		<c:if test="${qaContent.id == loginVo }">
-			<a href="/date/qaDelete?qaNum=${qaContent.num}">삭제</a>
-			<a href="/date/qaModify?qaNum=${qaContent.num }">수정</a>
+			<a href="/date/qaDelete?qaNum=${qaContent.num}"><button class="qaButton" type="button">삭제</button></a>
+			<a href="/date/qaModify?qaNum=${qaContent.num }"><button class="qaButton" type="button">수정</button></a>
 		</c:if>
 	</div>
 	
-	<div>
-		답변 칸
+	<div class="answerTitleWrap">
+		<h4 style="color:pink;font-weight:800">Q&A 답변</h4>
 	</div>
+	
+	<div class="qaAnswerWrap">
+		<c:if test="${qaAnswer==null }">
+			<div style="border-top:1px solid lightgrey">
+				<span style="font-weight:800;color:#BDBDBD;text-align:center;padding-top:20px;">답변 대기중입니다.</span>
+			</div>
+		</c:if>
+		<c:if test="${qaAnswer!=null }">
+			<table class="answerTable">
+				<tr style="max-height:100%">
+					<td class="qaId">답변</td>
+					<td><span class="qaContent" style="width:150px">${qaAnswer.answer }</span></td>
+				</tr>
+				<tr style="height:40px;">
+					<td class="qaId">답변일</td>
+					<td><span class="qaContent">${qaAnswer.answerDate }</span></td>
+				</tr>
+			</table>
+		</c:if>
+	
+	</div>
+	
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

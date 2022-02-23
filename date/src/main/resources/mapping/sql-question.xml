@@ -14,7 +14,7 @@
 	
 	<select id="questionAll" resultType="QuestionVo" parameterType="map">
 		select * from (select num, id, title, count, state, rownum rnum
-		from question order by num asc) where rnum between #{start} and #{end}
+		from question order by num desc) where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="questionCount" resultType="Integer">
@@ -64,4 +64,5 @@
 	<select id="searchContentCount" parameterType="String" resultType="Integer">
 		select count(*) from question where content like '%'||#{keyword}||'%'
 	</select>
+	
 </mapper>

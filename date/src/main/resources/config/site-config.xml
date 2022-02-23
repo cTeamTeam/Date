@@ -13,5 +13,15 @@
 		<typeAlias alias="memberVo" type="com.date.jum5.user.member.vo.MemberVo"/>
 		<typeAlias alias="LoginVo" type="com.date.jum5.user.login.vo.LoginVo"/>
 		<typeAlias alias="QuestionVo" type="com.date.jum5.user.question.vo.QuestionVo"/>
+		<typeAlias alias="PayVo" type="com.date.jum5.user.pay.vo.PayVo" />
+		<typeAlias alias="profileVo" type="com.date.jum5.user.mypage.vo.ProfileVo"/>
+		<typeAlias alias="ManagerLoginVo" type="com.date.jum5.manager.login.vo.ManagerLoginVo"/>
+		<typeAlias alias="AdminQuestionVo" type="com.date.jum5.manager.question.vo.AdminQuestionVo" />
+		<typeAlias alias="PayStateVo" type="com.date.jum5.user.pay.vo.PayStateVo" />
+		<typeAlias alias="metchVo" type="com.date.jum5.user.metch.vo.MetchVo" />
+		<typeAlias alias="ManagerNoticeVo" type="com.date.jum5.manager.notice.vo.ManagerNoticeVo"/>
+		<typeAlias alias="ReviewVo" type="com.date.jum5.user.review.vo.ReviewVo"/>
+		<typeAlias alias="CommentVo" type="com.date.jum5.user.comment.vo.CommentVo"/>
+		<!--  <typeAlias alias="NoticeVo" type="com.date.jum5.user.notice.vo.NoticeVo"/>-->
 	</typeAliases>
 </configuration>

@@ -11,7 +11,6 @@ public class MemberVo {
 	private String nickName;
 	private String birth;
 	private String gender;
-	private String phoneNum;
 	private String email;
 	private String membership;
 	private String date_count;
@@ -65,12 +64,7 @@ public class MemberVo {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getPhoneNum() {
-		return phoneNum;
-	}
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
+
 	public String getMembership() {
 		return membership;
 	}

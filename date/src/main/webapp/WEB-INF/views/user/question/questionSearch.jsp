@@ -5,9 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Q&A 검색</title>
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<link href="/date/resources/css/question.css" rel="stylesheet" />
+<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <style>
 a:link{color:pink;}
 a:visited{color:pink;}
@@ -62,66 +69,21 @@ body { text-align: center; }
 </script>
 </head>
 <body>
-<c:if test="${ loginVo == null }">
-		<input type="button" value="회원가입" onclick="location.href='signup'">
-		<input type="button" value="로그인" onclick="location.href='loginForm'">
-	</c:if>
-	<c:if test="${ loginVo != null }">
-		<c:choose>
-			<c:when test="${access_Token==null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<input type="button" value="로그아웃" onclick="location.href='logout'">
-			</c:when>
-			<c:when test="${access_Token!=null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<a href="https://kauth.kakao.com/oauth/logout?client_id=93175f79121624f22c8acce52fd16344&logout_redirect_uri=http://localhost:8080/date/kakaologout">카카오로그아웃</a>
-			</c:when>
-		</c:choose>
-	</c:if>
-
-	
-<h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
- <div class="dropdown">
-      <button class="dropbtn">사이트 안내</button>
-      <div class="dropdown-content">
-        <a href="service">서비스 안내</a>
-        <a href="#">멤버쉽 안내</a>
-      </div>
-    </div>
-     <div class="dropdown">
-      <button class="dropbtn">결제 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">결제 안내</a>
-        <a href="#">멤버쉽 구매</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">매칭 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="payGuide">이상형 리스트</a>
-        <a href="#">매칭 현환</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">게시판 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">공지사항</a>
-        <a href="#">매칭 후기</a>
-        <a href="qaList">Q & A</a>
-      </div>
-    </div>
+<!-- 네비게이션 바 -->
+<%@include file="/WEB-INF/views/user/common/header.jsp" %>
     
-    <div>
+    <h3 style="color:pink;font-weight:800;margin-top:60px;">Q&A 게시판</h3>
+    
+    <div class="qaList">
+    <div class="qaSearch">
     	<form name="searchForm" method="get" action="/date/qaSearch?keyword=${document.searchForm.keyword.value}">
  			 <select name="searchType">
  			 	<option value="title">제목</option>
  			 	<option value="content">내용</option>
  			 	<option value="writer">작성자</option>
- 			 </select>검색 : <input type="text" name="keyword" id="keyword">
+ 			 </select>검색 : <input class="qaSearchInput" type="text" name="keyword" id="keyword">
  			 <span>
- 			 	<button type="button" onclick="searchCheck()">검색</button>
+ 			 	<button type="button" class="qaButton" onclick="searchCheck()">검색</button>
  			 </span>   	
     	</form>
     </div>
@@ -132,31 +94,31 @@ body { text-align: center; }
     			<th colspan="5">Q&A 목록</th>
     		</tr>
     		<tr>
-    			<td colspan="5">검색 목록이 없습니다</td> 
+    			<td colspan="5" class="qaNot">검색 목록이 없습니다</td> 
     		</tr>
     	</c:if>
  		<c:if test="${!empty searchList }">
  			<tr>
     		<th>번호</th>
-    		<th>작성자</th>
     		<th>제목</th>
+    		<th>작성자</th>
     		<th>조회수</th>
     		<th>답변 상태</th>
     	</tr>
     	<c:forEach var="list" items="${searchList }">
     		<tr>
-    			<td>${list.rnum }</td>
-    			<td>${list.id }</td>
-    			<td><a href="/date/qaContent?qaNum=${list.num}">${list.title }</a></td>  			
-    			<td>${list.count }</td>
-    			<td>${list.state }</td>
+    			<td class="qaId">${list.rnum }</td>
+    			<td class="qaTitle"><a href="/date/qaContent?qaNum=${list.num}">${list.title }</a></td>  
+    			<td class="qaId">${list.id }</td>			
+    			<td class="qaId">${list.count }</td>
+    			<td class="qaId">${list.state }</td>
     		</tr>
     	</c:forEach>
  		</c:if>
     </table>
     
-    <div>	
-    	<a href="/date/qaWrite"><button type="button">작성하기</button></a>
+    <div style="margin-top:10px;margin-left:730px;">	
+    	<a href="/date/qaWrite"><button class="qaButton" type="button">글쓰기</button></a>
     </div>
     
     <c:set var="list" value="${searchList}"/>
@@ -180,5 +142,8 @@ body { text-align: center; }
 		</div>
 	</div>
 	</c:if>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

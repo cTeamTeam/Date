@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="pay">
+	
+	<!-- 해당 유저 결제 금액 가져오기 -->
+	<select id="price" parameterType="String" resultType="Integer">
+		select price from member where nickname=#{buyer}
+	</select>
+
+	<!-- 추가 결제시 결제 금액 증가 -->
+	<update id="priceUpdate" parameterType="PayVo">
+		update member set price=price+#{price} where nickname=#{buyer}
+	</update>
+	
+	<update id="dateCountUpdate" parameterType="PayVo">
+		update member set datecount=datecount+#{dateCount} where nickname=#{buyer}
+	</update>
+	
+	<update id="rankUpdate" parameterType="PayVo">
+		update member set datecount=datecount+#{count}, membership=#{membership} where nickname=#{buyer}
+	</update>
+	
+	<!-- 유저 멤버쉽 얻기 -->
+	<select id="userMembership" parameterType="String" resultType="Integer">
+		select membership from member where nickname=#{buyer}
+	</select>
+	
+	<select id="firstPayment" parameterType="String" resultType="Integer">
+		select firstpayment from member where nickname=#{buyer}
+	</select>
+	
+	<select id="fMembershipUpdate" parameterType="PayVo">
+		update member set membership=#{membership}, datecount=#{dateCount}+#{count}, price=#{price} where nickname=#{buyer}
+	</select>
+	
+	<update id="updateFirst" parameterType="String">
+		update member set firstpayment=1 where nickname=#{buyer}
+	</update>
+	
+	<insert id="insertPayState" parameterType="PayStateVo">
+		insert into paystate (num, id, pay_price) values (paystate_seq.nextval, #{id}, #{payPrice})
+		<selectKey keyProperty="num" resultType="Integer">
+			SELECT NVL(MAX(num), 0) FROM paystate
+		</selectKey>
+	</insert>
+	
+</mapper>

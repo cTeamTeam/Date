@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.date.jum5.user.login.mapper.LoginService;
 import com.date.jum5.user.login.vo.LoginVo;
+import com.date.jum5.user.member.mapper.MemberMapper;
+import com.date.jum5.user.member.vo.MemberVo;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -34,16 +37,20 @@ import com.google.gson.JsonParser;
 @Controller
 public class LoginController {
 	
+	//private MemberMapper memberService;
 	private LoginService loginService;
 	private JavaMailSender mailSender;
+	private MemberMapper memberMapper;
 	
 	@Autowired
-	public LoginController(LoginService loginService, JavaMailSender mailSender) {
+	public LoginController(LoginService loginService, JavaMailSender mailSender, MemberMapper memberMapper) {
 		this.mailSender=mailSender;
 		this.loginService=loginService;
+		this.memberMapper=memberMapper;
+		//this.memberService = memberService;
 	}
 	
-	//로그인 폼 요청
+	//로그인 폼 요청 (o)
 	@RequestMapping(value = "/loginForm" , method = RequestMethod.GET)
 	public String login_form() throws Exception{
 		return "/user/login/loginForm";
@@ -57,30 +64,23 @@ public class LoginController {
 		
 		//해당 입력된 아이디로 암호화된 비밀번호 가져오기
 		String pwEncryption = loginService.pwTranslator(loginVo.getId());
-		System.out.println("암호화된 비밀번호 : " +pwEncryption);
-		System.out.println(loginVo.getPassword());	
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		//암호화된 비밀번호랑 입력한 비밀번호가 같은지 확인
 		boolean check = encoder.matches(loginVo.getPassword(), pwEncryption);
 		
-		System.out.println(check);
 		
 		if(!check) {
 			page = "/user/login/loginFalse"; 
+			return page;
 			
 		} else {
 			loginVo = loginService.checkId(pwEncryption);
 			page = "mainPage"; 
 			
-			//model.addAttribute("loginVo", loginVo);
-			
 			//로그인 성공시 세션값 부여
 			session.setAttribute("loginVo", loginVo.getNickname());
-			
-			System.out.println(loginVo.getId());
-			System.out.println(loginVo.getNickname());
-			System.out.println("일반 로그인 성공");
+
 		}
 		
 		return "redirect:/";
@@ -92,7 +92,7 @@ public class LoginController {
 			HttpServletRequest request) throws Exception {
 		String reqUrl = 
 				"https://kauth.kakao.com/oauth/authorize"
-				+ "?client_id=93175f79121624f22c8acce52fd16344"
+				+ "?client_id=4ce3789c43e59a00faf9d8115fab8b56"
 				+ "&redirect_uri=http://localhost:8080/date/login/oauth_kakao"
 				+ "&response_type=code";
 		
@@ -104,20 +104,43 @@ public class LoginController {
 	public String oauthKakao(
 			@RequestParam(value = "code", required = false) String code
 			, Model model, HttpSession session) throws Exception {
-
-		System.out.println("#########" + code);
+		
+		MemberVo kakaoMember = new MemberVo();
+		
         String access_Token = getAccessToken(code);
-        System.out.println("###access_Token#### : " + access_Token);
         
         HashMap<String, Object> userInfo = getUserInfo(access_Token);
-        System.out.println("###access_Token#### : " + access_Token);
-        System.out.println("###userInfo#### : " + userInfo.get("email"));
-        System.out.println("###nickname#### : " + userInfo.get("nickname"));
-       
+     
+        String uuid = UUID.randomUUID().toString();
+        
+        kakaoMember.setPassword(uuid);
+        kakaoMember.setId((String) userInfo.get("id"));
+        kakaoMember.setNickName((String) userInfo.get("nickname"));
+        
+        if (userInfo.get("gender").equals("male")) {
+        	kakaoMember.setGender("남자");
+        } else if (userInfo.get("gender").equals("female")) {
+        	kakaoMember.setGender("여자");
+        }
+        
+        kakaoMember.setBirth((String) userInfo.get("birthday"));
+        kakaoMember.setEmail((String) userInfo.get("email"));
+        kakaoMember.setName((String) userInfo.get("name"));
+        
+        int kakaoMemberExist = memberMapper.kakaoMemberCheck((String) userInfo.get("id"));
+        
+        System.out.println(kakaoMemberExist);
+        
+        if (kakaoMemberExist!=1) {
+        	memberMapper.registMember(kakaoMember);
+        }
+        
         //카카오에 연동된 정보의 이메일이 null 값이 아닐면 세션에 토큰이랑 사이트 내에서 사용할 이름 저장
         if (userInfo.get("email") != null) {
         	
-        	//카카오 로그인 성공시 세션값 부여
+        	//카카오 로그인시 마이페이지에서 사용할 유저정보 세션에 저장
+        	session.setAttribute("userInfo", userInfo);
+        	
         	session.setAttribute("loginVo", userInfo.get("nickname"));
         	session.setAttribute("access_Token", access_Token);
         	
@@ -127,8 +150,6 @@ public class LoginController {
         	model.addAttribute("kakaoInfo", kakaoInfo);
         }
         
-        System.out.println(session.getAttribute("access_Token"));
-        System.out.println(session.getAttribute("login"));
         
         return "redirect:/";
 	}
@@ -153,7 +174,7 @@ public class LoginController {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=93175f79121624f22c8acce52fd16344"); 
+            sb.append("&client_id=4ce3789c43e59a00faf9d8115fab8b56"); 
             sb.append("&redirect_uri=http://localhost:8080/date/login/oauth_kakao"); 
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
@@ -161,7 +182,6 @@ public class LoginController {
 
             //결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
 
             //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -171,7 +191,6 @@ public class LoginController {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
@@ -179,9 +198,6 @@ public class LoginController {
 
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
             refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-
-            System.out.println("access_token : " + access_Token);
-            System.out.println("refresh_token : " + refresh_Token);
 
             br.close();
             bw.close();
@@ -208,7 +224,6 @@ public class LoginController {
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -218,7 +233,6 @@ public class LoginController {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -227,11 +241,18 @@ public class LoginController {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            String name = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
-            
+            String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+            String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+          
             userInfo.put("accessToken", access_Token);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("gender", gender);
+            userInfo.put("birthday", birthday);
+            userInfo.put("name", name);
+            userInfo.put("id", email);
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -262,7 +283,6 @@ public class LoginController {
   	        while ((line = br.readLine()) != null) {
   	            result += line;
   	        }
-  	        System.out.println(result);
   	    } catch (IOException e) {
   	        // TODO Auto-generated catch block
   	        e.printStackTrace();
@@ -271,16 +291,13 @@ public class LoginController {
   	
   	//카카오 로그아웃 버튼 클릭했을 떄 
   	@RequestMapping(value="/kakaologout")
-      public String logout(HttpSession session) {
-          String access_Token = (String)session.getAttribute("access_Token");
+    public String logout(HttpSession session) {
+  		String access_Token = (String)session.getAttribute("access_Token");
   	
-  	    System.out.println("지우기 전 토큰 : "+session.getAttribute("access_Token"));
-          
   	    //session에 저장되있던 토큰이 null값이 아닐때 제거
           if(access_Token != null && !"".equals(access_Token)){
               kakaoLogout(access_Token);
               session.invalidate();
-              System.out.println("로그아웃 성공");
               
           //이미 null값일때
           }else{
@@ -341,7 +358,6 @@ public class LoginController {
 			page = "/user/login/idSearch"; 
 			
 		} else {			
-			System.out.println(idSearchOk.getId());			
 			page = "/user/login/idSearch"; 		
 			model.addAttribute("idSearchOk", idSearchOk);			
 			session.setAttribute("loginVo", idSearchOk);
@@ -349,6 +365,7 @@ public class LoginController {
 		return page;	
 	}
 	
+	//비밀번호 찾기 폼 요청
 	@RequestMapping(value = "/pwForGot" , method = RequestMethod.GET)
 	public String forGotPw(@ModelAttribute LoginVo pwSearchOk,
 		Model model, HttpServletRequest request) throws Exception{
@@ -358,6 +375,7 @@ public class LoginController {
 		
 	}
 	
+	//찾는 비밀번호 아이디 존재여부 확인
 	@RequestMapping(value="/pwForGot", method=RequestMethod.POST)
 	public String pwFind(@RequestParam("id") String id,
 			Model model, HttpSession session) {
@@ -373,6 +391,7 @@ public class LoginController {
 		}		
 	}
 	
+	//비밀번호 변경 로직
 	@RequestMapping(value="/changePw", method=RequestMethod.POST)
 	public String pwChange(@RequestParam("newPw") String newPw,
 			@RequestParam("newPwCheck") String pwCheck,
@@ -399,7 +418,11 @@ public class LoginController {
 			model.addAttribute("pwCheck", check);
 			return "/user/login/changePw";
 		}
-		
+	}
+	
+	@RequestMapping(value="/kakaoSignUp")
+	public void kakaoSignUp() {
+		System.out.println("hello");
 	}
 }
 

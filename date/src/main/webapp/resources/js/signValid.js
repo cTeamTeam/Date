@@ -87,10 +87,7 @@ function nullCheck() {
 		} else if ($('#gender').val()=="") {
 			alert("성별을 입력해주세요");
 			$('#gender').val()=="".focus();
-		} else if ($('#phoneNum').val()=="") {
-			alert("전화번호를 입력해주세요");
-			$('#phoneNum').focus();
-		} else if ($('#email').val()=="") {
+		}else if ($('#email').val()=="") {
 			alert("이메일을 입력해주세요");
 			$('#email').focus();
 		} else if ($('#authKey').val()=="") {

@@ -29,7 +29,7 @@ public class QuestionMapper {
 		return questionDao.questionAll(pageRowMap);
 	}
 	
-	//저장된 총 글 수
+	//저장된 총 글 수 
 	public int questionCount() {
 		return questionDao.questionCount();
 	}
@@ -83,6 +83,7 @@ public class QuestionMapper {
 	public int searchContentCount(String keyword) {
 		return questionDao.searchContentCount(keyword);
 	}
+
 	
 
 }

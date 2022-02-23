@@ -5,9 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Q&A 작성</title>
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<link href="/date/resources/css/qaWrite.css" rel="stylesheet" />
+<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <style>
 a:link{color:pink;}
 a:visited{color:pink;}
@@ -49,96 +56,37 @@ body { text-align: center; }
     background-color: pink;
 }
 
-table {
-	margin:auto;
-	margin-top:50px;
-	border-collapse:collapse;
-	border:1px solid black;
-}
-
-td {
-	border:1px solid black;
-}
 </style>
 </head>
 <body>
-<c:if test="${login==null }">
-	<div style="float:right">
-		<a href ="loginForm">로그인</a>
-		<a href ="signup">회원가입</a>
-	</div>
-</c:if>
-<c:if test="${ loginVo == null }">
-		<input type="button" value="회원가입" onclick="location.href='signup'">
-		<input type="button" value="로그인" onclick="location.href='loginForm'">
-	</c:if>
-	<c:if test="${ loginVo != null }">
-		<c:choose>
-			<c:when test="${access_Token==null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<input type="button" value="로그아웃" onclick="location.href='logout'">
-			</c:when>
-			<c:when test="${access_Token!=null }">
-				<p>${loginVo}님</p>
-				<i class="glyphicon glyphicon-user" style="font-size:48px;" onclick="location.href='mypage'"></i>
-				<a href="https://kauth.kakao.com/oauth/logout?client_id=93175f79121624f22c8acce52fd16344&logout_redirect_uri=http://localhost:8080/date/kakaologout">카카오로그아웃</a>
-			</c:when>
-		</c:choose>
-	</c:if>
-
-	
-<h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
- <div class="dropdown">
-      <button class="dropbtn">사이트 안내</button>
-      <div class="dropdown-content">
-        <a href="service">서비스 안내</a>
-        <a href="#">멤버쉽 안내</a>
-      </div>
-    </div>
-     <div class="dropdown">
-      <button class="dropbtn">결제 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="payGuide">결제 안내</a>
-        <a href="#">멤버쉽 구매</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">매칭 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">이상형 리스트</a>
-        <a href="#">매칭 현환</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">게시판 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">공지사항</a>
-        <a href="#">매칭 후기</a>
-        <a href="qaList">Q & A</a>
-      </div>
-    </div>	
+<!-- 네비게이션 바 -->
+<%@include file="/WEB-INF/views/user/common/header.jsp" %>
     
-    <div>
+    <h3 style="color:pink;font-weight:800;margin-top:60px;">Q&A 작성</h3>
+    
+    <div class="qaWriteWrap">
     	<form:form commandName="qaWrite" method="post">
     		<table>
     			<tr>
-    				<td>작성자</td>
-    				<td>${loginVo}</td>
+					<th class="qaWriteHead" colspan="2">Q&A</th>
+				</tr>
+    			<tr>
+    				<td class="qaId">작성자</td>
+    				<td><span class="qaWriteId">${loginVo}</span></td>
     			</tr>
     			<tr>
-    				<td>제목</td>
-    				<td><form:input path="title"/></td>
+    				<td class="qaId">제목</td>
+    				<td><form:input class="qaWriteTitle" path="title"/></td>
     			</tr>
     			<tr>
-    				<td colspan="2">내용</td>
-    			</tr>
-    			<tr>
-    				<td colspan="2"><textarea cols="30" rows="10" name="content"></textarea>
+    				<td class="qaId" style="vertical-align:top;padding-top:10px;">내용</td>
+    				<td colspan="2"><textarea class="qaWriteContent" cols="30" rows="10" name="content"></textarea>
     			</tr>	
 				<tr>
-					<td><button type="submit">작성</button></td>
-					<td><button type="reset">리셋</button></td>
+					<td colspan="2">
+						<button class="qaButton" type="submit">작성</button>
+						<button class="qaButton" type="reset">리셋</button>
+					</td>
 				</tr> 		
     		</table>
     	</form:form>
@@ -151,6 +99,7 @@ td {
    	</script>
    </c:if>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

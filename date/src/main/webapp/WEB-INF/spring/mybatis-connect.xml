@@ -27,8 +27,9 @@
 		<property name="configLocation" value="classpath:config/site-config.xml"/>
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:mapping/sql-member.xml</value>
-				<value>classpath:mapping/sql-login.xml</value>
+				<value>classpath:mapping/*.xml</value>
+				<!--  <value>classpath:mapping/sql-login.xml</value>
+				<value>classpath:mapping/sql-question.xml</value>-->
 			</list>
 		</property>
 	</bean>

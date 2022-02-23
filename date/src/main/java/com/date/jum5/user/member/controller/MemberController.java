@@ -31,14 +31,14 @@ public class MemberController {
 		this.mapper=mapper;
 	}
 	
-	//회원가입 폼 요청
+	//회원가입 폼 요청 (o)
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signForm(Model model) {
 		model.addAttribute("member", new MemberVo());
 		return "/user/member/signUpForm";
 	}
 	
-	//회원가입 성공 요청
+	//회원가입 성공 요청 (o)
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	public String signCheck(@ModelAttribute("member") MemberVo member,
 			Model model) {
@@ -74,8 +74,6 @@ public class MemberController {
 				String securePw = encoder.encode(member.getPassword());
 				member.setPassword(securePw);
 				member.setPwCheck(securePw);
-				
-				System.out.println(member.getPassword());
 				
 				mapper.registMember(member);
 				return "/user/member/signComplete";
@@ -144,43 +142,6 @@ public class MemberController {
 	    }
 	    return num;
 	}
-	
-	
-	//마이페이지
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public String myPage(Model model, @RequestParam("id") String id) {
-		model.addAttribute("myPage",mapper.myPage(id));
-		return "/user/member/myPage";
-	}
-	
-	/*
-	//마이페이지 테스트용 - 아직 로긍니 값 받지 못함 --> 세션?인가 써야할듯;
-		@RequestMapping(value="/myPage", method=RequestMethod.GET)
-		public String list(Model model) {
-			model.addAttribute("myPageList",mapper.list());
-			return "myPage";
-		}*/
-		
-		
-	//회원 탈퇴 구현 테스트
-	//id로 할지 num으로 할지 고민중;; 아마 마이페이지 값 따라갈듯 세션 스테이트를 1로 변경
-	@RequestMapping(value="/withdraw", method = RequestMethod.GET)
-	public String withdraw(Model model) {
-		model.addAttribute("withdraw", mapper.withdraw());
-		return "/user/member/withdraw";
-	}
-		
-		
-	/*
-	// 비밀번호 변경
-	@RequestMapping(value="/editPw", method=RequestMethod.POST )
-	public String editPw(Model model, int pwd,BindingResult result,SessionStatus sessionStatus)
-	*/
-	
-	//서비스 안내 페이지
-	@RequestMapping(value="/service", method=RequestMethod.GET)
-	public String servicePage() {
-		return "/user/info/service";
-	}
+
 	
 }

@@ -7,31 +7,76 @@
 	
 <!-- 로그인 -->
 
-	<select id="checkId" parameterType="String" resultType="LoginVo">
+	<select id="checkId" parameterType="String" resultType="loginVo">
 		select id, password, nickname from member where password = #{password}
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="forGot" parameterType="LoginVo" resultType="LoginVo">
-		select name, phonenum , id from member where name = #{name} and phonenum = #{phoneNum}
+	<select id="forGot" parameterType="LoginVo" resultType="loginVo">
+		select name, id from member where name = #{name}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="forGotPw" parameterType="LoginVo" resultType="LoginVo">
-		select password, phonenum , id from member where id = #{id} and phonenum = #{phoneNum}
+	<select id="forGotPw" parameterType="LoginVo" resultType="loginVo">
+		select password, id from member where id = #{id}
 	</select>
 	
 	<select id="pwTranslate" parameterType="String" resultType="String">
 		select password from member where id=#{id}
 	</select>
 	
+	<!-- 찾는 아이디 존재 여부 -->
 	<select id="idExist" parameterType="String" resultType="Integer">
 		select count(*) from member where id=#{id}
 	</select>
 	
-	<update id="changePw" parameterType="hashMap">
+	<!-- 비밀번호 변경 -->
+	<update id="changePw" parameterType="map">
 		update member set password=#{pw} where id=#{id}
-	</update>
+	</update>		
+	<!--  마이페이지 테스트 -->
+	<select id="mypageList" parameterType="String" resultType="loginVo">
+		SELECT ID, NAME, NICKNAME,BIRTH,EMAIL, MEMBERSHIP, DATECOUNT FROM MEMBER WHERE nickname= #{id}
+	</select>
 	
-
+	<!-- 프로필 등록 -->
+	<select id="insertProfile" resultType="profileVo">
+		INSERT INTO PROFILE (NUM,NICKNAME,HEIGHT,WEIGHT,CHARACTER, HOBBY, BLOODTYPE,JOB,SALARY,ADDRESS,IDEAL_TYPE,IMAGEFILE,AGE) VALUES
+		(PROFILE_SEQ.nextval,#{nickname}, #{height}, #{weight},#{character}, #{hobby}, #{bloodType},#{job},#{salary},#{address},#{idealType},
+		#{imageFile},#{age})
+	</select>
+	
+	<!-- 프로필 리스트 -->
+	<select id="profileList" parameterType="String" resultType="profileVo">
+	SELECT NICKNAME, HEIGHT, WEIGHT, CHARACTER,HOBBY,BLOODTYPE,JOB,SALARY,ADDRESS,IDEAL_TYPE,AGE,IMAGEFILE FROM PROFILE WHERE nickname=#{nickname}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="loginVo">
+		update member set name=#{name}, nickname=#{nickname} where id=#{id}
+	</update> 
+	
+	<!-- 회원 정보 삭제 -->
+	<delete id ="delete" parameterType="loginVo">
+	DELETE FROM MEMBER WHERE NICKNAME=#{nickname} 
+	</delete>
+	
+	<!-- 프로필 정보 수정 -->
+	<select id="updateProfile" parameterType="profileVo">
+	UPDATE PROFILE SET HEIGHT=#{height}, WEIGHT=#{weight}, CHARACTER=#{character},HOBBY=#{hobby},BLOODTYPE=#{bloodType},
+	JOB=#{job},SALARY=#{salary},ADDRESS=#{address},IDEAL_TYPE=#{idealType},AGE=#{age},IMAGEFILE=#{imageFile} WHERE nickname= #{nickname}
+	</select> 
+	
+	<select id="pwTranslateDelete" parameterType="String" resultType="String">
+		select password from member where NICKNAME=#{nickname}
+	</select>
+	
+	<select id="editMember" parameterType="String" resultType="loginVo">
+		select id, name, nickname from member where nickname=#{nickname}
+	</select>
+	
+	<select id="editId" parameterType="String" resultType="String">
+		select id from member where nickname=#{nickname}
+	</select>
+	
 </mapper>

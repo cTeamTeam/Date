@@ -50,4 +50,10 @@ public class MemberMapper {
 		// TODO Auto-generated method stub
 		return memberdao.withdraw();
 	}
+	
+	//카카오로 로그인했을떄 해당 유저 정보 존재하는지 확인
+	public int kakaoMemberCheck(String kakaoId) {
+		return memberdao.kakaoMemberCheck(kakaoId);
+	}
+
 }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="ReviewMapper">
+
+	<!-- 페이지 리스트 -->
+	<select id="list" resultType="ReviewVo">
+		SELECT  SEQ, TITLE, CONTENT, NAME, READCOUNT, REG_DATE FROM (SELECT SEQ, TITLE, CONTENT, NAME, 
+	    REG_DATE, READCOUNT, ROW_NUMBER() OVER(ORDER BY SEQ DESC) AS RNUM FROM BOARD WHERE 1=1
+		<include refid="search"></include>
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY SEQ DESC
+	</select>
+	
+	<select id="select" parameterType="int" resultType="ReviewVo">
+		SELECT * FROM
+		BOARD WHERE seq = #{seq}
+	</select>
+	
+	<!-- 게시글 번호 카운트 -->
+	<select id="maxSeq" resultType = "java.lang.Integer">
+		select max(SEQ) from board
+	</select>
+	
+	<select id = "listCount" resultType = "int">
+		
+			SELECT COUNT(SEQ)
+				FROM BOARD
+				WHERE 1=1
+				<include refid="search"></include> 
+				AND SEQ > 0 
+		
+	</select>
+	
+	<!-- 게시글 검색 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND NAME LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	
+	<!-- 게시글 등록 -->
+	<select id="reviewWriting" parameterType="ReviewVo">
+	
+		INSERT INTO BOARD (
+			SEQ,
+			TITLE,
+			CONTENT,
+			NAME,
+			REG_DATE
+		) VALUES (
+			#{seq},
+			#{title},
+			#{content},
+			#{name},
+			to_char(sysdate, 'YYYY-MM-DD')
+		)
+	</select>
+	
+	<!-- 파일 업로드 -->
+	<insert id = "insertFile" parameterType="hashMap">
+		INSERT INTO FILEUPLOAD(
+			FILENUM,
+			SEQ,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			SEQ_FILE.NEXTVAL,
+			#{SEQ},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+			)
+	</insert>
+	
+	<!-- 첨부파일 조회 -->
+	<select id = "selectFileList" parameterType="int" resultType="hashMap">
+		SELECT FILENUM,
+			   ORG_FILE_NAME,
+			   ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+		FROM FILEUPLOAD	  
+			   WHERE SEQ = #{SEQ}
+			   AND DEL_GB = 'N' 
+			   ORDER BY FILENUM ASC
+	</select>
+	
+	<!-- 첨부파일 다운로드 -->
+	<select id = "selectFileInfo" parameterType="map" resultType = "map">
+		SELECT
+			STORED_FILE_NAME,
+			ORG_FILE_NAME
+		FROM FILEUPLOAD
+			WHERE FILENUM = #{fileNum}	
+	</select>
+	
+	<update id = "updateFile" parameterType = "hashMap">
+		UPDATE FILEUPLOAD SET
+		DEL_GB = 'Y'
+		WHERE FILENUM = #{fileNum}
+	</update>
+	
+	<!-- 게시글 수정 페이지 이동 -->
+	<select id = "view" resultType = "ReviewVo">
+		SELECT
+			SEQ,
+			TITLE,
+			CONTENT,
+			NAME,
+			REG_DATE,
+			READCOUNT
+		FROM
+			BOARD
+		WHERE
+			SEQ = #{seq}		
+	</select>
+	
+	<!-- 조회수  -->
+	<update id = "updateReadCount">
+		UPDATE BOARD
+		SET
+			READCOUNT = READCOUNT + 1
+		WHERE
+			SEQ = #{seq}	
+	</update>
+	
+	<!-- 게시글 등록 -->
+	<update id="update">
+		UPDATE BOARD
+		SET
+			TITLE = #{title},
+			CONTENT = #{content}
+		WHERE
+			SEQ = #{seq}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		DELETE FROM BOARD
+		WHERE 
+			SEQ = #{seq}
+			
+	</delete>
+</mapper>

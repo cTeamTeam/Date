@@ -1,10 +1,19 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <title>메인 페이지</title>
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <style>
 a:link{color:pink;}
 a:visited{color:pink;}
@@ -48,37 +57,11 @@ body { text-align: center; }
 </style>
 </head>
 <body>
-<div style="float:right"><a href ="loginForm">로그인</a> <a href ="signup">회원가입</a></div>
-<h1 style="color:pink"><a href="/date/">쩜오 0.5</a></h1>
 
- <div class="dropdown">
-      <button class="dropbtn">사이트 안내</button>
-      <div class="dropdown-content">
-        <a href="service">서비스 안내</a>
-        <a href="#">멤버쉽 안내</a>
-      </div>
-    </div>
-     <div class="dropdown">
-      <button class="dropbtn">결제 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">결제 안내</a>
-        <a href="#">멤버쉽 구매</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">매칭 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">이상형 리스트</a>
-        <a href="#">매칭 현환</a>
-      </div>
-    </div>
-      <div class="dropdown">
-      <button class="dropbtn">게시판 관련 메뉴</button>
-      <div class="dropdown-content">
-        <a href="#">공지사항</a>
-        <a href="#">매칭 후기</a>
-        <a href="#">Q & A</a>
-      </div>
-    </div>
+<!-- 네비게이션 바 -->
+<%@include file="/WEB-INF/views/user/common/header.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

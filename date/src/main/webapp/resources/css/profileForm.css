@@ -1,0 +1,46 @@
+.profileWrap {
+	height:750px;
+}
+
+table {
+    margin-left:auto; 
+    margin-right:auto;
+    margin-top:60px;
+}
+td,th {
+	border-bottom:1px solid #BDBDBD;
+}
+
+.profileHead {
+	background-color:pink;
+	color:white;
+	font-weight:800;
+}
+
+.profileTitle {
+	color:#BDBDBD;
+	font-weight:800;
+}
+
+.profileInput {
+	border:1px solid #BDBDBD;
+	border-radius:5%;
+}
+
+.profileTr {
+	height:40px;
+}
+.qaButton {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:100px;
+	height:35px;
+	font-weight:800;
+}
+
+.qaButton:hover {
+	trasition:all 0.5s ease;
+	background-color:#F6CEF5;
+}

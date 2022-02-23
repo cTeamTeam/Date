@@ -49,4 +49,10 @@ public class MemberDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.update("withdraw");
 	}
+	
+	//카카오로 로그인했을떄 해당 유저 정보 존재하는지 확인
+	public int kakaoMemberCheck(String id) {
+		return sqlSessionTemplate.selectOne("kakaoMemberExist", id);
+	}
+
 }

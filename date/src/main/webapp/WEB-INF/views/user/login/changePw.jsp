@@ -5,20 +5,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>비밀번호 변경 페이지</title>
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<link href="/date/resources/css/pwFind.css" rel="stylesheet" />
+<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-	<div>
+<!-- 네비게이션 바 -->
+<%@include file="/WEB-INF/views/user/common/header.jsp" %>
+
+<div class="findWrap">
+	<h3 style="color:pink;font-weight:800;margin-top:60px;">비밀번호 찾기</h3>
+
+	<div style="margin-top:30px;">
 		<form action="changePw" method="post">
-			새 비밀번호 : <input type="password" name="newPw" id="newPw" /><br>
+			<span class="findTitle">새 비밀번호 :</span> <input class="findInput2" type="password" name="newPw" id="newPw" /><br>
 			<p><label for="passwordCheck" id="pw_error" class="error" style="color:red;font-size:10px;"></label></p>
-			새 비밀번호 확인 : <input type="password" name="newPwCheck" id="pwCheck" /><br>
+			<span class="findTitle">새 비밀번호 확인 :</span> <input class="findInput2" type="password" name="newPwCheck" id="pwCheck" /><br>
 			<p><label for="passwordCheck" id="check_error" class="error" style="color:red;font-size:10px;"></label></p>
-			<button type="submit">전송</button>
-			<button type="reset">리셋</button>
+			<button class="qaButton" type="submit">변경</button>
+			<button class="qaButton" type="reset">리셋</button>
 		</form>
 	</div>
 	
@@ -74,5 +87,8 @@
 			}
 		});
 	</script>
+</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

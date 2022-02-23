@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="metchdao">
+	
+<!-- 공지사항 -->
+
+	<select id="metchAllList" resultType="com.date.jum5.user.metch.vo.MetchVo">
+		select * from metch
+	</select>
+	
+	<select id="metchList" parameterType="int" resultType="com.date.jum5.user.metch.vo.MetchVo">
+		select * from metch where metch_status=1
+	</select>
+	
+	<select id="metchSelect" parameterType="int" resultType="com.date.jum5.user.metch.vo.MetchVo">
+		select * from metch where idx=#{idx}
+	</select>
+	
+	<delete id="metchDelete" parameterType="com.date.jum5.user.metch.vo.MetchVo">
+		delete from metch where idx=#{idx}	
+	</delete>
+	
+		<select id="metchSearchList" resultType="com.date.jum5.user.metch.vo.MetchVo">
+		select * from metch
+		<include refid="search"></include>
+		order by idx desc
+	</select>
+	
+	<select id="metchCountArticle" resultType="int">
+		select count(*) from metch
+		<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				where sender_Id like '%'||#{keyword}||'%'
+				or receiver_Id like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				where ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+	
+</mapper>

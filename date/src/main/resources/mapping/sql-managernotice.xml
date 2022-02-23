@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="noticedao">
+	
+<!-- 공지사항 -->
+
+	<select id="noticelist" resultType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+		select * from notice
+	</select>
+	
+	<select id="noticeselect" parameterType="int" resultType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+		select * from notice
+		where num=#{num}
+	</select>
+	
+	<insert id="noticeinsert" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+		insert into notice
+		values (NOTICE_SEQ.nextval, #{title}, #{content}, SYSDATE, 0)
+	</insert>
+	
+	<update id="noticeupdate" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+		update notice set title = #{title}, content=#{content} where num=#{num}
+	</update>
+	
+	<update id="countupdate" parameterType="int">
+		update notice set count = count+1 where num=#{num}
+	</update>
+	
+	<delete id="noticedelete" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+		delete from notice where num=#{num}	
+	</delete>
+	
+	<select id="searchList" resultType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+		select * from notice
+		<include refid="search"></include>
+		order by num desc
+	</select>
+	
+	<select id="countArticle" resultType="int">
+		select count(*) from notice
+		<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				where title like '%'||#{keyword}||'%'
+				or content like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				where ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+</mapper>

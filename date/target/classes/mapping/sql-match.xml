@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="metch">
+    
+    <select id="metchlist" parameterType="String" resultType="ProfileVo">
+    SELECT * FROM PROFILE WHERE NICKNAME IN (SELECT NICKNAME FROM MEMBER WHERE GENDER = #{matchingGender})
+    </select>
+    
+    <select id="getGender" parameterType="String" resultType="String">
+    SELECT GENDER FROM MEMBER WHERE NICKNAME=#{userId}
+    </select>
+    
+    <insert id="requestDate" parameterType="metchVo">
+    INSERT INTO METCH (IDX,SENDER_ID,RECEIVER_ID,METCH_STATUS) VALUES (METCH_SEQ.nextval,#{senderId},#{receiverId},0)
+    <selectKey keyProperty="idx" resultType="Integer">
+    	SELECT NVL(MAX(idx), 0) FROM METCH
+    </selectKey>
+    </insert>
+    
+    <!-- 신청 현황 보기 -->
+    <select id="requestList" parameterType="String" resultType="metchVo">
+    SELECT * FROM METCH WHERE SENDER_ID = #{userId}
+    </select>
+    
+    
+    <select id="beRequestedList" parameterType="String" resultType="metchVo">
+    SELECT IDX, SENDER_ID, METCH_STATUS from METCH where RECEIVER_ID=#{userID}
+    </select>
+    
+    <update id="requestAccept" parameterType="Integer">
+    UPDATE METCH SET METCH_STATUS= 1 WHERE IDX = #{idx}
+    </update>
+    
+    <update id="requestDeny" parameterType="Integer">
+    UPDATE METCH SET METCH_STATUS= -1 WHERE IDX = #{idx}
+    </update>
+    
+    <select id="readProfile" parameterType="String" resultType="profileVo">
+    SELECT HEIGHT, WEIGHT, CHARACTER,HOBBY,BLOODTYPE,JOB,SALARY,ADDRESS,IDEAL_TYPE,AGE,IMAGEFILE FROM PROFILE WHERE NICKNAME=#{senderId}
+    </select>
+    
+   
+  
+    </mapper>

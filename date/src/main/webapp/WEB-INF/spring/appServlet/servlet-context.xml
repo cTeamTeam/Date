@@ -39,13 +39,56 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</beans:bean>
 	
-	<context:component-scan base-package="org.project.date.user.controller.member" />
-	<context:component-scan base-package="org.project.date.user.controller.login" />
-	<context:component-scan base-package="org.project.date.user.dao.member"/>
-	<context:component-scan base-package="org.project.date.user.dao.login" />
-	<context:component-scan base-package="org.project.date.user.mapper.member"/>
-	<context:component-scan base-package="org.project.date.user.mapper.login" />
+	
+	<context:component-scan base-package="com.date.jum5.user.main.controller" />
+	<context:component-scan base-package="com.date.jum5.user.member.controller" />
+	<context:component-scan base-package="com.date.jum5.user.login.controller" />
+	<context:component-scan base-package="com.date.jum5.user.question.controller" />
+	<context:component-scan base-package="com.date.jum5.user.pay.controller" />
+	<context:component-scan base-package="com.date.jum5.user.mypage.controller" />
+	<context:component-scan base-package="com.date.jum5.user.metch.controller" />
+	<context:component-scan base-package="com.date.jum5.user.review.controller" />
+	<context:component-scan base-package="com.date.jum5.user.member.dao"/>
+	<context:component-scan base-package="com.date.jum5.user.login.dao" />
+	<context:component-scan base-package="com.date.jum5.user.question.dao" />
+	<context:component-scan base-package="com.date.jum5.user.pay.dao" />
+	<context:component-scan base-package="com.date.jum5.user.mypage.dao" />
+	<context:component-scan base-package="com.date.jum5.user.metch.dao" />
+	<context:component-scan base-package="com.date.jum5.user.review.dao" />
+	<context:component-scan base-package="com.date.jum5.user.comment.dao" />
+	<context:component-scan base-package="com.date.jum5.user.member.mapper"/>
+	<context:component-scan base-package="com.date.jum5.user.login.mapper" />
+	<context:component-scan base-package="com.date.jum5.user.question.mapper" />	
+	<context:component-scan base-package="com.date.jum5.user.pay.mapper" />
+	<context:component-scan base-package="com.date.jum5.user.mypage.mapper" />
+	<context:component-scan base-package="com.date.jum5.user.metch.mapper" />
+	<context:component-scan base-package="com.date.jum5.user.review.service" />
+	<context:component-scan base-package="com.date.jum5.user.comment.service" />
+	<context:component-scan base-package="com.date.jum5.user.review.util" />
+	
+	
+	<context:component-scan base-package="com.date.jum5.manager.login.controller" />
+	<context:component-scan base-package="com.date.jum5.manager.login.dao" />
+	<context:component-scan base-package="com.date.jum5.manager.login.mapper" />
+	<context:component-scan base-package="com.date.jum5.manager.member.controller" />
+	<context:component-scan base-package="com.date.jum5.manager.member.dao" />
+	<context:component-scan base-package="com.date.jum5.manager.member.mapper" />
+	<context:component-scan base-package="com.date.jum5.manager.question.controller" />
+	<context:component-scan base-package="com.date.jum5.manager.question.dao" />
+	<context:component-scan base-package="com.date.jum5.manager.question.mapper" />
+	<context:component-scan base-package="com.date.jum5.manager.notice.controller" />
+	<context:component-scan base-package="com.date.jum5.manager.notice.dao" />
+	<context:component-scan base-package="com.date.jum5.manager.notice.mapper" />
+	<context:component-scan base-package="com.date.jum5.manager.metch.controller" />
+	<context:component-scan base-package="com.date.jum5.manager.metch.dao" />
+	<context:component-scan base-package="com.date.jum5.manager.metch.mapper" />
+	<context:component-scan base-package="com.date.jum5.manager.pay.controller" />
+	<context:component-scan base-package="com.date.jum5.manager.pay.dao" />
+	<context:component-scan base-package="com.date.jum5.manager.pay.mapper" />
+	
 	
 	
 </beans:beans>

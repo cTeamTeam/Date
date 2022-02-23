@@ -1,3 +1,68 @@
-table {
-	margin:auto;
+
+h1 {
+	margin-top:80px;
+	color:pink;
+	text-align:center;
+}
+
+
+.signOutput {
+	text-align:center;
+	height:1000px;
+	margin-top:60px;
+}
+
+.signInput {
+	border:1px solid lightgrey;
+	width:400px;
+	height:50px;
+}
+
+.inputHeight {
+	height:60px;
+}
+
+.validText {
+	height:22px;
+	text-align:center;
+}
+
+.inputGender {
+	color:pink;
+	font-size:20px;
+	font-weight:800;
+	margin-right:20px;
+}
+
+.radioSize {
+	width:14px;
+	height:14px;
+	border:1px solid grey;
+}
+
+.signUpButton {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:150px;
+	height:35px;
+	font-weight:800;
+}
+
+.signUpButton:hover {
+	trasition:all 0.5s ease;
+	background-color:#F6CEF5;
+}
+
+.signValid {
+	margin-top:30px;
+	height:60px;
+}
+a {
+	font-weight:800;
+}
+.signValidText {
+	color:red;
+	font-size:19px;
 }

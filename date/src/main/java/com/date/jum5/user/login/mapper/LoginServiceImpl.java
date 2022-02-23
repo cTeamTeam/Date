@@ -49,6 +49,18 @@ public class LoginServiceImpl implements LoginService{
 		loginDao.changePw(change);
 	}
 
+	@Override
+	public String pwTranslatorDelete(String nickname) {
+		// TODO Auto-generated method stub
+		return loginDao.pwTranslatorDelete(nickname);
+	}
+
+	@Override
+	public LoginVo editMember(String nickname) {
+		return loginDao.editMember(nickname);
+	}
+	
+
 	
 	
 

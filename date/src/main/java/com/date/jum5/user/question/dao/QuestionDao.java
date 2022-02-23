@@ -26,6 +26,8 @@ public class QuestionDao {
 	
 	//전체 Q&A 가져오기
 	public List<QuestionVo> questionAll(Map<String, Integer> pageRowMap) {
+		System.out.println("첫 : " +pageRowMap.get("start"));
+		System.out.println("마지막 : " +pageRowMap.get("end"));
 		return sqlSession.selectList("questionAll", pageRowMap);
 	}
 	
@@ -83,5 +85,6 @@ public class QuestionDao {
 	public int searchContentCount(String keyword) {
 		return sqlSession.selectOne("searchContentCount", keyword);
 	}
+
 
 }

@@ -43,6 +43,14 @@ public class LoginDao {
 	public void changePw(Map<String, String> change) {
 		sqlsession.update("changePw", change);
 	}
+	
+	public String pwTranslatorDelete(String nickname) {
+		return sqlsession.selectOne("pwTranslateDelete", nickname);
+	}
+	
+	public LoginVo editMember(String nickname) {
+		return sqlsession.selectOne("editMember", nickname);
+	}
 
 
 }

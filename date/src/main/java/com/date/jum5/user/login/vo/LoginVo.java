@@ -6,24 +6,38 @@ public class LoginVo {
 	private String oldPw;
 	private String password;
 	private String name;
+	private String birth;
 	private String nickname;
 	private String email;
 	private String memberShip;
-	private String phoneNum;
+	private int datecount;
 	
+	
+	public int getDatecount() {
+		return datecount;
+	}
+	public void setDatecount(int datecount) {
+		this.datecount = datecount;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getMemberShip() {
+		return memberShip;
+	}
+	public void setMemberShip(String memberShip) {
+		this.memberShip = memberShip;
+	}
 	public String getOldPw() {
 		return oldPw;
 	}
 	public void setOldPw(String oldPw) {
 		this.oldPw = oldPw;
 	}
-	
-	public String getPhoneNum() {
-		return phoneNum;
-	}
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
+
 	public String getName() {
 		return name;
 	}
