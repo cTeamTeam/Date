@@ -11,14 +11,14 @@
                     	<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사이트 안내</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/date/service">서비스 안내</a></li>
+                                <li><a class="dropdown-item" href="#">서비스 안내</a></li>
                                 <li><a class="dropdown-item" href="#">멤버십 안내</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">결제 관련</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/date/payGuide">결제 안내</a></li>
+                                <li><a class="dropdown-item" href="#">결제 안내</a></li>
                                 <li><a class="dropdown-item" href="/date/pay">멤버십 구매</a></li>
                             </ul>
                         </li>
@@ -33,7 +33,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">게시판 관련</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">공지사항</a></li>
-                                <li><a class="dropdown-item" href="#">매칭 후기</a></li>
+                                <li><a class="dropdown-item" href="/date/user/review/list">매칭 후기</a></li>
                                 <li><a class="dropdown-item" href="/date/qaList">Q&A</a></li>
                             </ul>
                         </li>
@@ -57,11 +57,18 @@
                 </div>
             </div>
         </nav>
-       	
-       	<div class="banner">
-       		<div class="text-focus-in">
-       			이상형을 찾아보세요
-       		</div>
-       	</div>
+
+		<div class="banner"> 
+		
+		
+		</div>
+    
+
+
+
+
+
+
+
    
     

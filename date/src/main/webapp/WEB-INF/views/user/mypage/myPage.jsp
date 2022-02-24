@@ -220,7 +220,7 @@ table {
 	<div class="infoNotTitle">들어온 데이트 신청이 없습니다.</div>
 </c:if>
 <c:if test="${!empty  date}">
-	<table border="1">
+	<table>
 	<c:forEach var="metchVo" items="${date }" varStatus="loop">
 	<tr>
 		<td class="infoTitle"><li>신청한 사람</li></td>

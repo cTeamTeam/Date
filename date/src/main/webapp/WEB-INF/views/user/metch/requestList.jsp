@@ -65,38 +65,52 @@ body { text-align: center; }
 <h3 style="color:pink;font-weight:800;margin-top:60px;">매칭 현황</h3>
 
 <div class="metchListWrap">
-<table border="1">
+<table>
 	<tr>
-	<th>데이트 신청 상대 아이디</th>
-	<th>상태</th>
+		<td colspan="3" class="metchingTitle">Metching</td>
 	</tr>
+	<tr>
+		<th class="metchingWord">닉네임</th>
+		<th class="metchingWord">상태</th>
+		<th class="metchingWord">매칭</th>	
+	</tr>
+	
 	<c:forEach var="requestList" items="${requestList }" varStatus="loop">
-	<tr>
-	<td>${requestList.receiverId }</td>
-	<c:choose>
+		<tr>
+			<td class="metchingWord">${requestList.receiverId }</td>
+			<c:choose>
+				<c:when test = "${requestList.metchStatus == -1}">
+					<td class="metchingWord">거절</td>
+					<td class="metchingWord">신청이 거절되었습니다.</td>
+				</c:when>
 	
-	<c:when test = "${requestList.metchStatus == -1}">
-		<td>거절</td>
-	</c:when>
-	
-	<c:when test = "${requestList.metchStatus == 0}">
-		<td>대기</td>
-	</c:when>
-	
-	<c:when test = "${requestList.metchStatus ==1}">
-		<td>수락</td>
-	</c:when>
-	
-	</c:choose>
-	</tr>
+				<c:when test = "${requestList.metchStatus == 0}">
+					<td class="metchingWord">대기</td>
+					<td class="metchingWord">신청이 대기중입니다</td>
+				</c:when>
+				<c:when test = "${requestList.metchStatus ==1}">
+					<td class="metchingWord">수락</td>
+					<td><a onclick="window.open(this.href, '_blank', 'width=650, height=500'); return false;" href="/date/chat"><button class="qaButton" type="button">채팅하기</button></a>
+				</c:when>
+			</c:choose>
+		</tr>
 	</c:forEach>
 </table>
-<c:if test="${empty requestList }">
+<c:if test="${loginVo==null }">
 	<script type="text/javascript">
-		alert("매칭 현황이 없습니다!");
-		location.href="/date/";
+		alert("로그인 후 이용가능합니다.");
+		location.href="/date/loginForm"''
 	</script>
 </c:if>
+<c:if test="${loginVo!=null }">
+	<c:if test="${empty requestList }">
+		<script type="text/javascript">
+			alert("매칭 현황이 없습니다!");
+			location.href="/date/";
+		</script>
+	</c:if>
+</c:if>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <%@include file="/WEB-INF/views/user/common/footer.jsp" %>

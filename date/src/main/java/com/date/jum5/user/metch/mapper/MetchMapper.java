@@ -16,10 +16,10 @@ public class MetchMapper {
 	@Autowired
 	MetchDao dao;
 	
-	public List<ProfileVo> MetchList(String matchingGender) {
+	public List<ProfileVo> MetchList() {
 		// TODO Auto-generated method stub
 		
-		return dao.matchList(matchingGender);
+		return dao.matchList();
 	}
 
 	public String GetGender(String userId) {

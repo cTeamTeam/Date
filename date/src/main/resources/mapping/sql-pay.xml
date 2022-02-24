@@ -47,4 +47,12 @@
 		</selectKey>
 	</insert>
 	
+	<select id="dateCount" parameterType="String" resultType="Integer">
+		select datecount from member where nickname=#{nickname}
+	</select>
+	
+	<update id="dateCountMinus" parameterType="String">
+		update member set datecount=datecount-1 where nickname=#{nickname}
+	</update>
+	
 </mapper>

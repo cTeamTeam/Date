@@ -17,7 +17,7 @@ function reviewSubmit(){
 			if(data.result == "Y"){
 				alert("글 등록이 완료되었습니다.");
 				console.log("success :" , data);
-				location.href = "/user/review/list";		
+				location.href = "/date/user/review/list";		
 			}
 		},
 		error: function(data) {

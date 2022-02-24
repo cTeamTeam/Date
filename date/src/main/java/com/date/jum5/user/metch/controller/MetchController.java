@@ -3,6 +3,7 @@ package com.date.jum5.user.metch.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.date.jum5.user.metch.dao.MetchDao;
 import com.date.jum5.user.metch.mapper.MetchMapper;
 import com.date.jum5.user.metch.vo.MetchVo;
+import com.date.jum5.user.pay.mapper.PayMapper;
 
 @Controller
 @SessionAttributes("loginVo")
@@ -29,6 +31,8 @@ public class MetchController {
 	@Autowired
 	MetchDao dao;
 	
+	@Autowired
+	PayMapper payMapper;
 	//이성의 모든 리스트를 반환
 	@RequestMapping(value="/metch", method=RequestMethod.GET)
 	public String metchList(Model model,HttpServletRequest request) {
@@ -52,8 +56,8 @@ public class MetchController {
 			matchingGender = "여자";
 		}
 		
-		model.addAttribute("profileVo", mapper.MetchList(matchingGender));
-		System.out.println(mapper.MetchList(matchingGender).size());
+		model.addAttribute("profileVo", mapper.MetchList());
+		//System.out.println(mapper.MetchList(matchingGender).size());
 		return "/user/metch/metch";
 	}
 	
@@ -62,24 +66,32 @@ public class MetchController {
 	public String request(Model model, @PathVariable String id,HttpServletRequest request,MetchVo metchVo) {
 		HttpSession session = request.getSession();
 		String userId =(String)session.getAttribute("loginVo");
-		metchVo.setSenderId(userId);
-		metchVo.setReceiverId(id);
-		System.out.println("신청하는 아이디 : "+userId);
-		System.out.println("신청 받는 아이디 : "+id);
-		mapper.requestDate(metchVo);
-		model.addAttribute("msg", 2);
-		return "user/metch/metchAlert";
+		
+		int dCount = payMapper.dateCount(userId);
+		System.out.println("데이트 횟수 : " +dCount);
+		
+		if (dCount==0) {
+			model.addAttribute("msg", 3);
+			return "user/metch/metchAlert";
+		} else {
+			metchVo.setSenderId(userId);
+			metchVo.setReceiverId(id);
+			System.out.println("신청하는 아이디 : "+userId);
+			System.out.println("신청 받는 아이디 : "+id);
+			payMapper.dateCountMinus(userId);
+			mapper.requestDate(metchVo);
+			model.addAttribute("msg", 2);
+			return "user/metch/metchAlert";
+		}
+		
 	}
-	
-	
-	
-	
-	
 	
 	//신청 현황 보기
 	@RequestMapping(value="/metchList", method=RequestMethod.GET)
 	public String requestList(Model model, HttpServletRequest request, MetchVo metchVo) {
+		
 		HttpSession session = request.getSession();
+	
 		String userId = (String)session.getAttribute("loginVo");
 		System.out.println(userId);
 		List<MetchVo> ls = mapper.RequestList(userId);
@@ -132,7 +144,12 @@ public class MetchController {
 		return "/user/metch/readProfile";
 	}
 	
+	// 채팅방 입장
+	@RequestMapping(value = "/chat", method = RequestMethod.GET)
+	public String view_chat(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
+		return "/user/metch/metchChat";
+	}
 	
 	
 }

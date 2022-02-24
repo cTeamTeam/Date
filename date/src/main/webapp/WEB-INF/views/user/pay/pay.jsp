@@ -13,6 +13,7 @@
 <link href="/date/resources/css/styles.css" rel="stylesheet" />
 <script type="text/javascript" src="/date/resources/js/scripts.js"></script>
 <link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/pay.css" rel="stylesheet" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link href="/date/resources/css/footer.css" rel="stylesheet" />
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js"></script>
@@ -65,15 +66,20 @@ body { text-align: center; }
 <%@include file="/WEB-INF/views/user/common/header.jsp" %>
  	
  	
- 	<div class="pay_wrap" style="margin-top:60px;height:1000px;border:1px solid black;">
+ 	<div class="pay_wrap" style="margin-top:60px;height:700px">
  		<div style="display:inline-block;margin-right:80px;">
- 			<img src="/date/resources/images/date.jpg" width="400" height="500">
+ 			<img class="payImg" src="/date/resources/images/date.jpg" width="400" height="500">
  		</div>
  		<div style="display:inline-block;vertical-align:top">
- 			<div style="height:50px;font-size:20px;"><strong>데이트 이용권</strong></div>
- 			<div id="price">6000</div><span>원</span>
- 			<div>
- 				<select name="payService" style="width:120px;height:30px;">
+ 			<div class="payTitle"><strong>데이트 이용권</strong></div>
+ 			<div class="payPrice" id="price">
+ 				6000
+ 			</div>
+ 			<div class="payPrice">
+ 				원
+ 			</div>
+ 			<div style="margin-top:25px;margin-bottom:25px;">
+ 				<select name="payService" class="selectBox">
  					<option id="product" value="데이트 이용권">데이트 1회 이용권</option>
  		 		</select>
  			</div>
@@ -109,7 +115,7 @@ body { text-align: center; }
  			
  			
  			<div style="height:50px;">
- 				<button style="background-color:pink;color:white;" id="check_module" type="button">카카오페이 결제</button>
+ 				<button class="payButton" id="check_module" type="button">카카오페이 결제</button>
  				
  				<script type="text/javascript">
     $("#check_module").click(function () {

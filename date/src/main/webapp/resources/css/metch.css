@@ -8,3 +8,39 @@
 	color:white;
 	background-color:pink;
 }
+
+table  {
+	margin:auto;
+	margin-top:50px;
+	width:700px;
+	margin-bottom:50px;
+}
+
+.metchTitle {
+	color:pink;
+	font-weight:800;
+}
+
+.metchContent {
+	color:#BDBDBD;
+	font-weight:800;
+}
+
+.metchTr {
+	border-bottom:1px solid lightgrey;
+}
+
+.qaButton {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:100px;
+	height:35px;
+	font-weight:800;
+}
+
+.qaButton:hover {
+	trasition:all 0.5s ease;
+	background-color:#F6CEF5;
+}

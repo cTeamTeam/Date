@@ -21,6 +21,7 @@ public class ManagerMemeberController {
 	@RequestMapping(value="/admin/list", method=RequestMethod.GET)
 	public String memberList(Model model) {
 		List<MemberVo> list = managerMemberService.memberList();
+		System.out.println(list.size());
 		model.addAttribute("list", list);
 		return "/admin/member/list";
 	}

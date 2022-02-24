@@ -15,6 +15,9 @@
 		} else if (msg==2) {
 			alert("데이트 신청이 완료되었습니다!");
 			location.href="/date/";
+		} else if (msg==3) {
+			alert("데이트 잔여 횟수가 없습니다!");
+			location.href="/date/pay";
 		}
 	</script>
 </body>

@@ -1,0 +1,53 @@
+.payImg {
+	border-radius:9%;
+}
+
+.payTitle {
+	color:pink;
+	font-size:20px;
+	height:50px;
+	font-weight:800;
+}
+
+.payPrice {
+	color:pink;
+	width:35px;
+	font-size:20px;
+	font-weight:800;
+	display:inline-block;
+}
+
+.minus {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:30px;
+	height:35px;
+	font-weight:800;
+	font-size:20px;
+}
+
+.plus {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:30px;
+	height:35px;
+	font-weight:800;
+	font-size:20px;
+}
+
+.payButton {
+	color:white;
+	background-color:pink;
+	border:1px solid pink;
+	font-weight:800;
+	margin-top:30px;
+}
+
+.selectBox {
+	width:200px;
+	height:30px;
+}

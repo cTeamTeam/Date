@@ -61,4 +61,13 @@ public class PayDao {
 		sqlSession.insert("insertPayState", payStateVo);
 	}
 	
+	//데이트 횟수 가져오기
+	public int dateCount(String nickname) {
+		return sqlSession.selectOne("dateCount", nickname);
+	}
+	
+	//데이트 신청시 횟수 차감
+	public void dateCountMinus(String nickname) {
+		sqlSession.update("dateCountMinus", nickname);
+	}
 }

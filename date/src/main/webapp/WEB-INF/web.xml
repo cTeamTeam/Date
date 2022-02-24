@@ -27,9 +27,11 @@
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
 				/WEB-INF/spring/mybatis-connect.xml
+				/WEB-INF/spring/appServlet/socketContext.xml
 			</param-value>
 		</init-param>		
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 		
 		<multipart-config>
            <location>C:\Users\ehdrm\git\date2\date\date\src\main\webapp\resources\images\\</location>

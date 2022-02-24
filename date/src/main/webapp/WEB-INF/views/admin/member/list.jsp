@@ -17,25 +17,27 @@
 	<th>nickName</th>
 	<th>birth</th>
 	<th>gender</th>
-	<th>phoneNum</th>
 	<th>e-mail</th>
 </tr>
 
-<c:forEach var="board" items="${list}" varStatus="loop">
+<c:if test="${empty list }">
 <tr>
-	<td> ${board.num }</td>
-	<td> ${board.id }</td>
-	<td> ${board.name }</td>
-	<td> ${board.nickName}</td>
-	<td> ${board.birth}</td>
-	<td> ${board.gender}</td>
-	<td> ${board.phoneNum}</td>
-	<td> ${board.email}</td>
+	<td colspan="8">회원 목록이 없습니다.</td>
 </tr>
-
-</c:forEach>
-
-
+</c:if>
+<c:if test="${!empty list }">
+	<c:forEach var="board" items="${list}" varStatus="loop">
+	<tr>
+		<td> ${board.num }</td>
+		<td> ${board.id }</td>
+		<td> ${board.name }</td>
+		<td> ${board.nickName}</td>
+		<td> ${board.birth}</td>
+		<td> ${board.gender}</td>
+		<td> ${board.email}</td>
+	</tr>
+	</c:forEach>
+</c:if>
 </table>
 </body>
 </html>

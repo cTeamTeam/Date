@@ -20,7 +20,7 @@
 	$(function() {
 		if(!'${loginVo}') {
 			alert('로그인 후 사용가능합니다.');
-			location.href='/loginForm';
+			location.href='/date/loginForm';
 		}
 	});
 </script>

@@ -8,7 +8,7 @@
 <!-- 회원목록 -->
 
 	<select id="memberList" parameterType="MemberVo" resultType="com.date.jum5.user.member.vo.MemberVo">
-		select num, id, name, nickname, birth, gender, PHONENUM, email from member
+		select num, id, name, nickname, birth, gender, email from member
 	</select>
 	
 </mapper>

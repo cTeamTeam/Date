@@ -15,9 +15,9 @@ public class MetchDao {
 	@Autowired
 	SqlSession sqlSessionTemplate;
 
-	public List<ProfileVo> matchList(String matchingGender) {
+	public List<ProfileVo> matchList() {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList("metchlist",matchingGender);
+		return sqlSessionTemplate.selectList("metchlist");
 	}
 
 	public String GetGender(String userId) {

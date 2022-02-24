@@ -1,0 +1,57 @@
+.mainWrap {
+	height:1700px;
+}
+
+.mainServiceWrap {
+	text-align:center;
+	margin-top:50px;
+	margin-bottom:60px;
+}
+
+.mainTitle {
+	font-weight:800;
+	color:pink;
+	font-size:16px;
+	margin-top:6px;
+}
+
+.mainContent {
+	height:10px;
+	font-weight:800;
+	color:#BDBDBD;
+	font-size:15px;
+}
+
+.content {
+	margin-right:70px;
+	margin-left:80px;
+	display:inline-block;
+}
+
+.mainRoadWrap {
+	margin-top:70px;
+	height:300px;
+}
+
+.mainRoadTitle {
+	color:pink;
+	font-weight:800;
+	font-size:20px;
+	margin-top:40px;
+}
+
+.mainInfoWrap {
+	background-color:#FAFAFA;
+	height:600px;
+}
+
+.mainInfoContentWrap {
+	display:inline-block;
+	width:400px;
+}
+
+.mainInfoContent {
+	color:#BDBDBD;
+	font-weight:800;
+	font-size:16px;
+}

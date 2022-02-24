@@ -67,32 +67,34 @@ body { text-align: center; }
 	<div class="idealNot">등록된 이상형이 없습니다.</div>
 </c:if>
 <c:if test="${!empty profileVo }">
-	<table border="1">
+	<table>
 		<tr>
 			<th colspan="8" class="idealHead">List</th>
 		</tr>
 		<tr>
-		<th>닉네임</th>
-		<th> 키 </th>
-		<th> 몸무게 </th>
-		<th> 성격</th>
-		<th> 취미</th>
-		<th> 혈액형</th>
-		<th> 나이</th>
-		<th> 신청 </th>
-	</tr>
+			<th class="metchTitle">닉네임</th>
+			<th class="metchTitle"> 키 </th>
+			<th class="metchTitle"> 몸무게 </th>
+			<th class="metchTitle"> 성격</th>
+			<th class="metchTitle"> 취미</th>
+			<th class="metchTitle"> 혈액형</th>
+			<th class="metchTitle"> 나이</th>
+			<th class="metchTitle"> 신청 </th>
+		</tr>
 	<c:forEach var="profileVo" items="${profileVo }" varStatus="loop">
 	<form action="/date/request/${profileVo.nickname}">
-	<tr>
-		<td>${profileVo.nickname }</td>
-		<td>${profileVo.height }</td>
-		<td>${profileVo.weight }</td>
-		<td>${profileVo.character }</td>
-		<td>${profileVo.hobby }</td>
-		<td>${profileVo.bloodType }</td>
-		<td>${profileVo.age }</td>
-		<td><input type="submit" value="신청" ></td>
-	</tr>
+	<c:if test="${profileVo.nickname!=loginVo }">
+		<tr class="metchTr">
+			<td class="metchContent">${profileVo.nickname }</td>
+			<td class="metchContent">${profileVo.height }</td>
+			<td class="metchContent">${profileVo.weight }</td>
+			<td class="metchContent">${profileVo.character }</td>
+			<td class="metchContent">${profileVo.hobby }</td>
+			<td class="metchContent">${profileVo.bloodType }</td>
+			<td class="metchContent">${profileVo.age }</td>
+			<td><input class="qaButton" type="submit" value="신청" ></td>
+		</tr>
+	</c:if>
 	</form>
 	</c:forEach>
 </table>

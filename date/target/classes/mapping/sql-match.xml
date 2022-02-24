@@ -5,8 +5,8 @@
 
     <mapper namespace="metch">
     
-    <select id="metchlist" parameterType="String" resultType="ProfileVo">
-    SELECT * FROM PROFILE WHERE NICKNAME IN (SELECT NICKNAME FROM MEMBER WHERE GENDER = #{matchingGender})
+    <select id="metchlist" resultType="ProfileVo">
+    	SELECT * FROM PROFILE
     </select>
     
     <select id="getGender" parameterType="String" resultType="String">
@@ -22,7 +22,7 @@
     
     <!-- 신청 현황 보기 -->
     <select id="requestList" parameterType="String" resultType="metchVo">
-    SELECT * FROM METCH WHERE SENDER_ID = #{userId}
+    SELECT * FROM METCH WHERE SENDER_ID LIKE '%'||#{userId}||'%' OR RECEIVER_ID LIKE '%'||#{userId}||'%'
     </select>
     
     
