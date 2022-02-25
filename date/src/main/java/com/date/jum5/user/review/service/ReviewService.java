@@ -27,15 +27,16 @@ public interface ReviewService {
 	public int listCount(SearchCriteria scri) throws Exception;
 	
 	//게시글 등록
-	int reviewWriting(ReviewVo vo, MultipartHttpServletRequest request) throws Exception;
+	public void reviewWriting(ReviewVo vo, MultipartHttpServletRequest request) throws Exception;
 	//게시글 보기
 	ReviewVo view(int seq);
 	//게시글 수정
-	int update(ReviewVo vo);
+	public void update(ReviewVo vo, MultipartHttpServletRequest Request) throws Exception;
 	//게시글 삭제
 	public int delete(int parseInt);
 
-	
+	//첨부 파일 삭제
+	public void fileDelete(int fileDel) throws Exception;
 
 
 }

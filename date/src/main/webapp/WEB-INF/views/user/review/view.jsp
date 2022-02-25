@@ -45,6 +45,7 @@
 		<div>제목 : ${view.title} 조회수 : ${view.readCount}</div>
 		<div>작성자 : ${view.name}</div>
 		<div>내용 : ${view.content}</div>
+		<img src="../image/21f030f1cd1d43e093a0a33745264bb7.jpg"/>
 		<button type = "button" onclick='location.href="/user/review/list"'>목록</button>
 		<button type = "button" onclick='goUpdateView(${view.seq})'>수정</button>
 		<button type = "button" onclick='reviewDelete(${view.seq})'>삭제</button>	
@@ -61,14 +62,16 @@
 				<li>
 					<p>
 						-----------댓글---------------<br/>
-						작성자 : ${replyList.writer}<br/>
+						작성자 :  ${loginVo} <br/>
 						작성일 : <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd"/>
 					</p>
 					<p>${replyList.content}</p>
-					<div>
-	  					<button type="button"  onclick = "replyUpdateBtn(${view.seq}, ${replyList.rseq})">수정</button>
-	 					<button type="button"  onclick = "replyDeleteBtn(${view.seq}, ${replyList.rseq})">삭제</button>
-					</div>
+					<c:if test="${ loginVo != null }">
+						<div>
+			  				<button type="button"  onclick = "replyUpdateBtn(${view.seq}, ${replyList.rseq})">수정</button>
+			 				<button type="button"  onclick = "replyDeleteBtn(${view.seq}, ${replyList.rseq})">삭제</button>
+						</div>
+					</c:if>
 				</li>
 			</c:forEach>
 		</ol>
@@ -82,6 +85,10 @@
 			<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" readonly="readonly" />
 			<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}" readonly="readonly" />
 			<input type="hidden" id="FILENUM" name="FILENUM" value="">
+			<c:if test="${ loginVo == null }">
+				<div>로그인 후 댓글 작성이 가능합니다.</div>
+			</c:if>
+			<c:if test="${ loginVo != null }">
 			<p>
 				<label for="writer">작성자</label>
 				<input type="text" id="writer" name="writer" />
@@ -93,6 +100,7 @@
 			<p>
 				<input type="submit" value="작성"/>
 			</p>
+			</c:if>
 		</form>
 </section>
 </body>

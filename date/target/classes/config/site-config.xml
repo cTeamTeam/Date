@@ -14,6 +14,8 @@
 		<typeAlias alias="LoginVo" type="com.date.jum5.user.login.vo.LoginVo"/>
 		<typeAlias alias="QuestionVo" type="com.date.jum5.user.question.vo.QuestionVo"/>
 		<typeAlias alias="ReviewVo" type="com.date.jum5.user.review.vo.ReviewVo"/>
+		<typeAlias alias="CommentVo" type="com.date.jum5.user.comment.vo.CommentVo"/>
+		<typeAlias alias="NoticeVo" type="com.date.jum5.user.notice.vo.NoticeVo"/>
 		
 	</typeAliases>
 </configuration>

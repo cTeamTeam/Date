@@ -51,12 +51,7 @@ public class ReviewController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listCount(scri));
-		
-		System.out.println("=====================");
-		System.out.println(scri.getPerPageNum());
-		System.out.println(scri.getPage());
-		System.out.println("=====================");
-		
+			
 		model.addAttribute("list" , list);
 		model.addAttribute("pageMaker", pageMaker);
 		
@@ -75,19 +70,13 @@ public class ReviewController {
 	}
 	
 	//게시글 작성
-	@ResponseBody
 	@RequestMapping(value = "/reviewWriting", method = RequestMethod.POST)
-	public Map<String, Object> reviewWriting(Model model, ReviewVo vo , MultipartHttpServletRequest request ) throws Exception{
-
-		Map<String, Object> returnMap = new HashMap<String, Object>();
+	public String reviewWriting(Model model, ReviewVo vo,
+ 			MultipartHttpServletRequest mpRequest ) throws Exception{
+			
+		service.reviewWriting(vo, mpRequest);
 		
-		if(service.reviewWriting(vo, request) == 1) {
-			returnMap.put("result", "Y");	
-		}else {
-			returnMap.put("result", "N");
-		}
-		
-		return returnMap;
+		return "redirect:/user/review/list";
 	}
 	
 	//게시글 내용 보기
@@ -104,11 +93,9 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		vo = service.view(Integer.parseInt(request.getParameter("seq")));
-		System.out.println(request.getParameter("result"));
 		model.addAttribute("result", request.getParameter("result"));
 		model.addAttribute("scri" , scri);
 		model.addAttribute("view" , vo); // 게시글 조회
-		
 		
 		return "/user/review/view";
 	}
@@ -131,13 +118,18 @@ public class ReviewController {
 	}
 	
 	//게시글 수정 
-	@ResponseBody
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public String update(Model model, ReviewVo vo , @ModelAttribute("scri") SearchCriteria scri ,RedirectAttributes rttr) throws Exception {
+	public String update(Model model, ReviewVo vo , @ModelAttribute("scri") SearchCriteria scri,
+						RedirectAttributes rttr, String[] fileDel, MultipartHttpServletRequest mpRequest) throws Exception {
 		
-		service.update(vo);
+		service.update(vo, mpRequest);
 		
-		
+		if(fileDel != null) {
+			for(int i = 0; i < fileDel.length; i++) {
+				service.fileDelete(Integer.parseInt(fileDel[i]));
+			}
+		}
+
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
 		rttr.addAttribute("searchType", scri.getSearchType());
@@ -147,15 +139,13 @@ public class ReviewController {
 	}
 	
 	//게시글 삭제
-	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Locale locale, Model model, HttpServletRequest request) throws Exception {
 		
-		if(service.delete(Integer.parseInt((String)request.getParameter("seq"))) == 1) {
-			return "Y";
-		}else {
-			return "N";
-		}
+		service.delete(Integer.parseInt((String)request.getParameter("seq")));
+		
+		return "redirect:/user/review/list";
+	
 	}
 	
 	//파일 다운로드

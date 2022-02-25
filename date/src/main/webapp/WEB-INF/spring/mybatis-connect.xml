@@ -43,6 +43,8 @@
 				<value>classpath:mapping/sql-member.xml</value>
 				<value>classpath:mapping/sql-login.xml</value>
 				<value>classpath:mapping/sql-review.xml</value>
+				<value>classpath:mapping/sql-comment.xml</value>
+				<value>classpath:mapping/sql-notice.xml</value>
 			</list>
 		</property>
 	</bean>

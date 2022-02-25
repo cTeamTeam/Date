@@ -43,6 +43,4 @@ public class LoginDao {
 	public void changePw(Map<String, String> change) {
 		sqlsession.update("changePw", change);
 	}
-
-
 }

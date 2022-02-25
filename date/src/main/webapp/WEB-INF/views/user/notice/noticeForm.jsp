@@ -2,11 +2,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="${path}/resources/js/notice.js"></script>
+<title>공지사항 작성</title>
+</head>
 <script src="${path}/resources/js/review.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -15,7 +17,7 @@
 				if(fn_valiChk()){
 					return false;
 				}
-				formObj.attr("action", "/user/review/reviewWriting");
+				formObj.attr("action", "/user/notice/noticeWrite");
 				formObj.attr("method", "post");
 				formObj.submit();
 			});
@@ -91,33 +93,3 @@
 		</div>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

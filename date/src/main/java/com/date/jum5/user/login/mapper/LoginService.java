@@ -24,5 +24,5 @@ public interface LoginService {
 	
 	//비밀번호 변경
 	public void changePw(Map<String, String> chagne);
-
+	
 }

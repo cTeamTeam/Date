@@ -48,8 +48,4 @@ public class LoginServiceImpl implements LoginService{
 	public void changePw(Map<String, String> change) {
 		loginDao.changePw(change);
 	}
-
-	
-	
-
 }

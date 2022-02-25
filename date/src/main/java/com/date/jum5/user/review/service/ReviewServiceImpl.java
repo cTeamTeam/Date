@@ -44,23 +44,33 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	//게시글 총 갯수
+	@Override
 	public int listCount(SearchCriteria scri) throws Exception {
 		return reviewdao.listCount(scri);
 	}
 	
 	//게시글 등록
 	@Override
-	public int reviewWriting(ReviewVo vo , MultipartHttpServletRequest request) throws Exception {
-
+	public void reviewWriting(ReviewVo vo , MultipartHttpServletRequest request) throws Exception {
+		
 		vo.setSeq(reviewdao.getMaxSeq() + 1); //최대값에 +1
+		
+		reviewdao.reviewWriting(vo);
 		
 		List<Map<String,Object>> list = fileUtils.parselnsertFileInfo(vo, request);
 		
-		for(int i = 0; i < list.size(); i++) {
-			reviewdao.insertFile(list.get(i));
-		}
+		Map<String, Object> tempMap = null;
+		int size = list.size();
+		
+		for(int i = 0; i<size; i++) {
+			tempMap = list.get(i);
+			if(tempMap.get("IS_NEW").equals("Y")) {
+				reviewdao.insertFile(tempMap);
+			}else {
+				reviewdao.updateFile(tempMap);
+			}
 
-		return reviewdao.reviewWriting(vo);
+		}
 	}
 	
 	//게시글 내용 보기
@@ -71,12 +81,32 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	//수정
 	@Override
-	public int update(ReviewVo vo) {
-		return reviewdao.update(vo);
+	public void update(ReviewVo vo, MultipartHttpServletRequest Request) throws Exception {
+		
+		reviewdao.update(vo);
+		
+		List<Map<String, Object>> list = fileUtils.parselnsertFileInfo(vo, Request);
+		
+		Map<String, Object> tempMap = null;
+		int size = list.size();
+		for(int i = 0; i<size; i++) {
+			tempMap = list.get(i);
+			if(tempMap.get("IS_NEW").equals("Y")) {
+				reviewdao.insertFile(tempMap);
+			}else {
+				reviewdao.updateFile(tempMap);
+			}
+		}
 	}
 	//삭제
 	public int delete(int seq) {
 		return reviewdao.delete(seq);
+	}
+	
+	//파일 삭제
+	@Override
+	public void fileDelete(int fileDel) throws Exception {
+		reviewdao.fileDelete(fileDel);
 	}
 }
 

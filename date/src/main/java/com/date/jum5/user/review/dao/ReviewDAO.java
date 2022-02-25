@@ -19,7 +19,7 @@ public interface ReviewDAO {
 	Integer getMaxSeq();
 	
 	//게시글 등록
-	int reviewWriting(ReviewVo vo);
+	public int reviewWriting(ReviewVo vo);
 	
 	// 조회수 증가
 	public void updateReadCount(int seq);
@@ -28,10 +28,10 @@ public interface ReviewDAO {
 	public ReviewVo view(int seq);
 	
 	//게시글 수정
-	int update(ReviewVo vo);
+	public int update(ReviewVo vo);
 	
 	//게시글 삭제
-	int delete(int seq);
+	public int delete(int seq);
 	
 	//첨부파일 업로드
 	public void insertFile(Map<String, Object>map) throws Exception;
@@ -44,4 +44,8 @@ public interface ReviewDAO {
 	
 	//첨부파일 수정
 	public void updateFile(Map<String , Object> map) throws Exception;
+	
+	//첨부파일 삭제
+	public void fileDelete(int fileDel) throws Exception;
+
 }

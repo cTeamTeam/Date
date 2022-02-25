@@ -33,5 +33,5 @@
 		update member set password=#{pw} where id=#{id}
 	</update>
 	
-
+	
 </mapper>

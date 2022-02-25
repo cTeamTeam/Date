@@ -77,6 +77,7 @@ public class LoginController {
 			
 			//로그인 성공시 세션값 부여
 			session.setAttribute("loginVo", loginVo.getNickname());
+			session.setAttribute("admin", loginVo.getAdmin()); // 관리자 체크 여부
 			
 			System.out.println(loginVo.getId());
 			System.out.println(loginVo.getNickname());

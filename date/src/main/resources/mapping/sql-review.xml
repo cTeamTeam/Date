@@ -35,7 +35,7 @@
 	</select>
 	
 	<!-- 게시글 번호 카운트 -->
-	<select id="maxSeq" resultType = "java.lang.Integer">
+	<select id="maxSeq" resultType = "int">
 		select max(SEQ) from board
 	</select>
 	
@@ -114,13 +114,14 @@
 			WHERE FILENUM = #{fileNum}	
 	</select>
 	
+	<!-- 첨부파일 수정 -->
 	<update id = "updateFile" parameterType = "hashMap">
 		UPDATE FILEUPLOAD SET
 		DEL_GB = 'Y'
 		WHERE FILENUM = #{fileNum}
 	</update>
 	
-	<!-- 게시글 수정 페이지 이동 -->
+
 	<select id = "view" resultType = "ReviewVo">
 		SELECT
 			SEQ,
@@ -144,7 +145,7 @@
 			SEQ = #{seq}	
 	</update>
 	
-	<!-- 게시글 등록 -->
+	<!-- 게시글 수정 -->
 	<update id="update">
 		UPDATE BOARD
 		SET
@@ -161,4 +162,23 @@
 			SEQ = #{seq}
 			
 	</delete>
+	
+	<!-- 파일 삭제 -->
+	<delete id="fileDelete">
+		DELETE FROM FILEUPLOAD
+		WHERE
+			FILENUM = #{fileNum}
+	</delete>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+

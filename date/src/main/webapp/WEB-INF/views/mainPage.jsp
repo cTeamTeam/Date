@@ -76,7 +76,7 @@ body { text-align: center; }
       <div class="dropdown">
       <button class="dropbtn">게시판 관련 메뉴</button>
       <div class="dropdown-content">
-        <a href="#">공지사항</a>
+        <a href="/user/notice/noticeList">공지사항</a>
         <a href="/user/review/list">매칭 후기</a>
         <a href="#">Q & A</a>
       </div>

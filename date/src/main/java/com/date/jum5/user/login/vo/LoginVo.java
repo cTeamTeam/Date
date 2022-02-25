@@ -10,7 +10,14 @@ public class LoginVo {
 	private String email;
 	private String memberShip;
 	private String phoneNum;
+	private String admin;
 	
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
 	public String getOldPw() {
 		return oldPw;
 	}

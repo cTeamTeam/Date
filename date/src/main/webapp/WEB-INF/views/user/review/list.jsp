@@ -91,7 +91,14 @@
 					    </c:if> 
 					  </ul>
 				</div>
-				<button type="button" onclick="location.href='/user/review/reviewForm'">글쓰기</button>
+				<div>
+					<c:if test="${ loginVo == null }">
+						<button type="button" onclick="notLogin()">글쓰기</button>
+					</c:if>
+					<c:if test="${ loginVo != null }">
+						<button type="button" onclick="location.href='/user/review/reviewForm'">글쓰기</button>
+					</c:if>
+				</div>
 	</form>	
 </body>
 </html>

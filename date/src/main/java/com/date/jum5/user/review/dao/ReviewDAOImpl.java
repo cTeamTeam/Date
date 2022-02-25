@@ -80,11 +80,17 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public Map<String , Object> selectFileInfo(Map<String , Object> map) throws Exception{
 		return sqlSession.selectOne(NAMESPACE + ".selectFileInfo" , map);
 	}
-
+	//첨부파일 수정
 	@Override
 	public void updateFile(Map<String, Object> map) throws Exception {
 		sqlSession.update(NAMESPACE + ".updateFile" , map);
 		
+	}
+	
+	//첨부파일 삭제
+	@Override
+	public void fileDelete(int fileDel) throws Exception {
+		sqlSession.delete(NAMESPACE + ".fileDelete" , fileDel);
 	}
 }
 
