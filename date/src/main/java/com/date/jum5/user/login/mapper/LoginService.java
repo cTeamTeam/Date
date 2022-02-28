@@ -8,13 +8,10 @@ import com.date.jum5.user.login.vo.LoginVo;
 
 @Service
 public interface LoginService {
-	//�α���
 	public LoginVo checkId(String pw) throws Exception;
 	
-	//���̵� ã��
-	public LoginVo forGot(LoginVo forGot) throws Exception;
+	public String forGot(String inputEmail) throws Exception;
 	
-	//��й�ȣ ã��
 	public LoginVo forGotPw(LoginVo forGotPw) throws Exception;
 
 	public String pwTranslator(String id);

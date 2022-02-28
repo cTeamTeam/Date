@@ -23,8 +23,8 @@ public class LoginServiceImpl implements LoginService{
 	
 	//���̵� ã��
 	@Override
-	public LoginVo forGot(LoginVo loginVo) throws Exception{
-		return loginDao.forGot(loginVo);
+	public String forGot(String inputEmail) throws Exception{
+		return loginDao.forGot(inputEmail);
 	}
 	
 	//��й�ȣ ã��

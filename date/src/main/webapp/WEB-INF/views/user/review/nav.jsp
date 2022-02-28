@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div>
 	<div>
-		<a href="/user/review/list">목록</a>
-		<a href="/user/review/writeView">글 작성</a>
+		<a href="/date/user/review/list">목록</a>
+		<a href="/date/user/review/writeView">글 작성</a>
 	</div>
 </div>

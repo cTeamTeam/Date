@@ -11,7 +11,7 @@
 			var formObj = $("form[name='updateForm']");
 			
 			$(".cancel_btn").on("click", function(){
-				location.href = "/user/review/readView?seq=${replyDelete.seq}"
+				location.href = "/date/user/review/readView?seq=${replyDelete.seq}"
 					   + "&page=${scri.page}"
 					   + "&perPageNum=${scri.perPageNum}"
 					   + "&searchType=${scri.searchType}"
@@ -35,7 +35,7 @@
 			<hr />
 			
 			<section id="container">
-				<form name="updateForm" role="form" method="post" action="/user/review/replyDelete">
+				<form name="updateForm" role="form" method="post" action="/date/user/review/replyDelete">
 					<input type="hidden" name="seq" value="${replyDelete.seq}" readonly="readonly"/>
 					<input type="hidden" id="rseq" name="rseq" value="${replyDelete.rseq}" />
 					<input type="hidden" id="page" name="page" value="${scri.page}"> 

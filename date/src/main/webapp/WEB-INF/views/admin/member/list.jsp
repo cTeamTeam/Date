@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content = "text/html; UTF-8">
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" type="text/css" href="/date/resources/css/bootstrap.css" />
 <title>회원 목록</title>
 </head>
 <body>

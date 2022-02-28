@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>수정</title>
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" type="text/css" href="/date/resources/css/bootstrap.css" />
 </head>
 <body>
 	<form:form commandName="managerNoticeVo" method="POST">

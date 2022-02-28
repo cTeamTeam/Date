@@ -26,12 +26,12 @@ public class ManagerNoticeDaoImpl implements ManagerNoticeDao{
 	
 	@Override
 	public List<ManagerNoticeVo> noticeList(){
-		return sqlSessionTemplate.selectList("noticelist");
+		return sqlSessionTemplate.selectList("mnoticeList");
 	}
 	
 	@Override
 	public void noticeInsert(ManagerNoticeVo managerNoticeVo) {
-		sqlSessionTemplate.insert("noticeinsert", managerNoticeVo); 
+		sqlSessionTemplate.insert("mnoticeinsert", managerNoticeVo); 
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class ManagerNoticeDaoImpl implements ManagerNoticeDao{
 	
 	@Override
 	public int noticeUpdate(ManagerNoticeVo managerNoticeVo) {
-		return sqlSessionTemplate.update("noticeupdate", managerNoticeVo);
+		return sqlSessionTemplate.update("mnoticeupdate", managerNoticeVo);
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class ManagerNoticeDaoImpl implements ManagerNoticeDao{
 	
 	@Override
 	public int noticeDelete(ManagerNoticeVo managerNoticeVo) {
-		return sqlSessionTemplate.delete("noticedelete", managerNoticeVo);
+		return sqlSessionTemplate.delete("mnoticedelete", managerNoticeVo);
 	}
 	
 	@Override

@@ -17,10 +17,9 @@ import com.date.jum5.user.review.vo.ReviewVo;
 @Component("fileUtils")
 public class FileUtils {
 
-	private static final String FILE_PATH = "C:\\Users\\hp\\Desktop\\teamProject\\date\\date\\src\\main\\webapp\\WEB-INF\\image\\"; // 파일 저장 위치
+	private static final String FILE_PATH = "C:/Users/ehdrm/git/date2/date/date/src/main/webapp/resources/metchImages/";
 	
-	public List<Map<String , Object>> parselnsertFileInfo(ReviewVo vo,
-			MultipartHttpServletRequest request) throws Exception {
+	public List<Map<String , Object>> parselnsertFileInfo(ReviewVo vo, MultipartHttpServletRequest request) throws Exception {
 		
 		Iterator<String> iterator = request.getFileNames();
 		
@@ -51,6 +50,7 @@ public class FileUtils {
 				file = new File(FILE_PATH + storedFileName);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
+				listMap.put("IS_NEW", "Y");
 				listMap.put("SEQ", seq);
 				listMap.put("ORG_FILE_NAME", originalFileName);
 				listMap.put("STORED_FILE_NAME", storedFileName);
@@ -58,6 +58,14 @@ public class FileUtils {
 				list.add(listMap);
 			}	
 		}
+//		if(files != null && fileNames != null){ 
+//			for(int i = 0; i<fileNames.length; i++) {
+//					listMap = new HashMap<String,Object>();
+//                    listMap.put("IS_NEW", "N");
+//					listMap.put("FILE_NO", files[i]); 
+//					list.add(listMap); 
+//			}
+//		}
 		return list;
 	}
 

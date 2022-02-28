@@ -147,7 +147,7 @@ table {
 <h3 style="color:pink;font-weight:800;margin-top:60px;">ProFile</h3>
 
 
-<table style="margin-top:60px;margin-left:700px;">
+<table style="margin-top:60px;margin-left:700px;margin:auto;">
 	<c:if test="${empty profileVo }">
 		<div class="infoNotTitle">프로필을 등록하지 않았습니다.</div>
 	</c:if>

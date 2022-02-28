@@ -9,7 +9,7 @@
 <body>
 	<script>
 		alert('로그아웃 되었습니다.');
-		document.location.href="/jum5/admin";
+		document.location.href="/date/admin";
 	</script>
 
 </body>

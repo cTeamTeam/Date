@@ -346,23 +346,19 @@ public class LoginController {
 	}	
 	
 	//아이디 찾기 로직
+	@ResponseBody
 	@RequestMapping(value = "/idForGot" , method = RequestMethod.POST)
-	public String forGot(@ModelAttribute LoginVo idSearchOk, HttpSession session, Model model) throws Exception{
+	public String forGot(@RequestParam("email") String inputEmail, HttpSession session, Model model) throws Exception{
 	
-		idSearchOk = loginService.forGot(idSearchOk);
+		String findId = loginService.forGot(inputEmail);
 		
-		String page = "";
-		
-		if(idSearchOk == null) {
-			
-			page = "/user/login/idSearch"; 
-			
+		if(findId == null) {		
+			return "not";			
 		} else {			
-			page = "/user/login/idSearch"; 		
-			model.addAttribute("idSearchOk", idSearchOk);			
-			session.setAttribute("loginVo", idSearchOk);
+			//page = "/user/login/idSearch"; 		
+			model.addAttribute("idSearchOk", findId);	
+			return findId;
 		}
-		return page;	
 	}
 	
 	//비밀번호 찾기 폼 요청

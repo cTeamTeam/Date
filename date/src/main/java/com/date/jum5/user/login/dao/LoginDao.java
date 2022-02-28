@@ -20,13 +20,11 @@ public class LoginDao {
 		return (LoginVo)sqlsession.selectOne("login.checkId", pw); // login.checkid = mapper login.xml	
 	}
 	
-	//���̵� ã��
 	
-	public LoginVo forGot(LoginVo idSerchOk) throws Exception{
-		return (LoginVo)sqlsession.selectOne("login.forGot", idSerchOk);
+	public String forGot(String inputEmail) throws Exception{
+		return sqlsession.selectOne("login.forGot", inputEmail);
 	}
 	
-	//��й�ȣ ã��
 	public LoginVo forGotPw(LoginVo pwSerchOk) throws Exception{
 		return (LoginVo)sqlsession.selectOne("login.forGotPw", pwSerchOk);
 	}

@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" type="text/css" href="/date/resources/css/bootstrap.css" />
 <title>${metchVo.idx} 내용</title>
 </head>
 <body>

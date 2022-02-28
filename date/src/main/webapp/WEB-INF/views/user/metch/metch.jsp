@@ -63,6 +63,7 @@ body { text-align: center; }
 
 <h3 style="color:pink;font-weight:800;margin-top:60px;">이상형 리스트</h3>
 
+<div style="margin-bottom:20px;">
 <c:if test="${empty profileVo }">
 	<div class="idealNot">등록된 이상형이 없습니다.</div>
 </c:if>
@@ -99,7 +100,7 @@ body { text-align: center; }
 	</c:forEach>
 </table>
 </c:if>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>

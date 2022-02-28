@@ -79,6 +79,10 @@
 	<context:component-scan base-package="com.date.jum5.user.review.service" />
 	<context:component-scan base-package="com.date.jum5.user.comment.service" />
 	<context:component-scan base-package="com.date.jum5.user.review.util" />
+	<context:component-scan base-package="com.date.jum5.user.notice.controller" />
+	<context:component-scan base-package="com.date.jum5.user.notice.dao" />
+	<context:component-scan base-package="com.date.jum5.user.notice.service" />
+	<context:component-scan base-package="com.date.jum5.user.notice.util" />
 	
 	
 	<context:component-scan base-package="com.date.jum5.manager.login.controller" />

@@ -22,6 +22,6 @@
 		<typeAlias alias="ManagerNoticeVo" type="com.date.jum5.manager.notice.vo.ManagerNoticeVo"/>
 		<typeAlias alias="ReviewVo" type="com.date.jum5.user.review.vo.ReviewVo"/>
 		<typeAlias alias="CommentVo" type="com.date.jum5.user.comment.vo.CommentVo"/>
-		<!--  <typeAlias alias="NoticeVo" type="com.date.jum5.user.notice.vo.NoticeVo"/>-->
+		<typeAlias alias="NoticeVo" type="com.date.jum5.user.notice.vo.NoticeVo"/>
 	</typeAliases>
 </configuration>

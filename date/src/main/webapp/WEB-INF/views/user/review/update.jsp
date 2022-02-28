@@ -5,114 +5,118 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/date/resources/css/styles.css" rel="stylesheet" />
+<link href="/date/resources/css/banner.css" rel="stylesheet" />
+<link href="/date/resources/css/footer.css" rel="stylesheet" />
+<link href="/date/resources/css/reviewForm.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="${path}/resources/js/review.js"></script>
+<script src="/date/resources/js/resources/js/review.js"></script>
+<script src="/date/resources/js/reviewUpdate.js"></script>
 <title>게시글 수정</title>
 </head>
-<script type="text/javascript">
-</script>
+
+	<style>
+		a:link{color:pink;}
+a:visited{color:pink;}
+a{text-decoration:none;}
+body { text-align: center; }
+.dropbtn {
+    background-color: gray;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: pink
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: pink;
+}
+	</style>
 <body>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='updateForm']");
-			
-			$(document).on("click","#fileDel", function(){
-				$(this).parent().remove();
-			})
-			
-			fn_addFile();
-			
-			$(".cancel_btn").on("click", function(){
-				event.preventDefault();
-				location.href = "/user/review?seq=${update.seq}"
-					   + "&page=${scri.page}"
-					   + "&perPageNum=${scri.perPageNum}"
-					   + "&searchType=${scri.searchType}"
-					   + "&keyword=${scri.keyword}";
-			})
-			
-			$(".update_btn").on("click", function(){
-				if(fn_valiChk()){
-					return false;
-				}
-				formObj.attr("action", "/board/update");
-				formObj.attr("method", "post");
-				formObj.submit();
-			})
-		})
-			
-		function fn_valiChk(){
-			var updateForm = $("form[name='updateForm'] .chk").length;
-			for(var i = 0; i<updateForm; i++){
-				if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
-					alert($(".chk").eq(i).attr("title"));
-					return true;
-				}
-			}
-		}
- 		function fn_addFile(){
-			var fileIndex = 1;
-			//$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"<button type='button' style='float:right;' id='fileAddBtn'>"+"추가"+"</button></div>");
-			$(".fileAdd_btn").on("click", function(){
-				$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
-			});
-			$(document).on("click","#fileDelBtn", function(){
-				$(this).parent().remove();
-				
-			});
-		}
- 		var fileNoArry = new Array();
- 		var fileNameArry = new Array();
- 		function fn_del(value, name){
- 			
- 			fileNoArry.push(value);
- 			fileNameArry.push(name);
- 			$("#fileNoDel").attr("value", fileNoArry);
- 			$("#fileNameDel").attr("value", fileNameArry);
- 		}
-	</script>
-	<body>
+	<!-- 네비게이션 바 -->
+		<%@include file="/WEB-INF/views/user/common/header.jsp" %>
+
+		<h3 style="color:pink;font-weight:800;margin-top:60px;margin:auto">매칭 후기</h3>
+		
 		<div id="root">
-			<section id="container">
-				<form name="updateForm" role="form" method="post" action="/user/review/update" enctype="multipart/form-data">
-					<input type="hidden" name="seq" value="${update.seq}" readonly="readonly"/>
-					<input type="hidden" id="page" name="page" value="${scri.page}"> 
-					<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
-					<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
-					<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
-					<table>
-						<tbody>
-			<tr>
-				<td>
-					제목 : <input type = "text" placeholder = "제목" id = "title" name = "title" value="${view.title}">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					작성자 : <input type="text" placeholder="작성자" id="name" name="name" readonly="readonly" value="${view.name}">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					내용 : <input type="text" placeholder="내용" id="content" name="content" value="${view.content}">
-				</td>
-			</tr>
-			<tr>
-				<td id="fileIndex">
-					<c:forEach var="file" items="${file}" varStatus="var">
-							<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILENUM }">
-							<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
-							<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)
-					</c:forEach>
-				</td>
-			</tr>
-		</table>
-		<div>
-			<input type = "hidden" value="${view.seq}" name = "seq" id = "seq">
-			<button type = "button" onclick = "reviewUpdate()">등록</button>
-		</div>
-	</form>
-	</section>
+		<section id="container">
+			<form name="updateForm" role="form" method="post" action="/date/user/review/update" enctype="multipart/form-data">
+				<input type="hidden" name="seq" value="${update.seq}" readonly="readonly"/>
+				<input type="hidden" id="page" name="page" value="${scri.page}"> 
+				<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+				<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+				<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+				<table>
+					<tbody>
+						<tr>
+							<th class="qaWriteHead" colspan="2">매칭 후기</th>
+						</tr>
+						<tr>
+							<td><label for="title" class="qaId">제목</label></td>
+							<td><input class="qaWriteTitle" type="text" placeholder = "제목" id = "title" name = "title" value="${view.title}"></td>
+						</tr>
+						<tr>
+							<td style="color:#BDBDBD;font-weight:800"><label for="writer" >작성자</label></td>
+							<td>
+								<input type="text" placeholder="작성자" id="name" name="name" readonly="readonly" value="${view.name}">
+							</td>
+						</tr>
+						<tr>
+							<td><label for="content" class="qaId">내용</label></td>
+							<td>
+								<input class="qaWriteContent" type="text" placeholder="내용" id="content" name="content" value="${view.content}">
+							</td>
+						</tr>
+						<tr>
+							<td id="fileIndex" colspan="2">
+								<c:forEach var="file" items="${file}" varStatus="var">
+									<div>
+										<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILENUM }">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)
+										<button id="fileDel" onclick="fn_del('${file.FILENUM}')" type="button">삭제</button>
+									</div>
+								</c:forEach>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div style="margin-top:20px;margin-bottom:20px;">
+					<input type = "hidden" value="${view.seq}" name = "seq" id = "seq">
+					<button type="button" style="color:white;background-color:pink;font-weight:800;border:none;width:50px;height:35px;border-radius:6%"
+					class="update_btn">저장</button>
+					<button type="button" class="fileAdd_btn">파일추가</button>
+				</div>
+			</form>
+		</section>
 	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
 </body>
 </html>

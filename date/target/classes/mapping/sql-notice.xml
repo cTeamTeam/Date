@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="NoticeMapper">
+
+	 <!-- 게시판 글 작성 -->
+   <insert id="noticeInsert" parameterType="NoticeVo">
+	   INSERT INTO NOTICE(    
+	   			BNO 
+	   		 , TITLE 
+	   		 , CONTENT 
+	   		 , NAME
+	   		 , REGDATE
+	   	)VALUES(    
+	   		   NOTICE_SEQ.nextval
+	         , #{title}
+	         , #{content}
+	         , #{name}
+	         , to_char(sysdate, 'YYYY-MM-DD') 
+	    )
+   </insert>
+   
+   <!-- 게시글 상세조회 -->
+   <select id="read"  resultType="NoticeVo">
+		SELECT	BNO
+			  , TITLE
+			  , CONTENT
+			  , READCOUNT
+			  , NAME
+			  , REGDATE
+		 FROM NOTICE
+		 WHERE BNO = #{bno}
+	</select>
+	
+	<!-- 게시글 목록 -->	
+	<select id="noticelist" resultType="NoticeVo">
+		SELECT   BNO 
+	   		 , TITLE 
+	   		 , CONTENT 
+	   		 , READCOUNT
+	   		 , NAME
+	   		 , REGDATE
+		  FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               NAME, 
+		               REGDATE,
+		               READCOUNT, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM NOTICE 
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+	</select>
+	
+	<!--  게시글 총 개수-->
+	<select id = "noticeCount" resultType = "int">
+		<![CDATA[
+		SELECT COUNT(BNO)
+		  FROM NOTICE
+		 WHERE BNO > 0
+		]]>
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="noticeUpdate" parameterType="NoticeVo">
+		UPDATE NOTICE
+		SET
+			TITLE = #{title},
+			CONTENT = #{content}
+		WHERE
+			BNO = #{bno}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM NOTICE
+		WHERE 
+			BNO = #{bno}
+			
+	</delete>
+	
+	<!-- 게시글 번호 카운트 -->
+	<select id="maxBno" resultType = "int">
+		select COALESCE(max(BNO), 0) from notice
+	</select>
+	
+	<!-- 파일 업로드 -->
+	<insert id = "insertFile" parameterType="hashMap">
+		INSERT INTO NOTICEFILE(
+			FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			SEQ_MP_FILE_NO.NEXTVAL,
+			NOTICE_SEQ.currval,
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+			)
+	</insert>
+	
+	<!-- 첨부파일 조회 -->
+	<select id = "selectFileList" parameterType="int" resultType="hashMap">
+		SELECT FILE_NO,
+			   ORG_FILE_NAME,
+			   ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+		FROM NOTICEFILE  
+			   WHERE BNO = #{BNO}
+			   AND DEL_GB = 'N' 
+			   ORDER BY FILE_NO ASC
+	</select>
+	
+	<!-- 첨부파일 다운로드 -->
+	<select id = "selectFileInfo" parameterType="map" resultType = "map">
+		SELECT
+			STORED_FILE_NAME,
+			ORG_FILE_NAME
+		FROM NOTICEFILE
+			WHERE FILE_NO = #{fileNo}	
+	</select>
+	<!-- 첨부파일 수정 -->
+	<update id = "updateFile" parameterType = "hashMap">
+		UPDATE NOTICEFILE SET
+		DEL_GB = 'Y'
+		WHERE FILE_NO = #{fileNo}
+	</update>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="fileDelete">
+		DELETE FROM NOTICEFILE
+		WHERE
+			FILENUM = #{fileNo}
+	</delete>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

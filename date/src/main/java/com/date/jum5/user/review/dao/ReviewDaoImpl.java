@@ -12,7 +12,7 @@ import com.date.jum5.user.review.vo.ReviewVo;
 import com.date.jum5.user.review.vo.SearchCriteria;
 
 @Repository
-public class ReviewDaoImpl implements ReviewDao{
+public class ReviewDaoImpl implements ReviewDao {
 	
 	@Inject
 	private SqlSession sqlSession;
@@ -22,7 +22,7 @@ public class ReviewDaoImpl implements ReviewDao{
 	// 게시글 조회
 	@Override
 	public List<ReviewVo> list(SearchCriteria scri) throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".list" , scri);
+		return sqlSession.selectList(NAMESPACE + ".reviewlist" , scri);
 	}
 	
 	//게시물 총 갯수
@@ -60,7 +60,7 @@ public class ReviewDaoImpl implements ReviewDao{
 	//게시글 삭제
 	@Override
 	public int delete(int seq) {
-		return sqlSession.update(NAMESPACE + ".delete" , seq);
+		return sqlSession.update(NAMESPACE + ".deleteReview" , seq);
 	}
 	
 	//첨부파일 업로드
@@ -80,10 +80,16 @@ public class ReviewDaoImpl implements ReviewDao{
 	public Map<String , Object> selectFileInfo(Map<String , Object> map) throws Exception{
 		return sqlSession.selectOne(NAMESPACE + ".selectFileInfo" , map);
 	}
-
+	//첨부파일 수정
 	@Override
 	public void updateFile(Map<String, Object> map) throws Exception {
 		sqlSession.update(NAMESPACE + ".updateFile" , map);
 		
+	}
+	
+	//첨부파일 삭제
+	@Override
+	public void fileDelete(int fileDel) throws Exception {
+		sqlSession.delete(NAMESPACE + ".reviewfileDelete" , fileDel);
 	}
 }

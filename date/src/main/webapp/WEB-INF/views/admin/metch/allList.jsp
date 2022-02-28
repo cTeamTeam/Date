@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>매칭 현황</title>
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" type="text/css" href="/date/resources/css/bootstrap.css" />
 </head>
 <body>
 목록

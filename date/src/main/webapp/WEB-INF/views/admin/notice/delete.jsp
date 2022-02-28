@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>삭제</title>
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" type="text/css" href="/date/resources/css/bootstrap.css" />
 </head>
 <body>
 	<form name="deleteForm" action="<c:url value="/notice/delete"/>" method="POST">

@@ -5,39 +5,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>매칭 리뷰</title>
+<meta charset="UTF-8">
 <link href="/date/resources/css/styles.css" rel="stylesheet" />
 <link href="/date/resources/css/banner.css" rel="stylesheet" />
 <link href="/date/resources/css/footer.css" rel="stylesheet" />
-<script type="text/javascript" src="/date/resources/js/scripts.js"></script>
+<link href="/date/resources/css/reviewForm.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="/date/resources/js/review.js"></script>
-<script type="text/javascript">
-	$(function() {
-		if(!'${loginVo}') {
-			alert('로그인 후 사용가능합니다.');
-			location.href='/date/loginForm';
-		}
-	});
-</script>
-<title>글쓰기</title>
-</head>
-<body>
-	<%@include file="/WEB-INF/views/user/common/header.jsp" %>
-	
-	<form id="frm">
-		<input type="text" placeholder="제목" id="title" name="title" maxlength="50">
-		<input type="text" placeholder="작성자" id="name" name="name" value="${loginVo }">
-		<input type="text" placeholder="내용" id="content" name="content" maxlength="1000"> 
-		<input type="file" name = "file">
-		<button type="button" id = "reviewSubmit "onclick="reviewSubmit()">등록</button>
-	</form>
-	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
-</body>
+<script src="/date/resources/js/reviewForm.js"></script>
+	<style>
+a:link{color:pink;}
+a:visited{color:pink;}
+a{text-decoration:none;}
+body { text-align: center; }
+.dropbtn {
+    background-color: gray;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: pink
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: pink;
+}
+
+</style>
+	<body>
+		
+		<!-- 네비게이션 바 -->
+		<%@include file="/WEB-INF/views/user/common/header.jsp" %>
+
+		<h3 style="color:pink;font-weight:800;margin-top:60px;">매칭 후기</h3>
+		<div id="root" class="qaWriteWrap">			
+			<section id="container">
+				<form name="writeForm" method="post"  enctype="multipart/form-data">
+					<table>
+						<tbody>
+								<tr>
+									<th class="qaWriteHead" colspan="2">매칭 후기</th>
+								</tr>
+								<tr>
+									<td><label for="title" class="qaId">제목</label></td>
+									<td>
+										<input class="qaWriteTitle" type="text" id="title" name="title"  title="제목을 입력하세요."/>
+									</td>
+								</tr>	
+								<tr>
+									<td><label for="content" class="qaId">내용</label></td>
+									<td>
+										<textarea class="qaWriteContent" id="content" name="content"  title="내용을 입력하세요."></textarea>
+									</td>
+								</tr>
+								<tr>
+    								<td style="color:#BDBDBD;font-weight:800"><label for="writer" >작성자</label></td>
+    								<td><span class="qaWriteId">${loginVo}</span></td>
+    								<td>
+										<input type="hidden" id="writer" name="name" value="${loginVo}" />
+									</td>
+    							</tr>
+								<tr>
+									<td id="fileIndex" colspan="2">
+										<c:forEach var="file" items="${file}" varStatus="var">
+											<div style="float:right">
+												<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILENUM }">
+												<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+												<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)>
+												<button id="fileDel" onclick="fn_del('${file.FILENUM}','FILE_NO_${var.index}');" type="button">삭제</button>
+											</div>
+										</c:forEach>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">						
+										<button class="write_btn" type="submit">작성</button>	
+										<button class="fileAdd_btn" type="button">파일추가</button>	
+									</td>
+								</tr>	
+						</tbody>			
+					</table>
+				</form>
+				
+			</section>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+		<%@include file="/WEB-INF/views/user/common/footer.jsp" %>
+	</body>
 </html>

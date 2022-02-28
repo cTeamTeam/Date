@@ -7,7 +7,7 @@
 	
 <!-- 공지사항 -->
 
-	<select id="noticelist" resultType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+	<select id="mnoticeList" resultType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
 		select * from notice
 	</select>
 	
@@ -16,12 +16,12 @@
 		where num=#{num}
 	</select>
 	
-	<insert id="noticeinsert" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+	<insert id="mnoticeinsert" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
 		insert into notice
 		values (NOTICE_SEQ.nextval, #{title}, #{content}, SYSDATE, 0)
 	</insert>
 	
-	<update id="noticeupdate" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+	<update id="mnoticeupdate" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
 		update notice set title = #{title}, content=#{content} where num=#{num}
 	</update>
 	
@@ -29,7 +29,7 @@
 		update notice set count = count+1 where num=#{num}
 	</update>
 	
-	<delete id="noticedelete" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
+	<delete id="mnoticedelete" parameterType="com.date.jum5.manager.notice.vo.ManagerNoticeVo">
 		delete from notice where num=#{num}	
 	</delete>
 	

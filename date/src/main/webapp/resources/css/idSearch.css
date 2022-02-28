@@ -1,0 +1,37 @@
+.idSearchWrap {
+	margin-top:50px;
+	height:350px;
+}
+
+.idSearchInput {
+	width:500px;
+	height:40px;
+	border:1px solid lightgrey;
+	border-radius:6%;
+}
+
+.buttonWrap {
+	margin-top:30px;
+}
+
+.qaButton {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:70px;
+	height:35px;
+	font-weight:800;
+}
+
+.qaButton:hover {
+	trasition:all 0.5s ease;
+	background-color:#F6CEF5;
+}
+
+.findForm {
+	color:#BDBDBD;
+	font-weight:800;
+	font-size:20px;
+	
+}

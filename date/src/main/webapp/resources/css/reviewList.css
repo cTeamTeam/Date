@@ -1,0 +1,85 @@
+.qaList {
+	height:700px;
+	margin-top:60px;
+}
+
+.qaSearch {
+	margin-left:450px;
+	margin-bottom:15px;
+}
+
+table {
+	border-top:1px solid black;
+	border-collapse:collapse;
+	width:800px;
+}
+
+th {
+	color:pink;
+	font-weight:800;
+	
+}
+
+.qaButton {
+	color:white;
+	background-color:pink;
+	border:none;
+	border-radius:6%;
+	width:70px;
+	height:35px;
+	font-weight:800;
+}
+
+.qaButton:hover {
+	trasition:all 0.5s ease;
+	background-color:#F6CEF5;
+}
+
+td,th {
+	height:40px;
+	border-bottom:1px solid lightgrey;
+}
+
+.qaSearchInput {
+	border:1px solid grey;
+	border-radius:6%;
+}
+
+.qaId {
+	color:#BDBDBD;
+	font-weight:800;
+	font-size:15px;
+}
+
+.qaNot {
+	font-weight:800;
+	color:#BDBDBD;
+}
+
+.qaTitle {
+	font-weight:800;
+	font-size:15px;
+}
+
+.reviewContentBtn {
+	border:none;
+	background-color:white;
+	color:pink;
+	font-weight:800;
+}
+.pageWrap {
+	text-align:center;
+	margin:auto;
+}
+.writeWrap {
+	margin-top:15px;
+	margin-left:700px;
+}
+.search {
+	margin-left:450px;
+	height:30px;
+}
+
+.reviewli {
+	padding-left:6px;
+}
