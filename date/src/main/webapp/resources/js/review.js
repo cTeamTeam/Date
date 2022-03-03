@@ -11,7 +11,7 @@ function goView(seq){
 
 function goUpdateView(seq){
 	$("#seq").val(seq);
-
+	alert("수정");
 	var f = $("#frm");
 	f.attr("action", "/date/user/review/goUpdateView");
 	f.attr("method", "POST");
@@ -26,11 +26,9 @@ function notLogin(){
 }
 
 function reviewDelete(seq) {
-	
 	$("#seq").val(seq);
 
 	var f = $("#frm");
-	alert('삭제되었습니다.');
 	f.attr("action", "/date/user/review/delete");
 	f.attr("method", "POST");
 	f.submit();

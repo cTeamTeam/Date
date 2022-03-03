@@ -89,7 +89,7 @@ public class ReviewController {
 		
 		
 		List<Map<String, Object>> fileList = service.selectFileList(vo.getSeq());
-		System.out.println(fileList.get(0));
+		
 		model.addAttribute("file" , fileList); //파일 조회
 		try {
 			List<CommentVo> replyList = commentService.readReply(vo.getSeq());
@@ -146,6 +146,8 @@ public class ReviewController {
 	//게시글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(Locale locale, Model model, HttpServletRequest request) throws Exception {
+		
+		System.out.println("삭제 번호 : "+Integer.parseInt((String)request.getParameter("seq")));
 		
 		service.delete(Integer.parseInt((String)request.getParameter("seq")));
 		

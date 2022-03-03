@@ -11,76 +11,12 @@
 <link href="/date/resources/css/banner.css" rel="stylesheet" />
 <link href="/date/resources/css/footer.css" rel="stylesheet" />
 <link href="/date/resources/css/qaContent.css" rel="stylesheet" />
+<link href="/date/resources/css/dropdown.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="/date/resources/js/review.js"></script>
-<script>
-	$(function() {
-		if('${result}' == 1) {
-			alert('수정 완료 되었습니다.');
-		}
-	});
-	//댓글 수정 View
-	function replyUpdateBtn(seq, rseq) {
-		location.href = "/date/user/review/replyUpdateView?seq=" + seq
-			+ "&page=${scri.page}"
-			+ "&perPageNum=${scri.perPageNum}"
-			+ "&searchType=${scri.searchType}"
-			+ "&keyword=${scri.keyword}"
-			+ "&rseq="+ rseq;
-	}
-	
-	//댓글 삭제 View
-	function replyDeleteBtn(seq , rseq) {
-		location.href = "/date/user/review/replyDeleteView?seq=" + seq
-			+ "&page=${scri.page}"
-			+ "&perPageNum=${scri.perPageNum}"
-			+ "&searchType=${scri.searchType}"
-			+ "&keyword=${scri.keyword}"
-			+ "&rseq="+ rseq;
-	}
-</script>
+<script type="text/javascript" src="/date/resources/js/review.js"></script>
+<script type="text/javascript" src="/date/resources/js/view.js"></script>
 <title>게시글</title>
-<style>
-a:link{color:pink;}
-a:visited{color:pink;}
-a{text-decoration:none;}
-body { text-align: center; }
-.dropbtn {
-    background-color: gray;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-content a:hover {
-    background-color: pink
-}
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown:hover .dropbtn {
-    background-color: pink;
-}
-</style>
+
 </head>
 <body>
 	<!-- 네비게이션 바 -->

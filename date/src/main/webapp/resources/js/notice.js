@@ -2,6 +2,8 @@
 function noticeView(bno){
 	$("#bno").val(bno);
 	
+	alert("hello");
+	
 	var f = $("#root");
 	f.attr("action", "/date/user/notice/noticeView");
 	f.attr("method", "POST");
